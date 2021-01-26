@@ -13,7 +13,6 @@
     "graphql": "^15.4.0",
     "graphql-tools": "^7.0.2",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1"
   },
   "devDependencies": {
