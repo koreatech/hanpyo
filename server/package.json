@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon --exec ts-node ./src/index.ts"
   },
   "dependencies": {
     "apollo-server-express": "^2.19.2",
