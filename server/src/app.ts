@@ -10,8 +10,11 @@ const GRAPHQL_ENDPOINT = '/graphql';
 
 class App {
   public app: Server;
+
   private express: Express;
+
   private apolloServer: ApolloServer;
+
   private pubsub: PubSub;
 
   constructor() {
