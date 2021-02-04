@@ -41,5 +41,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-alert': 'off',
     'no-unused-vars': 'off',
+    'no-console': 'off',
+    'no-shadow': 'off',
   },
 };
