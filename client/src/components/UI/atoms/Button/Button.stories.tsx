@@ -1,22 +1,80 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { StyledButton, ButtonProps } from '@/components/UI/atoms';
+import { Button, ButtonProps, ButtonType } from '@/components/UI/atoms';
 import { action } from '@storybook/addon-actions';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from '@/common/styles';
 
 export default {
-  title: 'components|basic/Button', // 스토리북에서 보여질 그룹과 경로를 명시
-  component: StyledButton, // 어떤 컴포넌트를 문서화 할지 명시
-  decorators: [withKnobs], // 애드온 적용
+  title: 'atom/Button',
+  component: Button,
+  decorators: [withKnobs],
 };
 
-export const button = (args: ButtonProps): JSX.Element => {
-  return <StyledButton {...args} />;
+export const SaveButton = (args: ButtonProps): JSX.Element => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button {...args}>저 장</Button>
+    </ThemeProvider>
+  );
 };
 
-button.story = {
-  name: 'Default',
+SaveButton.story = {
+  name: 'SaveButton',
 };
 
-button.args = {
+SaveButton.args = {
+  btnType: ButtonType.save,
+  onClick: action('onClick'),
+};
+
+export const ShareButton = (args: ButtonProps): JSX.Element => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button {...args}>공 유</Button>
+    </ThemeProvider>
+  );
+};
+
+ShareButton.story = {
+  name: 'ShareButton',
+};
+
+ShareButton.args = {
+  btnType: ButtonType.share,
+  onClick: action('onClick'),
+};
+
+export const LoginButton = (args: ButtonProps): JSX.Element => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button {...args}>로 그 인</Button>
+    </ThemeProvider>
+  );
+};
+
+LoginButton.story = {
+  name: 'LoginButton',
+};
+
+LoginButton.args = {
+  btnType: ButtonType.login,
+  onClick: action('onClick'),
+};
+
+export const AddButton = (args: ButtonProps): JSX.Element => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button {...args}>추 가</Button>
+    </ThemeProvider>
+  );
+};
+
+AddButton.story = {
+  name: 'AddButton',
+};
+
+AddButton.args = {
+  btnType: ButtonType.add,
   onClick: action('onClick'),
 };
