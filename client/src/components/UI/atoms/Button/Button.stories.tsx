@@ -1,80 +1,41 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
+import { Story, Meta } from '@storybook/react/types-6-0';
 import { Button, ButtonProps, ButtonType } from '@/components/UI/atoms';
 import { action } from '@storybook/addon-actions';
-import { ThemeProvider } from '@material-ui/core/styles';
-import { theme } from '@/common/styles';
 
 export default {
   title: 'atom/Button',
   component: Button,
   decorators: [withKnobs],
-};
+} as Meta;
 
-export const SaveButton = (args: ButtonProps): JSX.Element => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Button {...args}>저 장</Button>
-    </ThemeProvider>
-  );
-};
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-SaveButton.story = {
-  name: 'SaveButton',
-};
-
+export const SaveButton = Template.bind({});
 SaveButton.args = {
   btnType: ButtonType.save,
   onClick: action('onClick'),
+  children: '저 장',
 };
 
-export const ShareButton = (args: ButtonProps): JSX.Element => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Button {...args}>공 유</Button>
-    </ThemeProvider>
-  );
-};
-
-ShareButton.story = {
-  name: 'ShareButton',
-};
-
+export const ShareButton = Template.bind({});
 ShareButton.args = {
   btnType: ButtonType.share,
   onClick: action('onClick'),
+  children: '공 유',
 };
 
-export const LoginButton = (args: ButtonProps): JSX.Element => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Button {...args}>로 그 인</Button>
-    </ThemeProvider>
-  );
-};
-
-LoginButton.story = {
-  name: 'LoginButton',
-};
-
+export const LoginButton = Template.bind({});
 LoginButton.args = {
   btnType: ButtonType.login,
   onClick: action('onClick'),
+  children: '로 그 인',
 };
 
-export const AddButton = (args: ButtonProps): JSX.Element => {
-  return (
-    <ThemeProvider theme={theme}>
-      <Button {...args}>추 가</Button>
-    </ThemeProvider>
-  );
-};
-
-AddButton.story = {
-  name: 'AddButton',
-};
-
+export const AddButton = Template.bind({});
 AddButton.args = {
   btnType: ButtonType.add,
   onClick: action('onClick'),
+  children: '추 가',
 };
