@@ -16,10 +16,6 @@ interface TypographyProps {
   onClick?: () => void;
 }
 
-interface StyleProps {
-  size?: string;
-}
-
 const useStyles = makeStyles((theme) => ({
   primary: {
     color: theme.palette.primary.main,
