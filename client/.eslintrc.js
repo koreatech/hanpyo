@@ -43,5 +43,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-console': 'off',
     'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
   },
 };
