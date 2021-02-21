@@ -15,33 +15,33 @@ export const XLTypography = Template.bind({});
 XLTypography.args = {
   typoType: TypographyType.primary,
   size: 'XL',
-  content: '한표',
+  children: '한표',
 };
 
 export const LTypography = Template.bind({});
 LTypography.args = {
   typoType: TypographyType.primary,
   size: 'L',
-  content: '한표',
+  children: '한표',
 };
 
 export const MTypography = Template.bind({});
 MTypography.args = {
   typoType: TypographyType.primary,
   size: 'M',
-  content: '한표',
+  children: '한표',
 };
 
 export const STypography = Template.bind({});
 STypography.args = {
   typoType: TypographyType.primary,
   size: 'S',
-  content: '한표',
+  children: '한표',
 };
 
 export const XSTypography = Template.bind({});
 XSTypography.args = {
   typoType: TypographyType.primary,
   size: 'XS',
-  content: '한표',
+  children: '한표',
 };

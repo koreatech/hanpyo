@@ -9,7 +9,7 @@ enum TypographyType {
 }
 
 interface TypographyProps {
-  content: string;
+  children: string;
   size: string;
   typoType: TypographyType;
   css?: string;
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StyledTypography = ({ content, size, typoType, css, onClick }: TypographyProps): JSX.Element => {
+const StyledTypography = ({ children, size, typoType, css, onClick }: TypographyProps): JSX.Element => {
   const classes = useStyles({ size });
 
   const getClassName = () => {
@@ -51,7 +51,7 @@ const StyledTypography = ({ content, size, typoType, css, onClick }: TypographyP
 
   return (
     <StyleTypography className={getClassName()} onClick={onClick}>
-      {content}
+      {children}
     </StyleTypography>
   );
 };
