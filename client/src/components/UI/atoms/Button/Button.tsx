@@ -1,4 +1,4 @@
-import React, { ReactChildren } from 'react';
+import React from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,7 +12,7 @@ enum ButtonType {
 interface ButtonProps {
   btnType: ButtonType;
   onClick?: () => void;
-  children: ReactChildren | string;
+  children: React.ReactChild;
 }
 
 const useStyles = makeStyles({
