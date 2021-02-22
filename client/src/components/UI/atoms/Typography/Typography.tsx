@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   secondaryDark: {
     color: theme.palette.secondary.dark,
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
   },
   grey1: {
     color: theme.palette.grey[100],
@@ -80,11 +77,11 @@ const StyledTypography = ({ children, size, typoType, css, onClick }: Typography
   };
 
   const Sizes: any = {
-    XL: '3.5em',
-    L: '2.2em',
-    M: '1.5em',
-    S: '1em',
-    XS: '0.7em',
+    XL: '3.5rem',
+    L: '2.2rem',
+    M: '1.5rem',
+    S: '1rem',
+    XS: '0.7rem',
   };
 
   const getSize = () => {
