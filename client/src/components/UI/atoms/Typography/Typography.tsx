@@ -78,8 +78,8 @@ const StyledTypography = ({ children, size, typoType, css, onClick }: Typography
 
   const Sizes: any = {
     XL: '3.5rem',
-    L: '2.2rem',
-    M: '1.5rem',
+    L: '2.0rem',
+    M: '1.3rem',
     S: '1rem',
     XS: '0.7rem',
   };
