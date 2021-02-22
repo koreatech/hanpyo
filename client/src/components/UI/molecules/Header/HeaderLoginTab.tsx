@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   logintab: {
     display: 'flex',
-    height: '50%',
+    height: '5rem',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
