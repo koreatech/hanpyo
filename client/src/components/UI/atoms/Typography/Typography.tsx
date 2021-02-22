@@ -6,6 +6,17 @@ import styled from 'styled-components';
 enum TypographyType {
   primary = 'primary',
   secondary = 'secondary',
+  secondaryDark = 'secondaryDark',
+  grey1 = 'grey1',
+  grey2 = 'grey2',
+  grey3 = 'grey3',
+  grey4 = 'grey4',
+  grey5 = 'grey5',
+  grey6 = 'grey6',
+  grey7 = 'grey7',
+  grey8 = 'grey8',
+  grey9 = 'grey9',
+  grey0 = 'grey0',
 }
 
 interface TypographyProps {
@@ -23,6 +34,39 @@ const useStyles = makeStyles((theme) => ({
   secondary: {
     color: theme.palette.secondary.main,
   },
+  secondaryDark: {
+    color: theme.palette.secondary.dark,
+  },
+  grey1: {
+    color: theme.palette.grey[100],
+  },
+  grey2: {
+    color: theme.palette.grey[200],
+  },
+  grey3: {
+    color: theme.palette.grey[300],
+  },
+  grey4: {
+    color: theme.palette.grey[400],
+  },
+  grey5: {
+    color: theme.palette.grey[500],
+  },
+  grey6: {
+    color: theme.palette.grey[600],
+  },
+  grey7: {
+    color: theme.palette.grey[700],
+  },
+  grey8: {
+    color: theme.palette.grey[800],
+  },
+  grey9: {
+    color: theme.palette.grey[900],
+  },
+  grey0: {
+    color: theme.palette.grey[50],
+  },
 }));
 
 const StyledTypography = ({ children, size, typoType, css, onClick }: TypographyProps): JSX.Element => {
@@ -33,11 +77,11 @@ const StyledTypography = ({ children, size, typoType, css, onClick }: Typography
   };
 
   const Sizes: any = {
-    XL: '3.5em',
-    L: '2.2em',
-    M: '1.5em',
-    S: '1em',
-    XS: '0.7em',
+    XL: '3.5rem',
+    L: '2.0rem',
+    M: '1.3rem',
+    S: '1rem',
+    XS: '0.7rem',
   };
 
   const getSize = () => {

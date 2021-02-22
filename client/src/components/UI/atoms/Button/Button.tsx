@@ -35,12 +35,12 @@ const useStyles = makeStyles({
     },
   },
   login: {
-    width: '119.5px',
-    height: '21.5px',
+    width: '12rem',
+    height: '2.2rem',
     borderRadius: '4px',
     boxShadow: '0.5px 0.5px 0.5px 0 rgba(0, 0, 0, 0.16)',
     '& > span': {
-      fontSize: '11px',
+      fontSize: '1.2rem',
     },
   },
   add: {
