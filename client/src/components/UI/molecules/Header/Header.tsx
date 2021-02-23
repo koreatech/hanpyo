@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { Typography, Button, TypographyType } from '@/components/UI/atoms';
+import { Typography, TypographyType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 import { HeaderMenu } from './HeaderMenu';
 import { HeaderLoginTab } from './HeaderLoginTab';
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '60rem',
+    width: '70rem',
   },
   title: {
     padding: '0 30px',
