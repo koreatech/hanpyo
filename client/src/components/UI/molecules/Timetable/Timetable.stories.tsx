@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react/types-6-0';
-import { Timetable } from '@/components/UI/molecules';
+import { Story, Meta } from '@storybook/react/types-6-0';
+import { Timetable, TimetableProps } from '@/components/UI/molecules';
 
 export default {
   title: 'molecules/Timetable',
@@ -9,6 +9,16 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-const Template = () => <Timetable />;
+const Template: Story<TimetableProps> = (args) => <Timetable {...args} />;
 
-export const MainTimetable = Template.bind({});
+export const DefaultTimetable = Template.bind({});
+DefaultTimetable.args = {
+  row: 10,
+  containedSat: false,
+};
+
+export const SatTimetable = Template.bind({});
+SatTimetable.args = {
+  row: 10,
+  containedSat: true,
+};
