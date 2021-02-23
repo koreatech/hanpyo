@@ -32,7 +32,7 @@ const MainPage = (): JSX.Element => {
       <Header />
       <Box className={classes.wrapper}>
         <Box className={classes.left}>
-          <Timetable />
+          <Timetable row={10} containedSat={false} />
         </Box>
         <Box className={classes.right}>
           <Hello

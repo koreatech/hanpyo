@@ -3,17 +3,22 @@ import Box from '@material-ui/core/Box';
 import { LectureGrid } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
+interface TimetableProps {
+  row: number;
+  containedSat: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: (props: TimetableProps) => ({
     display: 'grid',
-    gridTemplateRows: 'repeat(11, 1fr)',
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateRows: `repeat(${props.row + 1}, 1fr)`,
+    gridTemplateColumns: `repeat(${props.containedSat ? 7 : 6}, 1fr)`,
     width: '30rem',
     height: '45rem',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderTopLeftRadius: `1rem`,
     borderTopRightRadius: `1rem`,
-  },
+  }),
   time: {
     display: 'flex',
     alignItems: 'center',
@@ -44,8 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Timetable = (): JSX.Element => {
-  const classes = useStyles();
+const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
+  const classes = useStyles({ row, containedSat });
   const fillTableHeader = () => {
     const array = [];
     array.push(<Box className={classes.headerFirst} />);
@@ -53,11 +58,16 @@ const Timetable = (): JSX.Element => {
     array.push(<Box className={classes.header}>Tue</Box>);
     array.push(<Box className={classes.header}>Wed</Box>);
     array.push(<Box className={classes.header}>Thu</Box>);
-    array.push(<Box className={classes.headerEnd}>Fri</Box>);
+
+    if (containedSat) {
+      array.push(<Box className={classes.header}>Fri</Box>);
+      array.push(<Box className={classes.headerEnd}>Sat</Box>);
+    } else array.push(<Box className={classes.headerEnd}>Fri</Box>);
     return array;
   };
   const makeRow = (time: number) => {
-    const array = [...Array(5)].map((n, index) => {
+    const column = containedSat ? 6 : 5;
+    const array = [...Array(column)].map((n, index) => {
       return <LectureGrid />;
     });
     if (time === 0) {
@@ -68,7 +78,7 @@ const Timetable = (): JSX.Element => {
     return array;
   };
   const fillTable = () => {
-    return [...Array(10)].map((n, index) => {
+    return [...Array(row)].map((n, index) => {
       return makeRow(index);
     });
   };
@@ -81,3 +91,4 @@ const Timetable = (): JSX.Element => {
 };
 
 export { Timetable };
+export type { TimetableProps };
