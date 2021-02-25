@@ -1,6 +1,6 @@
 import React from 'react';
 import { Hello } from '@/components/UI/atoms';
-import { Header, Timetable } from '@/components/UI/molecules';
+import { Header, Timetable, Notice } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +32,7 @@ const MainPage = (): JSX.Element => {
       <Header />
       <Box className={classes.wrapper}>
         <Box className={classes.left}>
+          <Notice />
           <Timetable row={10} containedSat={false} />
         </Box>
         <Box className={classes.right}>
