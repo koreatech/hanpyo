@@ -9,7 +9,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles((theme) => ({
   buttons: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    width: '25%',
   },
 }));
 

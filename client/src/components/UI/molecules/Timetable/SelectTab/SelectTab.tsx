@@ -11,15 +11,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'space-between',
+    width: '30rem',
   },
   tabs: {
     display: 'flex',
-    width: '100%',
+    width: '75%',
     backgroundColor: theme.palette.background.paper,
-  },
-  buttons: {
-    display: 'flex',
-    alignItems: 'center',
   },
   tabHead: {
     display: 'none',
