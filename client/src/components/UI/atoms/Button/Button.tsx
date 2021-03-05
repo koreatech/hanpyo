@@ -17,21 +17,21 @@ interface ButtonProps {
 
 const useStyles = makeStyles({
   save: {
-    width: '136.7px',
-    height: '25px',
-    borderRadius: '12.5px',
+    width: '13rem',
+    height: '2.3rem',
+    borderRadius: '2rem',
     boxShadow: '0 1.5px 3px 0 rgba(0, 0, 0, 0.16)',
     '& > span': {
-      fontSize: '7.5px',
+      fontSize: '0.8rem',
     },
   },
   share: {
-    width: '136.7px',
-    height: '25px',
-    borderRadius: '12.5px',
+    width: '13rem',
+    height: '2.3rem',
+    borderRadius: '2rem',
     boxShadow: '0 1.5px 3px 0 rgba(0, 0, 0, 0.16)',
     '& > span': {
-      fontSize: '7.5px',
+      fontSize: '0.8rem',
     },
   },
   login: {
