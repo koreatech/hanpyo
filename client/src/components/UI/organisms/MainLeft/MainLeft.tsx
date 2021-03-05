@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Timetable, Notice } from '@/components/UI/molecules';
+import { Timetable, Notice, SelectTab } from '@/components/UI/molecules';
 import { Button, ButtonType } from '@/components/UI/atoms';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +26,7 @@ const MainLeft = (): JSX.Element => {
   return (
     <Box className={classes.left}>
       <Notice />
+      <SelectTab />
       <Timetable row={10} containedSat={false} />
       <Box className={classes.buttonWrapper}>
         <Button btnType={ButtonType.save}>저 장</Button>
