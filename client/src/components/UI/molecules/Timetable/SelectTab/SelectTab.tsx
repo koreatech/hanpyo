@@ -38,7 +38,7 @@ interface TableInfo {
 interface TableSelectBarProps {
   tables: Array<TableInfo>;
   value: number;
-  handleChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
+  handleChange: (e: React.ChangeEvent<{}>, newValue: number) => void;
 }
 
 const TableSelectBar = ({ value, handleChange }: TableSelectBarProps) => {
@@ -64,7 +64,7 @@ const TableSelectBar = ({ value, handleChange }: TableSelectBarProps) => {
 const SelectTab = (): JSX.Element => {
   const classes = useStyles();
   const selectedIndex = useReactiveVar(nowSelectedTab);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (e: React.ChangeEvent<{}>, newValue: number) => {
     selectTab(newValue);
   };
 
