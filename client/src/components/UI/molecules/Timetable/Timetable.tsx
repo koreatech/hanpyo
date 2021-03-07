@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateRows: `repeat(${props.row + 1}, 1fr)`,
     gridTemplateColumns: `repeat(${props.containedSat ? 7 : 6}, 1fr)`,
     width: '30rem',
-    height: '45rem',
+    height: '42rem',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderTopLeftRadius: `1rem`,
     borderTopRightRadius: `1rem`,

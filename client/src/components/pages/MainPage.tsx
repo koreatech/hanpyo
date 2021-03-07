@@ -1,7 +1,8 @@
 import React from 'react';
 import { Hello } from '@/components/UI/atoms';
-import { Header, Timetable, Notice } from '@/components/UI/molecules';
+import { Header } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
+import { MainLeft } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,10 +32,7 @@ const MainPage = (): JSX.Element => {
     <Box className={classes.root}>
       <Header />
       <Box className={classes.wrapper}>
-        <Box className={classes.left}>
-          <Notice />
-          <Timetable row={10} containedSat={false} />
-        </Box>
+        <MainLeft />
         <Box className={classes.right}>
           <Hello
             name="hellotest~"
