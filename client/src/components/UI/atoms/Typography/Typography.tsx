@@ -17,6 +17,7 @@ enum TypographyType {
   grey8 = 'grey8',
   grey9 = 'grey9',
   grey0 = 'grey0',
+  white = 'white',
 }
 
 interface TypographyProps {
@@ -66,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
   },
   grey0: {
     color: theme.palette.grey[50],
+  },
+  white: {
+    color: 'white',
   },
 }));
 
