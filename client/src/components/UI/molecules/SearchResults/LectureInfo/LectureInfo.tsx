@@ -6,7 +6,7 @@ import { Typography, TypographyType } from '@/components/UI/atoms';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    width: '90%',
+    width: '95%',
     height: '1.5rem',
     boxSizing: 'border-box',
     borderRadius: '0.5rem',
@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     height: '2.25rem',
-    border: `1px solid ${theme.palette.grey[500]}`,
+    border: `1px solid ${theme.palette.grey[400]}`,
     padding: `0.35rem 0rem`,
     backgroundColor: `${theme.palette.grey[200]}`,
+    margin: '0.25rem 0rem',
   },
   item: {
     height: '1.8rem',
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     height: '100%',
-    borderLeft: `1px solid ${theme.palette.grey[500]}`,
+    borderLeft: `1px solid ${theme.palette.grey[400]}`,
   },
   dividerHover: {
     height: '100%',
@@ -51,14 +52,14 @@ const useStyles = makeStyles((theme) => ({
   prof: {
     width: '12%',
   },
-  object: {
-    width: '12%',
+  grade: {
+    width: '5%',
   },
   personnel: {
     width: '5%',
   },
   dept: {
-    width: '14%',
+    width: '21%',
   },
   time: {
     width: '14%',
@@ -80,7 +81,7 @@ enum TitleType {
   name = 'name',
   class = 'class',
   prof = 'prof',
-  object = 'object',
+  grade = 'grade',
   personnel = 'personnel',
   dept = 'dept',
   time = 'time',
@@ -99,7 +100,7 @@ const Title = ({ className, children, isHover }: TitleProps): JSX.Element => {
   };
   return (
     <Box className={`${classes.default} ${getClassName()}`}>
-      <Typography size="S" typoType={isHover ? TypographyType.white : TypographyType.grey5}>
+      <Typography size="XS" typoType={isHover ? TypographyType.white : TypographyType.grey5}>
         {children}
       </Typography>
     </Box>
@@ -111,7 +112,7 @@ interface LectureInfos {
   name: string;
   class: string;
   prof: string;
-  object: string;
+  grade: string;
   personnel: string;
   dept: string;
   time: string;
@@ -152,8 +153,8 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
         {infos.prof}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.object} isHover={isHover}>
-        {infos.object}
+      <Title className={TitleType.grade} isHover={isHover}>
+        {infos.grade}
       </Title>
       <Divider isHover={isHover} />
       <Title className={TitleType.personnel} isHover={isHover}>
@@ -172,4 +173,4 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
 };
 
 export { LectureInfo };
-export type { LectureInfoProps };
+export type { LectureInfoProps, LectureInfos };
