@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: '22.5rem',
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
-    borderRadius: '0.5rem',
+    borderRadius: '0.7rem',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

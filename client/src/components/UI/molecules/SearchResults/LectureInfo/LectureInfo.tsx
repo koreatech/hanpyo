@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     width: '95%',
     height: '1.5rem',
     boxSizing: 'border-box',
-    borderRadius: '0.5rem',
+    borderRadius: '0.7rem',
     alignItems: 'center',
   },
   header: {
@@ -41,10 +41,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   code: {
-    width: '8%',
+    width: '10%',
   },
   name: {
-    width: '30%',
+    width: '28%',
   },
   class: {
     width: '5%',
