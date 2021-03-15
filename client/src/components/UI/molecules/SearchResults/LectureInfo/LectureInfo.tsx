@@ -91,16 +91,21 @@ interface TitleProps {
   className: TitleType;
   children: React.ReactChild;
   isHover: boolean;
+  isHeader: boolean;
 }
 
-const Title = ({ className, children, isHover }: TitleProps): JSX.Element => {
+const Title = ({ className, children, isHover, isHeader }: TitleProps): JSX.Element => {
   const classes = useStyles();
   const getClassName = () => {
     return { ...classes }[className];
   };
+  const getTypoType = () => {
+    if (isHeader) return TypographyType.grey5;
+    return isHover ? TypographyType.white : TypographyType.grey8;
+  };
   return (
     <Box className={`${classes.default} ${getClassName()}`}>
-      <Typography size="XS" typoType={isHover ? TypographyType.white : TypographyType.grey5}>
+      <Typography size="XS" typoType={getTypoType()}>
         {children}
       </Typography>
     </Box>
@@ -137,35 +142,35 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
   };
   return (
     <Box className={`${classes.root} ${subClass}`} onMouseEnter={() => onMouseEnterEvent()} onMouseLeave={() => onMouseLeaveEvent()}>
-      <Title className={TitleType.code} isHover={isHover}>
+      <Title className={TitleType.code} isHover={isHover} isHeader={isHeader}>
         {infos.code}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.name} isHover={isHover}>
+      <Title className={TitleType.name} isHover={isHover} isHeader={isHeader}>
         {infos.name}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.class} isHover={isHover}>
+      <Title className={TitleType.class} isHover={isHover} isHeader={isHeader}>
         {infos.class}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.prof} isHover={isHover}>
+      <Title className={TitleType.prof} isHover={isHover} isHeader={isHeader}>
         {infos.prof}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.grade} isHover={isHover}>
+      <Title className={TitleType.grade} isHover={isHover} isHeader={isHeader}>
         {infos.grade}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.personnel} isHover={isHover}>
+      <Title className={TitleType.personnel} isHover={isHover} isHeader={isHeader}>
         {infos.personnel}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.dept} isHover={isHover}>
+      <Title className={TitleType.dept} isHover={isHover} isHeader={isHeader}>
         {infos.dept}
       </Title>
       <Divider isHover={isHover} />
-      <Title className={TitleType.time} isHover={isHover}>
+      <Title className={TitleType.time} isHover={isHover} isHeader={isHeader}>
         {infos.time}
       </Title>
     </Box>
