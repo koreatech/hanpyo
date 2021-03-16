@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, TypographyType } from '@/components/UI/atoms';
@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
       color: 'white',
+      '& .MuiBox-root:nth-child(even)': {
+        borderLeft: `1px solid white`,
+      },
+      '& .MuiBox-root> .MuiTypography-root': {
+        color: 'white',
+      },
     },
   },
   divider: {
@@ -66,14 +72,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DividerProps {
-  isHover: boolean;
-}
-
-const Divider = ({ isHover = false }: DividerProps): JSX.Element => {
+const Divider = (): JSX.Element => {
   const classes = useStyles();
 
-  return <Box className={isHover ? classes.dividerHover : classes.divider} />;
+  return <Box className={classes.divider} />;
 };
 
 enum TitleType {
@@ -90,18 +92,17 @@ enum TitleType {
 interface TitleProps {
   className: TitleType;
   children: React.ReactChild;
-  isHover: boolean;
   isHeader: boolean;
 }
 
-const Title = ({ className, children, isHover, isHeader }: TitleProps): JSX.Element => {
+const Title = ({ className, children, isHeader }: TitleProps): JSX.Element => {
   const classes = useStyles();
   const getClassName = () => {
     return { ...classes }[className];
   };
   const getTypoType = () => {
     if (isHeader) return TypographyType.grey5;
-    return isHover ? TypographyType.white : TypographyType.grey8;
+    return TypographyType.grey8;
   };
   return (
     <Box className={`${classes.default} ${getClassName()}`}>
@@ -131,46 +132,38 @@ interface LectureInfoProps {
 const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
-  const [isHover, setIsHover] = useState(false);
-  const onMouseEnterEvent = () => {
-    if (isHeader) return;
-    setIsHover(true);
-  };
-  const onMouseLeaveEvent = () => {
-    if (isHeader) return;
-    setIsHover(false);
-  };
+
   return (
-    <Box className={`${classes.root} ${subClass}`} onMouseEnter={() => onMouseEnterEvent()} onMouseLeave={() => onMouseLeaveEvent()}>
-      <Title className={TitleType.code} isHover={isHover} isHeader={isHeader}>
+    <Box className={`${classes.root} ${subClass}`}>
+      <Title className={TitleType.code} isHeader={isHeader}>
         {infos.code}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.name} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.name} isHeader={isHeader}>
         {infos.name}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.class} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.class} isHeader={isHeader}>
         {infos.class}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.prof} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.prof} isHeader={isHeader}>
         {infos.prof}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.grade} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.grade} isHeader={isHeader}>
         {infos.grade}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.personnel} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.personnel} isHeader={isHeader}>
         {infos.personnel}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.dept} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.dept} isHeader={isHeader}>
         {infos.dept}
       </Title>
-      <Divider isHover={isHover} />
-      <Title className={TitleType.time} isHover={isHover} isHeader={isHeader}>
+      <Divider />
+      <Title className={TitleType.time} isHeader={isHeader}>
         {infos.time}
       </Title>
     </Box>
