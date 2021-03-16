@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, TypographyType } from '@/components/UI/atoms';
+import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,85 +33,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  divider: {
-    height: '100%',
-    borderLeft: `1px solid ${theme.palette.grey[400]}`,
-  },
-  dividerHover: {
-    height: '100%',
-    borderLeft: `1px solid white`,
-  },
-  default: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  code: {
-    width: '10%',
-  },
-  name: {
-    width: '28%',
-  },
-  class: {
-    width: '5%',
-  },
-  prof: {
-    width: '12%',
-  },
-  grade: {
-    width: '5%',
-  },
-  personnel: {
-    width: '5%',
-  },
-  dept: {
-    width: '21%',
-  },
-  time: {
-    width: '14%',
-  },
 }));
-
-const Divider = (): JSX.Element => {
-  const classes = useStyles();
-
-  return <Box className={classes.divider} />;
-};
-
-enum TitleType {
-  code = 'code',
-  name = 'name',
-  class = 'class',
-  prof = 'prof',
-  grade = 'grade',
-  personnel = 'personnel',
-  dept = 'dept',
-  time = 'time',
-}
-
-interface TitleProps {
-  className: TitleType;
-  children: React.ReactChild;
-  isHeader: boolean;
-}
-
-const Title = ({ className, children, isHeader }: TitleProps): JSX.Element => {
-  const classes = useStyles();
-  const getClassName = () => {
-    return { ...classes }[className];
-  };
-  const getTypoType = () => {
-    if (isHeader) return TypographyType.grey5;
-    return TypographyType.grey8;
-  };
-  return (
-    <Box className={`${classes.default} ${getClassName()}`}>
-      <Typography size="XS" typoType={getTypoType()}>
-        {children}
-      </Typography>
-    </Box>
-  );
-};
 
 interface LectureInfos {
   code: string;
@@ -135,37 +57,37 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
 
   return (
     <Box className={`${classes.root} ${subClass}`}>
-      <Title className={TitleType.code} isHeader={isHeader}>
+      <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
         {infos.code}
-      </Title>
-      <Divider />
-      <Title className={TitleType.name} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.name} isHeader={isHeader}>
         {infos.name}
-      </Title>
-      <Divider />
-      <Title className={TitleType.class} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.class} isHeader={isHeader}>
         {infos.class}
-      </Title>
-      <Divider />
-      <Title className={TitleType.prof} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.prof} isHeader={isHeader}>
         {infos.prof}
-      </Title>
-      <Divider />
-      <Title className={TitleType.grade} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
         {infos.grade}
-      </Title>
-      <Divider />
-      <Title className={TitleType.personnel} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
         {infos.personnel}
-      </Title>
-      <Divider />
-      <Title className={TitleType.dept} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>
         {infos.dept}
-      </Title>
-      <Divider />
-      <Title className={TitleType.time} isHeader={isHeader}>
+      </LectureInfoTitle>
+      <LectureInfoDivider />
+      <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
         {infos.time}
-      </Title>
+      </LectureInfoTitle>
     </Box>
   );
 };
