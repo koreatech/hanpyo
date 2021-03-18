@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { LectureGrid } from '@/components/UI/atoms';
+import { LectureGrid, LectureBox } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface TimetableProps {
@@ -11,10 +11,11 @@ interface TimetableProps {
 const useStyles = makeStyles((theme) => ({
   root: (props: TimetableProps) => ({
     display: 'grid',
+    position: 'relative',
     gridTemplateRows: `repeat(${props.row + 1}, 1fr)`,
     gridTemplateColumns: `repeat(${props.containedSat ? 7 : 6}, 1fr)`,
     width: '30rem',
-    height: '42rem',
+    height: '44rem',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderTopLeftRadius: `1rem`,
     borderTopRightRadius: `1rem`,
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     backgroundColor: '#fffaf3',
+    boxSizing: 'border-box',
     alignItems: 'center',
     justifyContent: 'center',
     color: theme.palette.grey[600],
@@ -86,6 +88,8 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
     <Box className={classes.root}>
       {fillTableHeader()}
       {fillTable()}
+      <LectureBox starttime={480} endtime={600} />
+      <LectureBox starttime={1440 + 480} endtime={1440 + 600} bgcolor="orange" />
     </Box>
   );
 };

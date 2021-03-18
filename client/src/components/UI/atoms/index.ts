@@ -7,3 +7,4 @@ export type { TypographyProps } from './Typography/Typography';
 export { LectureGrid } from './LectureGrid/LectureGrid';
 export { LectureInfoTitle, LectureInfoTitleType } from './LectureInfoTitle/LectureInfoTitle';
 export { LectureInfoDivider } from './LectureInfoDivider/LectureInfoDivider';
+export { LectureBox } from './LectureBox/LectureBox';
