@@ -1,7 +1,6 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import styled from 'styled-components';
 
 enum TypographyType {
   primary = 'primary',
@@ -28,7 +27,14 @@ interface TypographyProps {
   onClick?: () => void;
 }
 
+interface CSSProps {
+  size: string;
+}
+
 const useStyles = makeStyles((theme) => ({
+  default: {
+    fontSize: (props: CSSProps) => props.size,
+  },
   primary: {
     color: theme.palette.primary.main,
   },
@@ -74,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StyledTypography = ({ children, size, typoType, css, onClick }: TypographyProps): JSX.Element => {
-  const classes = useStyles({ size });
-
   const getClassName = () => {
     return { ...classes }[typoType];
   };
@@ -91,16 +95,12 @@ const StyledTypography = ({ children, size, typoType, css, onClick }: Typography
   const getSize = () => {
     return { ...Sizes }[size];
   };
-
-  const StyleTypography = styled(Typography)`
-    ${css}
-    font-size: ${getSize()}
-  `;
+  const classes = useStyles({ size: getSize() });
 
   return (
-    <StyleTypography className={getClassName()} onClick={onClick}>
+    <Typography className={`${classes.default} ${getClassName()}`} onClick={onClick}>
       {children}
-    </StyleTypography>
+    </Typography>
   );
 };
 
