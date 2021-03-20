@@ -48,7 +48,10 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [
+      { start: 3660, end: 3720 },
+      { start: 540, end: 600 },
+    ],
   },
   {
     code: '111112',
@@ -58,7 +61,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '222222',
@@ -68,7 +71,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '333333',
@@ -78,7 +81,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '444444',
@@ -88,7 +91,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '555555',
@@ -98,7 +101,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '666666',
@@ -108,17 +111,17 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: '777777',
-    name: '디자인커뮤니케이션',
+    name: '디자인',
     class: '01',
-    prof: '윤정식',
+    prof: '정식',
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYs',
@@ -128,7 +131,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYa',
@@ -138,7 +141,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYb',
@@ -148,7 +151,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYc',
@@ -158,7 +161,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYd',
@@ -168,7 +171,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYe',
@@ -178,7 +181,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYf',
@@ -188,7 +191,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYg',
@@ -198,7 +201,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYh',
@@ -208,7 +211,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYi',
@@ -218,7 +221,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
   {
     code: 'HANPYO',
@@ -228,7 +231,7 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: '10:00-11:00',
+    time: [{ start: 3660, end: 3780 }],
   },
 ];
 
