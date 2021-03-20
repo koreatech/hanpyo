@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Timetable, Notice, SelectTab } from '@/components/UI/molecules';
+import { Header, Timetable, Notice, SelectTab, SearchResults } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,9 @@ const MainPage = (): JSX.Element => {
           <SelectTab />
           <Timetable row={10} containedSat={false} />
         </Box>
-        <Box className={classes.right}>오른쪽탭</Box>
+        <Box className={classes.right}>
+          <SearchResults />
+        </Box>
       </Box>
     </Box>
   );
