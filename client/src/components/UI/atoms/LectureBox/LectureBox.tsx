@@ -1,11 +1,14 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface LectureBoxProps {
   starttime: number;
   endtime: number;
   bgcolor?: string;
+  name: string;
+  division?: string;
+  prof: string;
 }
 
 interface CSSProps {
@@ -30,13 +33,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureBox = ({ starttime, endtime, bgcolor }: LectureBoxProps): JSX.Element => {
+const LectureBox = ({ starttime, endtime, bgcolor, name, division, prof }: LectureBoxProps): JSX.Element => {
   const columnPos = Math.floor(starttime / 1440);
-  const rowStartPos = (starttime % 1440) / 30;
+  const rowStartPos = ((starttime % 1440) - 540) / 30;
   const rowEndPos = (endtime - starttime) / 30;
   const classes = useStyles({ columnPos, rowStartPos, rowEndPos, bgcolor });
-
-  return <Box className={classes.root}>안녕</Box>;
+  return (
+    <Box className={classes.root}>
+      <Box>
+        <Typography>{name}</Typography>
+      </Box>
+      <Box>
+        <Typography>{division}</Typography>
+        <Typography>{prof}</Typography>
+      </Box>
+    </Box>
+  );
 };
 
 export { LectureBox };
