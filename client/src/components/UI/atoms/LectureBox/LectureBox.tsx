@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, IconButton, Tooltip, TooltipProps } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, Typography, IconButton, Tooltip, Snackbar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { removeLectureFromTable } from '@/stores/timetable';
@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiButtonBase-root': {
       display: 'none',
       position: 'absolute',
+      transform: 'translate(-50%, -50%)',
+      top: '50%',
       left: '50%',
     },
   },
@@ -63,6 +65,7 @@ const LectureBox = ({ starttime, endtime, bgcolor, name, division, prof }: Lectu
   const rowStartPos = ((starttime % 1440) - 540) / 30;
   const rowEndPos = (endtime - starttime) / 30;
   const classes = useStyles({ columnPos, rowStartPos, rowEndPos, bgcolor });
+  const [snackOpen, setSnackOpen] = useState(false);
   return (
     <Box className={classes.root}>
       <Box className={classes.membrane} />
