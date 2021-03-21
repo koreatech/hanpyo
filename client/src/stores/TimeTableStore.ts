@@ -6,10 +6,23 @@ interface TableInfo {
   index: number;
 }
 
+interface TimeTypes {
+  start: number;
+  end: number;
+}
+
+interface LectureInfo {
+  time: Array<TimeTypes>;
+  name: string;
+  class?: string;
+  prof: string;
+}
+
 interface TimeTableStoreState {
   selectedTabIdx: ReactiveVar<any>;
   tables: ReactiveVar<TableInfo[]>;
   tableIndex: ReactiveVar<number>;
+  lectures: ReactiveVar<Array<LectureInfo[]>>;
 }
 
 class TimeTableStore {
@@ -20,9 +33,10 @@ class TimeTableStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.state = {
-      selectedTabIdx: makeVar<any>(0),
+      selectedTabIdx: makeVar<any>(false),
       tables: makeVar<TableInfo[]>([]),
       tableIndex: makeVar(0),
+      lectures: makeVar<Array<LectureInfo[]>>([]),
     };
   }
 
@@ -36,7 +50,7 @@ class TimeTableStore {
 
   addTable(name: string): void {
     const { modalStore } = this.rootStore;
-    const { tableIndex, tables } = this.state;
+    const { tableIndex, tables, lectures } = this.state;
     const nextIndex = tableIndex() + 1;
     const newTable = {
       name,
@@ -47,13 +61,16 @@ class TimeTableStore {
     tables(newTables);
     tableIndex(nextIndex);
 
+    const newLectures = [...lectures(), []];
+    lectures(newLectures);
+
     this.selectTab(tables().length);
     modalStore.setModalState(false);
   }
 
   removeTable(input: any): void {
     const { modalStore } = this.rootStore;
-    const { tables, selectedTabIdx } = this.state;
+    const { tables, selectedTabIdx, lectures } = this.state;
 
     if (tables().length === 1) return;
 
@@ -61,8 +78,28 @@ class TimeTableStore {
     const newTables = tables().filter((elem, idx) => idx !== selectedTabIdx() - 1);
 
     tables(newTables);
+
+    const newLectures = lectures().filter((elem, idx) => idx !== selectedTabIdx() - 1);
+    lectures(newLectures);
+
     this.selectTab(nextSelectedTab);
     modalStore.setModalState(false);
+  }
+
+  addLectureToTable(input: LectureInfo): void {
+    const { selectedTabIdx, lectures } = this.state;
+    if (!selectedTabIdx()) return;
+    const newLecture = [...lectures()[selectedTabIdx()], input];
+    const newLectures = lectures().map((elem, idx) => {
+      if (idx === selectedTabIdx()) return newLecture;
+      return elem;
+    });
+    lectures(newLectures);
+  }
+
+  getLecturesFromTable(): LectureInfo[] {
+    const { selectedTabIdx, lectures } = this.state;
+    return lectures()[selectedTabIdx()];
   }
 }
 

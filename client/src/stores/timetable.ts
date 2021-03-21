@@ -14,6 +14,18 @@ interface modalInfoType {
   placeHolder?: string;
 }
 
+interface TimeTypes {
+  start: number;
+  end: number;
+}
+
+interface LectureInfo {
+  time: Array<TimeTypes>;
+  name: string;
+  class?: string;
+  prof: string;
+}
+
 const modalInfos = (action: string): modalInfoType => {
   switch (action) {
     case 'ADD':
@@ -47,6 +59,7 @@ const modalInfo = makeVar<modalInfoType>({
   buttonTitle: '',
   onSubmit: () => {},
 });
+const lectures = makeVar<Array<LectureInfo[]>>([]);
 
 const selectTab = (index: any) => {
   nowSelectedTab(index);
@@ -62,7 +75,10 @@ const addTable = (name: string) => {
   tables(newTables);
   tableIndex(nextIndex);
   selectTab(tables().length);
+  const newLectures = [...lectures(), []];
+  lectures(newLectures);
   modalState(false);
+  console.log(lectures());
 };
 
 const removeTable = (input: any) => {
@@ -75,6 +91,8 @@ const removeTable = (input: any) => {
   }
   const newTables = tables().filter((elem, idx) => idx !== nowSelectedTab() - 1);
   tables(newTables);
+  const newLectures = lectures().filter((elem, idx) => idx !== nowSelectedTab() - 1);
+  lectures(newLectures);
   selectTab(nextSelectedTab);
   modalState(false);
 };
@@ -85,4 +103,37 @@ const setModal = (type: string) => {
   modalState(true);
 };
 
-export { nowSelectedTab, selectTab, tables, tableIndex, addTable, removeTable, modalState, modalType, setModal, modalInfo };
+function addLectureToTable(input: LectureInfo): void {
+  if (!nowSelectedTab()) return;
+  const isNoDuplicateLecture = lectures()[nowSelectedTab() - 1].every((curr) => curr.name !== input.name);
+  if (!isNoDuplicateLecture) return;
+  // Todo : 시간 중복됐을 때 추가 방지 코드 짜기
+  const newLecture = [...lectures()[nowSelectedTab() - 1], input];
+  console.log(newLecture);
+  const newLectures = lectures().map((elem, idx) => {
+    if (idx === nowSelectedTab() - 1) return newLecture;
+    return elem;
+  });
+  lectures(newLectures);
+  console.log(lectures());
+}
+
+function getLecturesFromTable(): LectureInfo[] {
+  return lectures()[nowSelectedTab()];
+}
+
+export {
+  nowSelectedTab,
+  selectTab,
+  tables,
+  tableIndex,
+  addTable,
+  removeTable,
+  modalState,
+  modalType,
+  setModal,
+  modalInfo,
+  lectures,
+  addLectureToTable,
+  getLecturesFromTable,
+};

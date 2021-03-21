@@ -1,7 +1,9 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { LectureGrid } from '@/components/UI/atoms';
+import { LectureGrid, LectureBox } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
+import { lectures, nowSelectedTab } from '@/stores/timetable';
+import { useReactiveVar } from '@apollo/client';
 
 interface TimetableProps {
   row: number;
@@ -11,10 +13,11 @@ interface TimetableProps {
 const useStyles = makeStyles((theme) => ({
   root: (props: TimetableProps) => ({
     display: 'grid',
+    position: 'relative',
     gridTemplateRows: `repeat(${props.row + 1}, 1fr)`,
     gridTemplateColumns: `repeat(${props.containedSat ? 7 : 6}, 1fr)`,
     width: '30rem',
-    height: '42rem',
+    height: '44rem',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderTopLeftRadius: `1rem`,
     borderTopRightRadius: `1rem`,
@@ -31,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     backgroundColor: '#fffaf3',
+    boxSizing: 'border-box',
     alignItems: 'center',
     justifyContent: 'center',
     color: theme.palette.grey[600],
@@ -51,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const classes = useStyles({ row, containedSat });
+  const Lectures = useReactiveVar(lectures);
+  const selectedTabIdx = useReactiveVar(nowSelectedTab);
   const fillTableHeader = () => {
     const array = [];
     array.push(<Box className={classes.headerFirst} />);
@@ -82,10 +88,20 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
       return makeRow(index);
     });
   };
+  const fillTableByLectures = () => {
+    if (selectedTabIdx === 0) return <></>;
+    const lectureInfos = Lectures[selectedTabIdx - 1];
+    return lectureInfos.map((elem) => {
+      return elem.time.map((time) => {
+        return <LectureBox starttime={time.start} endtime={time.end} name={elem.name} division={elem.class} prof={elem.prof} />;
+      });
+    });
+  };
   return (
     <Box className={classes.root}>
       {fillTableHeader()}
       {fillTable()}
+      {fillTableByLectures()}
     </Box>
   );
 };

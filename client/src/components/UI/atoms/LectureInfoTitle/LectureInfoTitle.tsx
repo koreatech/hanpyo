@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: '10%',
   },
   name: {
-    width: '28%',
+    width: '26%',
   },
   class: {
     width: '5%',
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     width: '21%',
   },
   time: {
-    width: '14%',
+    width: '16%',
   },
 }));
 

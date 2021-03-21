@@ -36,6 +36,9 @@ Item.args = {
     grade: '03',
     personnel: '25',
     dept: '디자인/건축',
-    time: '09:00-10:00',
+    time: [
+      { start: 3660, end: 3720 },
+      { start: 540, end: 600 },
+    ],
   },
 };
