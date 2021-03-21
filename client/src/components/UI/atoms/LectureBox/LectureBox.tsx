@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, IconButton, Tooltip, TooltipProps } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { removeLectureFromTable } from '@/stores/timetable';
 
 interface LectureBoxProps {
   starttime: number;
@@ -65,7 +66,7 @@ const LectureBox = ({ starttime, endtime, bgcolor, name, division, prof }: Lectu
   return (
     <Box className={classes.root}>
       <Box className={classes.membrane} />
-      <Tooltip title="시간표 삭제" arrow placement="right">
+      <Tooltip title="시간표 삭제" arrow placement="right" onClick={() => removeLectureFromTable(name)}>
         <IconButton aria-label="delete">
           <DeleteIcon style={{ fontSize: 16 }} />
         </IconButton>
