@@ -1,4 +1,5 @@
 import React from 'react';
+import { AlertSnackbar } from '@/components/UI/atoms';
 import { Header, Timetable, Notice, SelectTab, SearchResults } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
 
@@ -41,6 +42,7 @@ const MainPage = (): JSX.Element => {
           <SearchResults />
         </Box>
       </Box>
+      <AlertSnackbar />
     </Box>
   );
 };
