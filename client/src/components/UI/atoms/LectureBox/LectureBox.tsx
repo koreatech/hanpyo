@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Box, Typography, IconButton, Tooltip, Snackbar } from '@material-ui/core';
+import React from 'react';
+import { Box, Typography, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { removeLectureFromTable } from '@/stores/timetable';
+import { useStores } from '@/stores';
+import { SnackbarType } from '@/components/UI/atoms';
 
 interface LectureBoxProps {
   starttime: number;
@@ -65,11 +67,17 @@ const LectureBox = ({ starttime, endtime, bgcolor, name, division, prof }: Lectu
   const rowStartPos = ((starttime % 1440) - 540) / 30;
   const rowEndPos = (endtime - starttime) / 30;
   const classes = useStyles({ columnPos, rowStartPos, rowEndPos, bgcolor });
-  const [snackOpen, setSnackOpen] = useState(false);
+  const { snackbarStore } = useStores();
+  const onClickHandler = () => {
+    removeLectureFromTable(name);
+    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+
   return (
     <Box className={classes.root}>
       <Box className={classes.membrane} />
-      <Tooltip title="시간표 삭제" arrow placement="right" onClick={() => removeLectureFromTable(name)}>
+      <Tooltip title="시간표 삭제" arrow placement="right" onClick={() => onClickHandler()}>
         <IconButton aria-label="delete">
           <DeleteIcon style={{ fontSize: 16 }} />
         </IconButton>
