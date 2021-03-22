@@ -5,3 +5,7 @@ export { Notice } from './Notice/Notice';
 export { SelectTab } from './Timetable/SelectTab/SelectTab';
 export { SearchBar } from './SearchBar/SearchBar';
 export { SearchResults } from './SearchResults/SearchResults';
+export { ModalPopupArea } from './ModalPopupArea/ModalPopupArea';
+export type { ModalPopupAreaProps } from './ModalPopupArea/ModalPopupArea';
+export { TimeTableModalContent, TimeTableModalType } from './TimeTableModalContent/TimeTableModalContent';
+export type { TimeTableModalContentProps } from './TimeTableModalContent/TimeTableModalContent';
