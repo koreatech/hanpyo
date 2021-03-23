@@ -109,13 +109,21 @@ function addLectureToTable(input: LectureInfo): void {
   if (!isNoDuplicateLecture) return;
   // Todo : 시간 중복됐을 때 추가 방지 코드 짜기
   const newLecture = [...lectures()[nowSelectedTab() - 1], input];
-  console.log(newLecture);
   const newLectures = lectures().map((elem, idx) => {
     if (idx === nowSelectedTab() - 1) return newLecture;
     return elem;
   });
   lectures(newLectures);
   console.log(lectures());
+}
+
+function removeLectureFromTable(input: string): void {
+  const newLecture = [...lectures()[nowSelectedTab() - 1]].filter((elem) => elem.name !== input);
+  const newLectures = lectures().map((elem, idx) => {
+    if (idx === nowSelectedTab() - 1) return newLecture;
+    return elem;
+  });
+  lectures(newLectures);
 }
 
 function getLecturesFromTable(): LectureInfo[] {
@@ -136,4 +144,5 @@ export {
   lectures,
   addLectureToTable,
   getLecturesFromTable,
+  removeLectureFromTable,
 };

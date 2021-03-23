@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
+import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider, SnackbarType } from '@/components/UI/atoms';
 import { addLectureToTable } from '@/stores/timetable';
+import { useStores } from '@/stores';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,7 @@ interface LectureInfoProps {
 const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
-
+  const { snackbarStore } = useStores();
   const convertNumberToTime = (time: number) => {
     const hour = ((time % 1440) / 60).toString().padStart(2, '0');
     const minute = (time % 60).toString().padEnd(2, '0');
@@ -81,6 +82,8 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
     if (typeof lectureInfos.time === 'string') return;
     const { time, name, prof } = lectureInfos;
     addLectureToTable({ time, name, prof });
+    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarState(true);
   };
   return (
     <Box className={`${classes.root} ${subClass}`} onClick={() => onClickListener(infos)}>
