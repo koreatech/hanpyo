@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    marginTop: '1.2rem',
   },
   divider: {
     backgroundColor: theme.palette.primary.light,
