@@ -16,9 +16,10 @@ interface CSSProps {
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
-    padding: '0 0.2rem 0.4rem 0.2rem',
     width: '35rem',
-    height: (props: CSSProps) => (props.isBasketList ? '10rem' : '22.5rem'),
+    height: (props: CSSProps) => (props.isBasketList ? '12rem' : '19rem'),
+    margin: '1.2rem 0 0 0',
+    padding: '0 0.2rem 0.4rem 0.2rem',
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
     borderRadius: '0.7rem',
