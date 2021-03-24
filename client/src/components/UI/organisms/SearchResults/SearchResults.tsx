@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { LectureInfo, LectureInfos } from './LectureInfo/LectureInfo';
+import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
 
 const useStyles = makeStyles((theme) => ({
   root: {
