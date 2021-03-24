@@ -43,6 +43,8 @@ const MainPage = (): JSX.Element => {
           <SubTitle>강의 찾기</SubTitle>
           <SearchBar />
           <SearchResults />
+          <SubTitle>나만의 스케줄 추가</SubTitle>
+          <SubTitle>장바구니</SubTitle>
         </Box>
       </Box>
       <AlertSnackbar />
