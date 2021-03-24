@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider, SnackbarType } from '@/components/UI/atoms';
-import { addLectureToTable } from '@/stores/timetable';
+import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
 import { useStores } from '@/stores';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +56,10 @@ interface LectureInfos {
 interface LectureInfoProps {
   isHeader?: boolean;
   infos: LectureInfos;
+  onClick: (infos: LectureInfos) => void;
 }
 
-const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element => {
+const LectureInfo = ({ isHeader = false, infos, onClick }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
   const { snackbarStore } = useStores();
@@ -81,16 +81,9 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
     if (typeof times === 'string') return times;
     return times.reduce((acc, curr) => acc + convertTimeToString(curr), '');
   };
-  const onClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
-    const { time, name, prof } = lectureInfos;
-    addLectureToTable({ time, name, prof });
-    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
-    snackbarStore.setSnackbarState(true);
-  };
   return (
     <Tooltip title="시간표에 추가하기" placement="left" arrow disableHoverListener={isHeader}>
-      <Box className={`${classes.root} ${subClass}`} onClick={() => onClickListener(infos)}>
+      <Box className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
           {infos.code}
         </LectureInfoTitle>

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
+import { addLectureToTable } from '@/stores/timetable';
+import { useStores } from '@/stores';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -241,15 +244,26 @@ const testData = [
 
 const SearchResults = (): JSX.Element => {
   const classes = useStyles();
-  const fillInfos = (infos: Array<LectureInfos>) => {
+  const { snackbarStore } = useStores();
+
+  const fillSearchedLectureInfos = (infos: Array<LectureInfos>) => {
     return infos.map((elem: LectureInfos) => {
-      return <LectureInfo infos={elem} />;
+      return <LectureInfo infos={elem} onClick={onLectureSearchClickListener} />;
     });
   };
+
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    const { time, name, prof } = lectureInfos;
+    addLectureToTable({ time, name, prof });
+    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+
   return (
     <Box className={classes.root}>
-      <LectureInfo isHeader infos={headerInfos} />
-      <Box className={classes.itemWrapper}>{fillInfos(testData)}</Box>
+      <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
+      <Box className={classes.itemWrapper}>{fillSearchedLectureInfos(testData)}</Box>
     </Box>
   );
 };
