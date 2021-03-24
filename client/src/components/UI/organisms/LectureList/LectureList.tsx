@@ -7,18 +7,18 @@ import { addLectureToTable } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
 interface LectureListProps {
-  isSearchedList?: boolean;
+  isBasketList?: boolean;
 }
 
 interface CSSProps {
-  isSearchedList?: boolean;
+  isBasketList?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     padding: '0 0.2rem 0.4rem 0.2rem',
     width: '35rem',
-    height: (props: CSSProps) => (props.isSearchedList ? '22.5rem' : '10rem'),
+    height: (props: CSSProps) => (props.isBasketList ? '10rem' : '22.5rem'),
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
     borderRadius: '0.7rem',
@@ -257,8 +257,8 @@ const testData = [
   },
 ];
 
-const LectureList = ({ isSearchedList = true }: LectureListProps): JSX.Element => {
-  const classes = useStyles({ isSearchedList });
+const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
+  const classes = useStyles({ isBasketList });
   const { snackbarStore } = useStores();
 
   const fillSearchedLectureInfos = (infos: Array<LectureInfos>) => {

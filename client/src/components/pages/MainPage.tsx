@@ -45,6 +45,7 @@ const MainPage = (): JSX.Element => {
           <LectureList />
           <SubTitle>나만의 스케줄 추가</SubTitle>
           <SubTitle>장바구니</SubTitle>
+          <LectureList isBasketList />
         </Box>
       </Box>
       <AlertSnackbar />
