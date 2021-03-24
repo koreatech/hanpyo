@@ -10,3 +10,4 @@ export type { ModalPopupAreaProps } from './ModalPopupArea/ModalPopupArea';
 export { TimeTableModalContent, TimeTableModalType } from './TimeTableModalContent/TimeTableModalContent';
 export type { TimeTableModalContentProps } from './TimeTableModalContent/TimeTableModalContent';
 export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';
+export { SubTitle } from './SubTitle/SubTitle';
