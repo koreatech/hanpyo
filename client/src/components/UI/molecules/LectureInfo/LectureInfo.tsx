@@ -124,4 +124,4 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
 };
 
 export { LectureInfo };
-export type { LectureInfoProps, LectureInfos };
+export type { LectureInfoProps, LectureInfos, TimeTypes };

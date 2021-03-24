@@ -1,14 +1,10 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
+import { TimeTypes } from '@/components/UI/molecules';
 
 interface TableInfo {
   name: string;
   index: number;
-}
-
-interface TimeTypes {
-  start: number;
-  end: number;
 }
 
 interface LectureInfo {
