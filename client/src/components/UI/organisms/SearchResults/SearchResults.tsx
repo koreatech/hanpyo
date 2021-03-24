@@ -7,20 +7,27 @@ import { addLectureToTable } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
+  rootWrapper: {
+    padding: '0 0.2rem 0.4rem 0.2rem',
     width: '35rem',
     height: '22.5rem',
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
     borderRadius: '0.7rem',
+  },
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    boxSizing: 'border-box',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
   itemWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    marginLeft: '0.25rem',
     width: '100%',
     alignItems: 'center',
     overflow: 'auto',
@@ -261,9 +268,11 @@ const SearchResults = (): JSX.Element => {
   };
 
   return (
-    <Box className={classes.root}>
-      <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
-      <Box className={classes.itemWrapper}>{fillSearchedLectureInfos(testData)}</Box>
+    <Box className={classes.rootWrapper}>
+      <Box className={classes.root}>
+        <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
+        <Box className={classes.itemWrapper}>{fillSearchedLectureInfos(testData)}</Box>
+      </Box>
     </Box>
   );
 };
