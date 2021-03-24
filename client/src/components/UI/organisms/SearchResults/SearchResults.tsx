@@ -49,7 +49,7 @@ const testData = [
     personnel: '25',
     dept: '디자인건축공학부',
     time: [
-      { start: 3660, end: 3720 },
+      { start: 3690, end: 3720 },
       { start: 540, end: 600 },
     ],
   },

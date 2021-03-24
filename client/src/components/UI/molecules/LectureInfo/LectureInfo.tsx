@@ -64,7 +64,9 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
   const subClass = isHeader ? classes.header : classes.item;
   const { snackbarStore } = useStores();
   const convertNumberToTime = (time: number) => {
-    const hour = ((time % 1440) / 60).toString().padStart(2, '0');
+    const hour = Math.floor((time % 1440) / 60)
+      .toString()
+      .padStart(2, '0');
     const minute = (time % 60).toString().padEnd(2, '0');
     return `${hour}:${minute}`;
   };
