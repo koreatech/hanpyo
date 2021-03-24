@@ -6,11 +6,19 @@ import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
 import { addLectureToTable } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
+interface LectureListProps {
+  isSearchedList?: boolean;
+}
+
+interface CSSProps {
+  isSearchedList?: boolean;
+}
+
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     padding: '0 0.2rem 0.4rem 0.2rem',
     width: '35rem',
-    height: '22.5rem',
+    height: (props: CSSProps) => (props.isSearchedList ? '22.5rem' : '10rem'),
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
     borderRadius: '0.7rem',
@@ -249,8 +257,8 @@ const testData = [
   },
 ];
 
-const LectureList = (): JSX.Element => {
-  const classes = useStyles();
+const LectureList = ({ isSearchedList = true }: LectureListProps): JSX.Element => {
+  const classes = useStyles({ isSearchedList });
   const { snackbarStore } = useStores();
 
   const fillSearchedLectureInfos = (infos: Array<LectureInfos>) => {
