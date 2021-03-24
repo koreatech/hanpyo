@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
-import { Timetable, Notice, SelectTab } from '@/components/UI/molecules';
+import { Timetable, Notice, SelectTab, SearchBar, SubTitle } from '@/components/UI/molecules';
 import { SearchResults, Header } from '@/components/UI/organisms';
 import { Box, makeStyles } from '@material-ui/core';
 
@@ -40,6 +40,8 @@ const MainPage = (): JSX.Element => {
           <Timetable row={10} containedSat={false} />
         </Box>
         <Box className={classes.right}>
+          <SubTitle>강의 찾기</SubTitle>
+          <SearchBar />
           <SearchResults />
         </Box>
       </Box>
