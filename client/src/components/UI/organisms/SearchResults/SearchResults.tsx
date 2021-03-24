@@ -23,7 +23,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     '&::-webkit-scrollbar': {
       width: '0.3rem',
-      display: 'none',
+      display: 'block',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.grey[300],
+      borderRadius: '0.7rem',
     },
   },
 }));
