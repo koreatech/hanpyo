@@ -249,7 +249,7 @@ const testData = [
   },
 ];
 
-const SearchResults = (): JSX.Element => {
+const LectureList = (): JSX.Element => {
   const classes = useStyles();
   const { snackbarStore } = useStores();
 
@@ -277,4 +277,4 @@ const SearchResults = (): JSX.Element => {
   );
 };
 
-export { SearchResults };
+export { LectureList };

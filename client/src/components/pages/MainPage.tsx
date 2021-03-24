@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
 import { Timetable, Notice, SelectTab, SearchBar, SubTitle } from '@/components/UI/molecules';
-import { SearchResults, Header } from '@/components/UI/organisms';
+import { LectureList, Header } from '@/components/UI/organisms';
 import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +42,7 @@ const MainPage = (): JSX.Element => {
         <Box className={classes.right}>
           <SubTitle>강의 찾기</SubTitle>
           <SearchBar />
-          <SearchResults />
+          <LectureList />
           <SubTitle>나만의 스케줄 추가</SubTitle>
           <SubTitle>장바구니</SubTitle>
         </Box>

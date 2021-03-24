@@ -1,12 +1,12 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react/types-6-0';
-import { SearchResults } from '@/components/UI/organisms';
+import { LectureList } from '@/components/UI/organisms';
 
 export default {
-  title: 'organisms/SearchResults',
-  component: SearchResults,
+  title: 'organisms/LectureList',
+  component: LectureList,
   decorators: [withKnobs],
 } as Meta;
 
-export const searchResults = () => <SearchResults />;
+export const lectureList = () => <LectureList />;

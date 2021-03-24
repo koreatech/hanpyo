@@ -1,3 +1,3 @@
 export { ModalPopup } from './ModalPopup/ModalPopup';
-export { SearchResults } from './SearchResults/SearchResults';
+export { LectureList } from './LectureList/LectureList';
 export { Header } from './Header/Header';
