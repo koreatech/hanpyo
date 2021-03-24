@@ -1,4 +1,3 @@
-export { Header } from './Header/Header';
 export { Timetable } from './Timetable/Timetable';
 export type { TimetableProps } from './Timetable/Timetable';
 export { Notice } from './Notice/Notice';
@@ -10,3 +9,4 @@ export { ModalPopupArea } from './ModalPopupArea/ModalPopupArea';
 export type { ModalPopupAreaProps } from './ModalPopupArea/ModalPopupArea';
 export { TimeTableModalContent, TimeTableModalType } from './TimeTableModalContent/TimeTableModalContent';
 export type { TimeTableModalContentProps } from './TimeTableModalContent/TimeTableModalContent';
+export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';

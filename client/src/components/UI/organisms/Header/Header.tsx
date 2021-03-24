@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import { Typography, TypographyType } from '@/components/UI/atoms';
+import { Typography, TypographyType, HeaderMenu } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
-import { HeaderMenu } from './HeaderMenu';
-import { HeaderLoginTab } from './HeaderLoginTab';
+
+import { HeaderAuthSection } from '@/components/UI/molecules';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -39,7 +39,7 @@ const Header = (): JSX.Element => {
         <HeaderMenu>시간표짜기</HeaderMenu>
         <HeaderMenu>강의후기</HeaderMenu>
         <HeaderMenu>마이페이지</HeaderMenu>
-        <HeaderLoginTab />
+        <HeaderAuthSection />
       </Box>
     </Box>
   );

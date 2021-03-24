@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
-import { Header, Timetable, Notice, SelectTab } from '@/components/UI/molecules';
-import { SearchResults } from '@/components/UI/organisms';
+import { Timetable, Notice, SelectTab } from '@/components/UI/molecules';
+import { SearchResults, Header } from '@/components/UI/organisms';
 import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
