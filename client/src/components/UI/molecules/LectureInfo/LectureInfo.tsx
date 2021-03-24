@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: `0.25rem 0rem`,
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
+      cursor: 'pointer',
       color: 'white',
       '& .MuiBox-root:nth-child(even)': {
         borderLeft: `1px solid white`,
