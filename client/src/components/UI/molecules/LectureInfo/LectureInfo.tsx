@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider, SnackbarType } from '@/components/UI/atoms';
 import { addLectureToTable } from '@/stores/timetable';
@@ -89,39 +89,41 @@ const LectureInfo = ({ isHeader = false, infos }: LectureInfoProps): JSX.Element
     snackbarStore.setSnackbarState(true);
   };
   return (
-    <Box className={`${classes.root} ${subClass}`} onClick={() => onClickListener(infos)}>
-      <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
-        {infos.code}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.name} isHeader={isHeader}>
-        {infos.name}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.class} isHeader={isHeader}>
-        {infos.class}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.prof} isHeader={isHeader}>
-        {infos.prof}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
-        {infos.grade}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
-        {infos.personnel}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>
-        {infos.dept}
-      </LectureInfoTitle>
-      <LectureInfoDivider />
-      <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
-        {getLectureTime(infos.time)}
-      </LectureInfoTitle>
-    </Box>
+    <Tooltip title="시간표에 추가하기" placement="left" arrow disableHoverListener={isHeader}>
+      <Box className={`${classes.root} ${subClass}`} onClick={() => onClickListener(infos)}>
+        <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
+          {infos.code}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.name} isHeader={isHeader}>
+          {infos.name}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.class} isHeader={isHeader}>
+          {infos.class}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.prof} isHeader={isHeader}>
+          {infos.prof}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
+          {infos.grade}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
+          {infos.personnel}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>
+          {infos.dept}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
+          {getLectureTime(infos.time)}
+        </LectureInfoTitle>
+      </Box>
+    </Tooltip>
   );
 };
 
