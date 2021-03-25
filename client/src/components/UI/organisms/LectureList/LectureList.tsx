@@ -287,3 +287,4 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
 };
 
 export { LectureList };
+export type { LectureListProps };
