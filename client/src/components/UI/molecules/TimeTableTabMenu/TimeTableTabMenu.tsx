@@ -3,22 +3,6 @@ import React from 'react';
 import { Tabs, Tab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '30rem',
-  },
-  tabs: {
-    display: 'flex',
-    width: '75%',
-    backgroundColor: theme.palette.background.paper,
-  },
-  tabHead: {
-    display: 'none',
-  },
-}));
-
 interface TableInfo {
   name: string;
   index: number;
@@ -30,18 +14,39 @@ interface TimeTableTabMenuProps {
   onTimeTableTabChange: () => void;
 }
 
-const TabProps = (index: number) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '30rem',
+  },
+  tabs: {
+    display: 'flex',
+    width: '75%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  tab: {
+    '& .MuiTab-root': {
+      minWidth: '6.25rem',
+    },
+  },
+  tabHead: {
+    display: 'none',
+  },
+}));
+
+const TabProps = (tabIndex: number) => {
   return {
-    id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`,
+    id: `scrollable-auto-tab-${tabIndex}`,
+    'aria-controls': `scrollable-auto-tabpanel-${tabIndex}`,
   };
 };
 
 const TimeTableTabMenu = ({ tables, seletedTab, onTimeTableTabChange }: TimeTableTabMenuProps): JSX.Element => {
   const classes = useStyles();
 
-  const fillTable = () => {
-    return tables.map((table) => <Tab label={table.name} {...TabProps(table.index)} />);
+  const getTabs = () => {
+    return tables.map((table) => <Tab className={classes.tab} label={table.name} {...TabProps(table.index)} />);
   };
 
   return (
@@ -54,7 +59,7 @@ const TimeTableTabMenu = ({ tables, seletedTab, onTimeTableTabChange }: TimeTabl
       scrollButtons="auto"
       aria-label="timetable select tabs">
       <Tab className={classes.tabHead} label="" {...TabProps(0)} />
-      {fillTable()}
+      {getTabs()}
     </Tabs>
   );
 };
