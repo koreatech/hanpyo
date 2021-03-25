@@ -266,6 +266,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
   const fillLectureInfos = (infos: Array<LectureInfos>) => {
+    if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
       return (
         <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
