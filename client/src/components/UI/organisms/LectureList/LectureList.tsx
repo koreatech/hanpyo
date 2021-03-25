@@ -264,7 +264,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
 
   const fillSearchedLectureInfos = (infos: Array<LectureInfos>) => {
     return infos.map((elem: LectureInfos) => {
-      return <LectureInfo infos={elem} onClick={onLectureSearchClickListener} />;
+      return <LectureInfo infos={elem} onClick={onLectureSearchClickListener} isBasketList={isBasketList} />;
     });
   };
 

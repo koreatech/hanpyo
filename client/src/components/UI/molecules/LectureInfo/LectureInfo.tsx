@@ -57,9 +57,10 @@ interface LectureInfoProps {
   isHeader?: boolean;
   infos: LectureInfos;
   onClick: (infos: LectureInfos) => void;
+  isBasketList?: boolean;
 }
 
-const LectureInfo = ({ isHeader = false, infos, onClick }: LectureInfoProps): JSX.Element => {
+const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
   const { snackbarStore } = useStores();
@@ -82,7 +83,7 @@ const LectureInfo = ({ isHeader = false, infos, onClick }: LectureInfoProps): JS
     return times.reduce((acc, curr) => acc + convertTimeToString(curr), '');
   };
   return (
-    <Tooltip title="시간표에 추가하기" placement="left" arrow disableHoverListener={isHeader}>
+    <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
       <Box className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
           {infos.code}
