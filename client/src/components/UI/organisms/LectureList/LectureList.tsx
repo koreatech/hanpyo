@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
-import { addLectureToTable } from '@/stores/timetable';
+import { addLectureToTable, removeLectureFromTable } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
 interface LectureListProps {
@@ -262,17 +262,25 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   const classes = useStyles({ isBasketList });
   const { snackbarStore } = useStores();
 
-  const fillSearchedLectureInfos = (infos: Array<LectureInfos>) => {
+  const fillLectureInfos = (infos: Array<LectureInfos>) => {
     return infos.map((elem: LectureInfos) => {
-      return <LectureInfo infos={elem} onClick={onLectureSearchClickListener} isBasketList={isBasketList} />;
+      return (
+        <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
+      );
     });
   };
 
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
-    const { time, name, prof } = lectureInfos;
-    addLectureToTable({ time, name, prof });
+    addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+
+  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    removeLectureFromTable(lectureInfos.name);
+    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
 
@@ -280,7 +288,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     <Box className={classes.rootWrapper}>
       <Box className={classes.root}>
         <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
-        <Box className={classes.itemWrapper}>{fillSearchedLectureInfos(testData)}</Box>
+        <Box className={classes.itemWrapper}>{fillLectureInfos(testData)}</Box>
       </Box>
     </Box>
   );

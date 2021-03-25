@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { makeVar } from '@apollo/client';
+import { LectureInfos } from '@/components/UI/molecules';
 
 interface TableInfo {
   name: string;
@@ -59,7 +60,7 @@ const modalInfo = makeVar<modalInfoType>({
   buttonTitle: '',
   onSubmit: () => {},
 });
-const lectures = makeVar<Array<LectureInfo[]>>([]);
+const lectures = makeVar<Array<LectureInfos[]>>([]);
 
 const selectTab = (index: any) => {
   nowSelectedTab(index);
@@ -103,7 +104,7 @@ const setModal = (type: string) => {
   modalState(true);
 };
 
-function addLectureToTable(input: LectureInfo): void {
+function addLectureToTable(input: LectureInfos): void {
   if (!nowSelectedTab()) return;
   const isNoDuplicateLecture = lectures()[nowSelectedTab() - 1].every((curr) => curr.name !== input.name);
   if (!isNoDuplicateLecture) return;
@@ -126,7 +127,7 @@ function removeLectureFromTable(input: string): void {
   lectures(newLectures);
 }
 
-function getLecturesFromTable(): LectureInfo[] {
+function getLecturesFromTable(): LectureInfos[] {
   return lectures()[nowSelectedTab()];
 }
 
