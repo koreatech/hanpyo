@@ -36,7 +36,7 @@ TimeTableMenu.args = {
       name: '시간표5',
     },
   ],
-  seletedTab: 0,
+  seletedTab: 1,
   onTimeTableTabChange: action('onClick'),
   onTabAddBtnClick: action('onClick'),
   onTabRemoveBtnClick: action('onClick'),

@@ -16,26 +16,26 @@ export const defaultTimeTableTabMenu = Template.bind({});
 defaultTimeTableTabMenu.args = {
   tables: [
     {
-      index: 0,
+      index: 1,
       name: '시간표1',
     },
     {
-      index: 1,
+      index: 2,
       name: '시간표2',
     },
     {
-      index: 2,
+      index: 3,
       name: '시간표3',
     },
     {
-      index: 3,
+      index: 4,
       name: '시간표4',
     },
     {
-      index: 4,
+      index: 5,
       name: '시간표5',
     },
   ],
-  seletedTab: 0,
+  seletedTab: 1,
   onTimeTableTabChange: action('onClick'),
 };
