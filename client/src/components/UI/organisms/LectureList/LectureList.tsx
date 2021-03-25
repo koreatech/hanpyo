@@ -3,7 +3,8 @@ import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
-import { addLectureToTable, removeLectureFromTable } from '@/stores/timetable';
+import { useReactiveVar } from '@apollo/client';
+import { addLectureToTable, removeLectureFromTable, lectures, nowSelectedTab } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
 interface LectureListProps {
@@ -261,6 +262,9 @@ const testData = [
 const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
   const { snackbarStore } = useStores();
+  const savedLectures = useReactiveVar(lectures);
+  const selectedTabIdx = useReactiveVar(nowSelectedTab);
+  const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
   const fillLectureInfos = (infos: Array<LectureInfos>) => {
     return infos.map((elem: LectureInfos) => {
@@ -288,7 +292,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     <Box className={classes.rootWrapper}>
       <Box className={classes.root}>
         <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
-        <Box className={classes.itemWrapper}>{fillLectureInfos(testData)}</Box>
+        <Box className={classes.itemWrapper}>{fillLectureInfos(isBasketList ? savedLecturesInSelectedTab : testData)}</Box>
       </Box>
     </Box>
   );
