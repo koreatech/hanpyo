@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     boxSizing: 'border-box',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   itemWrapper: {
     display: 'flex',
