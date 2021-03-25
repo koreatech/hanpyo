@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   tab: {
-    '& .MuiTab-root': {
-      minWidth: '6.25rem',
+    width: '6.875rem',
+    '@media (min-width: 600px)': {
+      minWidth: '6.875rem !important',
     },
   },
   tabHead: {
