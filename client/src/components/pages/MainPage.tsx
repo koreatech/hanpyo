@@ -31,28 +31,28 @@ const useStyles = makeStyles({
 const MainPage = (): JSX.Element => {
   const classes = useStyles();
   return (
-  <>
-    <Box className={classes.root}>
-      <Header />
-      <Box className={classes.wrapper}>
-        <Box className={classes.left}>
-          <Notice />
-          <TimeTableMenu />
-          <Timetable row={10} containedSat={false} />
+    <>
+      <Box className={classes.root}>
+        <Header />
+        <Box className={classes.wrapper}>
+          <Box className={classes.left}>
+            <Notice />
+            <TimeTableMenu />
+            <Timetable row={10} containedSat={false} />
+          </Box>
+          <Box className={classes.right}>
+            <SubTitle>강의 찾기</SubTitle>
+            <SearchBar />
+            <LectureList />
+            <SubTitle>나만의 스케줄 추가</SubTitle>
+            <SubTitle>장바구니</SubTitle>
+            <LectureList isBasketList />
+          </Box>
         </Box>
-        <Box className={classes.right}>
-          <SubTitle>강의 찾기</SubTitle>
-          <SearchBar />
-          <LectureList />
-          <SubTitle>나만의 스케줄 추가</SubTitle>
-          <SubTitle>장바구니</SubTitle>
-          <LectureList isBasketList />
-        </Box>
+        <AlertSnackbar />
+        <ModalPopup />
       </Box>
-      <AlertSnackbar />
-      <ModalPopup />
-    </Box>
-  </>
+    </>
   );
 };
 
