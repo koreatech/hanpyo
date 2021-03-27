@@ -11,15 +11,17 @@ const ModalPopup = (): JSX.Element => {
   const nowModalType = useReactiveVar(modalType);
 
   const onModalCloseListener = () => {
-    alert('close');
+    modalStore.setModalState(false);
   };
 
   const onTabAddModalBtnClickListener = () => {
     alert('add');
+    modalStore.setModalState(false);
   };
 
   const onTabRemoveModalBtnClickListener = () => {
     alert('remove');
+    modalStore.setModalState(false);
   };
 
   const getModalPopup = (): JSX.Element => {
