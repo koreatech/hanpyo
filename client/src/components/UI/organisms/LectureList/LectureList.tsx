@@ -1,29 +1,52 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { LectureInfo, LectureInfos } from './LectureInfo/LectureInfo';
+import { SnackbarType } from '@/components/UI/atoms';
+import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
+import { useReactiveVar } from '@apollo/client';
+import { addLectureToTable, removeLectureFromTable, lectures, nowSelectedTab } from '@/stores/timetable';
+import { useStores } from '@/stores';
+
+interface LectureListProps {
+  isBasketList?: boolean;
+}
+
+interface CSSProps {
+  isBasketList?: boolean;
+}
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
+  rootWrapper: {
     width: '35rem',
-    height: '22.5rem',
+    height: (props: CSSProps) => (props.isBasketList ? '12rem' : '19rem'),
+    margin: '1.2rem 0 0 0',
+    padding: '0 0.2rem 0.4rem 0.2rem',
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.grey[400]}`,
     borderRadius: '0.7rem',
+  },
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    boxSizing: 'border-box',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   itemWrapper: {
     display: 'flex',
     flexDirection: 'column',
+    marginLeft: '0.25rem',
     width: '100%',
     alignItems: 'center',
     overflow: 'auto',
     '&::-webkit-scrollbar': {
       width: '0.3rem',
-      display: 'none',
+      display: 'block',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.grey[300],
+      borderRadius: '0.7rem',
     },
   },
 }));
@@ -49,7 +72,7 @@ const testData = [
     personnel: '25',
     dept: '디자인건축공학부',
     time: [
-      { start: 3660, end: 3720 },
+      { start: 3690, end: 3720 },
       { start: 540, end: 600 },
     ],
   },
@@ -235,19 +258,45 @@ const testData = [
   },
 ];
 
-const SearchResults = (): JSX.Element => {
-  const classes = useStyles();
-  const fillInfos = (infos: Array<LectureInfos>) => {
+const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
+  const classes = useStyles({ isBasketList });
+  const { snackbarStore } = useStores();
+  const savedLectures = useReactiveVar(lectures);
+  const selectedTabIdx = useReactiveVar(nowSelectedTab);
+  const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
+
+  const fillLectureInfos = (infos: Array<LectureInfos>) => {
+    if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
-      return <LectureInfo infos={elem} />;
+      return (
+        <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
+      );
     });
   };
+
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    addLectureToTable(lectureInfos);
+    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+
+  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    removeLectureFromTable(lectureInfos.name);
+    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+
   return (
-    <Box className={classes.root}>
-      <LectureInfo isHeader infos={headerInfos} />
-      <Box className={classes.itemWrapper}>{fillInfos(testData)}</Box>
+    <Box className={classes.rootWrapper}>
+      <Box className={classes.root}>
+        <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
+        <Box className={classes.itemWrapper}>{fillLectureInfos(isBasketList ? savedLecturesInSelectedTab : testData)}</Box>
+      </Box>
     </Box>
   );
 };
 
-export { SearchResults };
+export { LectureList };
+export type { LectureListProps };

@@ -1,28 +1,17 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
+import { LectureInfos } from '@/components/UI/molecules';
 
 interface TableInfo {
   name: string;
   index: number;
 }
 
-interface TimeTypes {
-  start: number;
-  end: number;
-}
-
-interface LectureInfo {
-  time: Array<TimeTypes>;
-  name: string;
-  class?: string;
-  prof: string;
-}
-
 interface TimeTableStoreState {
   selectedTabIdx: ReactiveVar<any>;
   tables: ReactiveVar<TableInfo[]>;
   tableIndex: ReactiveVar<number>;
-  lectures: ReactiveVar<Array<LectureInfo[]>>;
+  lectures: ReactiveVar<Array<LectureInfos[]>>;
 }
 
 class TimeTableStore {
@@ -36,7 +25,7 @@ class TimeTableStore {
       selectedTabIdx: makeVar<any>(false),
       tables: makeVar<TableInfo[]>([]),
       tableIndex: makeVar(0),
-      lectures: makeVar<Array<LectureInfo[]>>([]),
+      lectures: makeVar<Array<LectureInfos[]>>([]),
     };
   }
 
@@ -86,7 +75,7 @@ class TimeTableStore {
     modalStore.setModalState(false);
   }
 
-  addLectureToTable(input: LectureInfo): void {
+  addLectureToTable(input: LectureInfos): void {
     const { selectedTabIdx, lectures } = this.state;
     if (!selectedTabIdx()) return;
     const newLecture = [...lectures()[selectedTabIdx()], input];
@@ -97,7 +86,7 @@ class TimeTableStore {
     lectures(newLectures);
   }
 
-  getLecturesFromTable(): LectureInfo[] {
+  getLecturesFromTable(): LectureInfos[] {
     const { selectedTabIdx, lectures } = this.state;
     return lectures()[selectedTabIdx()];
   }

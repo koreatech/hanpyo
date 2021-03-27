@@ -9,6 +9,4 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-const Template = () => <Notice />;
-
-export const MainNotice = Template.bind({});
+export const notice = () => <Notice />;

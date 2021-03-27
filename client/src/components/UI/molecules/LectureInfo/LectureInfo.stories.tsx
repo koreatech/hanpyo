@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { LectureInfo, LectureInfoProps } from './LectureInfo';
 
 export default {
-  title: 'molecules/SearchResult/LectureInfo',
+  title: 'molecules/LectureInfo',
   component: LectureInfo,
   decorators: [withKnobs],
 } as Meta;

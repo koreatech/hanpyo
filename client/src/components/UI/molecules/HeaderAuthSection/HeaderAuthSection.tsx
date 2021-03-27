@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderLoginTab = (): JSX.Element => {
+const HeaderAuthSection = (): JSX.Element => {
   const classes = useStyles();
   return (
     <Box className={classes.logintab}>
@@ -42,4 +42,4 @@ const HeaderLoginTab = (): JSX.Element => {
   );
 };
 
-export { HeaderLoginTab };
+export { HeaderAuthSection };

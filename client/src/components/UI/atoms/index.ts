@@ -7,3 +7,4 @@ export { LectureInfoTitle, LectureInfoTitleType } from './LectureInfoTitle/Lectu
 export { LectureInfoDivider } from './LectureInfoDivider/LectureInfoDivider';
 export { LectureBox } from './LectureBox/LectureBox';
 export { AlertSnackbar, SnackbarType } from './AlertSnackbar/AlertSnackbar';
+export { HeaderMenu } from './HeaderMenu/HeaderMenu';

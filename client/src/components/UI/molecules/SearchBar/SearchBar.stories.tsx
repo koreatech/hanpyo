@@ -9,6 +9,4 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-const Template = () => <SearchBar />;
-
-export const MainSearchBar = Template.bind({});
+export const searchBar = () => <SearchBar />;

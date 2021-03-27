@@ -92,6 +92,7 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
     if (selectedTabIdx === 0) return <></>;
     const lectureInfos = Lectures[selectedTabIdx - 1];
     return lectureInfos.map((elem) => {
+      if (typeof elem.time === 'string') return <></>;
       return elem.time.map((time) => {
         return <LectureBox starttime={time.start} endtime={time.end} name={elem.name} division={elem.class} prof={elem.prof} />;
       });
