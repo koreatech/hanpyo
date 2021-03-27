@@ -1,10 +1,10 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
-import { Timetable, Notice, SelectTab, SearchBar, SubTitle } from '@/components/UI/molecules';
-import { LectureList, Header } from '@/components/UI/organisms';
+import { Timetable, Notice, SearchBar, SubTitle } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
+import { Header, LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -26,17 +26,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     width: '35rem',
   },
-}));
+});
 
 const MainPage = (): JSX.Element => {
   const classes = useStyles();
   return (
+  <>
     <Box className={classes.root}>
       <Header />
       <Box className={classes.wrapper}>
         <Box className={classes.left}>
           <Notice />
-          <SelectTab />
+          <TimeTableMenu />
           <Timetable row={10} containedSat={false} />
         </Box>
         <Box className={classes.right}>
@@ -49,7 +50,9 @@ const MainPage = (): JSX.Element => {
         </Box>
       </Box>
       <AlertSnackbar />
+      <ModalPopup />
     </Box>
+  </>
   );
 };
 

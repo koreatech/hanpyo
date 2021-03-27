@@ -11,3 +11,7 @@ export { TimeTableModalContent, TimeTableModalType } from './TimeTableModalConte
 export type { TimeTableModalContentProps } from './TimeTableModalContent/TimeTableModalContent';
 export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';
 export { SubTitle } from './SubTitle/SubTitle';
+export { TimeTableTabBtnGroup } from './TimeTableTabBtnGroup/TimeTableTabBtnGroup';
+export type { TimeTableTabBtnGroupProps } from './TimeTableTabBtnGroup/TimeTableTabBtnGroup';
+export { TimeTableTabMenu } from './TimeTableTabMenu/TimeTableTabMenu';
+export type { TimeTableTabMenuProps } from './TimeTableTabMenu/TimeTableTabMenu';

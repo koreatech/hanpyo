@@ -11,14 +11,16 @@ interface TimeTableModalContentProps {
   onModalClose?: () => void;
 }
 
-const MODAL_TITLE = {
-  [TimeTableModalType.TAB_ADD_MODAL]: '시간표 탭 추가',
-  [TimeTableModalType.TAB_REMOVE_MODAL]: '시간표 탭 삭제',
-};
-const TAB_INPUT_LABEL = '탭 이름';
-const SUBMIT_BTN_NAME = {
-  [TimeTableModalType.TAB_ADD_MODAL]: '추가',
-  [TimeTableModalType.TAB_REMOVE_MODAL]: '삭제',
+const MODAL_INFO = {
+  [TimeTableModalType.TAB_ADD_MODAL]: {
+    TITLE: '시간표 탭을 추가할까요?',
+    TAB_LABLE: '탭 이름',
+    SUBNIT_BTN_NAME: '추가',
+  },
+  [TimeTableModalType.TAB_REMOVE_MODAL]: {
+    TITLE: '시간표 탭을 삭제할까요?',
+    SUBNIT_BTN_NAME: '삭제',
+  },
 };
 
 const TimeTableModalContent = ({ modalType, onModalClose }: TimeTableModalContentProps): JSX.Element => {
@@ -26,7 +28,7 @@ const TimeTableModalContent = ({ modalType, onModalClose }: TimeTableModalConten
 
   const getTextField = (timeTablemodalType: TimeTableModalType): JSX.Element | null => {
     if (isTabAddModal(timeTablemodalType)) {
-      return <TextField autoFocus margin="dense" id="name" label={TAB_INPUT_LABEL} type="email" fullWidth />;
+      return <TextField autoFocus margin="dense" id="name" label={MODAL_INFO[TimeTableModalType.TAB_ADD_MODAL].TAB_LABLE} type="email" fullWidth />;
     }
     return null;
   };
@@ -37,11 +39,11 @@ const TimeTableModalContent = ({ modalType, onModalClose }: TimeTableModalConten
 
   return (
     <>
-      <DialogTitle id="form-dialog-title">{MODAL_TITLE[modalType]}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{MODAL_INFO[modalType].TITLE}</DialogTitle>
       <DialogContent>{getTextField(modalType)}</DialogContent>
       <DialogActions>
         <Button onClick={onModalCloseListener} color="primary">
-          {SUBMIT_BTN_NAME[modalType]}
+          {MODAL_INFO[modalType].SUBNIT_BTN_NAME}
         </Button>
       </DialogActions>
     </>
