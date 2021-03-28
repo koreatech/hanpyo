@@ -283,7 +283,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
 
   const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
-    removeLectureFromTable(lectureInfos.name);
+    timeTableStore.removeLectureFromTable(lectureInfos.name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
