@@ -82,6 +82,16 @@ class TimeTableStore {
     lectures(newLectures);
   }
 
+  removeLectureFromTable(input: string): void {
+    const { selectedTabIdx, lectures } = this.state;
+    const newLecture = [...lectures()[selectedTabIdx() - 1]].filter((elem) => elem.name !== input);
+    const newLectures = lectures().map((elem, idx) => {
+      if (idx === selectedTabIdx() - 1) return newLecture;
+      return elem;
+    });
+    lectures(newLectures);
+  }
+
   getLecturesFromTable(): LectureInfos[] {
     const { selectedTabIdx, lectures } = this.state;
     return lectures()[selectedTabIdx()];
