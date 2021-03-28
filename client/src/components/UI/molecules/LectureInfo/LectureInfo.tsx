@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
-import { useStores } from '@/stores';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +62,6 @@ interface LectureInfoProps {
 const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
-  const { snackbarStore } = useStores();
   const convertNumberToTime = (time: number) => {
     const hour = Math.floor((time % 1440) / 60)
       .toString()

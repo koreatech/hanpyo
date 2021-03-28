@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
 import { useReactiveVar } from '@apollo/client';
-import { addLectureToTable, removeLectureFromTable, lectures, nowSelectedTab } from '@/stores/timetable';
 import { useStores } from '@/stores';
 
 interface LectureListProps {
