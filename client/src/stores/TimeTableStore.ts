@@ -38,7 +38,6 @@ class TimeTableStore {
   }
 
   addTable(name: string): void {
-    const { modalStore } = this.rootStore;
     const { tableIndex, tables, lectures } = this.state;
     const nextIndex = tableIndex() + 1;
     const newTable = {
@@ -56,8 +55,7 @@ class TimeTableStore {
     this.selectTab(tables().length);
   }
 
-  removeTable(input: any): void {
-    const { modalStore } = this.rootStore;
+  removeTable(): void {
     const { tables, selectedTabIdx, lectures } = this.state;
 
     if (tables().length === 1) return;

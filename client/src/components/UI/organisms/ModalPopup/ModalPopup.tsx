@@ -20,7 +20,7 @@ const ModalPopup = (): JSX.Element => {
   };
 
   const onTabRemoveModalBtnClickListener = () => {
-    alert('remove');
+    timeTableStore.removeTable();
     modalStore.setModalState(false);
   };
 
