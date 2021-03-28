@@ -54,7 +54,6 @@ class TimeTableStore {
     lectures(newLectures);
 
     this.selectTab(tables().length);
-    modalStore.setModalState(false);
   }
 
   removeTable(input: any): void {
@@ -72,7 +71,6 @@ class TimeTableStore {
     lectures(newLectures);
 
     this.selectTab(nextSelectedTab);
-    modalStore.setModalState(false);
   }
 
   addLectureToTable(input: LectureInfos): void {

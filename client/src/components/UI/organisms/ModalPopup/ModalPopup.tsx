@@ -5,7 +5,7 @@ import { useReactiveVar } from '@apollo/client';
 import { TimeTableModalPopup } from './TimeTableModalPopup';
 
 const ModalPopup = (): JSX.Element => {
-  const { modalStore } = useStores();
+  const { timeTableStore, modalStore } = useStores();
   const { modalState, modalType } = modalStore.state;
   const nowModalState = useReactiveVar(modalState);
   const nowModalType = useReactiveVar(modalType);
@@ -15,7 +15,7 @@ const ModalPopup = (): JSX.Element => {
   };
 
   const onTabAddModalBtnClickListener = () => {
-    alert('add');
+    timeTableStore.addTable('시간표');
     modalStore.setModalState(false);
   };
 
