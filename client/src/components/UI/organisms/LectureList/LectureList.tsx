@@ -260,9 +260,9 @@ const testData = [
 
 const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
-  const { snackbarStore } = useStores();
-  const savedLectures = useReactiveVar(lectures);
-  const selectedTabIdx = useReactiveVar(nowSelectedTab);
+  const { timeTableStore, snackbarStore } = useStores();
+  const savedLectures = useReactiveVar(timeTableStore.state.lectures);
+  const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
   const fillLectureInfos = (infos: Array<LectureInfos>) => {
@@ -276,7 +276,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
 
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
-    addLectureToTable(lectureInfos);
+    timeTableStore.addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };

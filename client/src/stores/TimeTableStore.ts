@@ -76,9 +76,9 @@ class TimeTableStore {
   addLectureToTable(input: LectureInfos): void {
     const { selectedTabIdx, lectures } = this.state;
     if (!selectedTabIdx()) return;
-    const newLecture = [...lectures()[selectedTabIdx()], input];
+    const newLecture = [...lectures()[selectedTabIdx() - 1], input];
     const newLectures = lectures().map((elem, idx) => {
-      if (idx === selectedTabIdx()) return newLecture;
+      if (idx === selectedTabIdx() - 1) return newLecture;
       return elem;
     });
     lectures(newLectures);
