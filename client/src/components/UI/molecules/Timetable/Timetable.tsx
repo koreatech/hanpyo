@@ -2,8 +2,8 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { LectureGrid, LectureBox } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
-import { lectures, nowSelectedTab } from '@/stores/timetable';
 import { useReactiveVar } from '@apollo/client';
+import { useStores } from '@/stores';
 
 interface TimetableProps {
   row: number;
@@ -55,8 +55,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const classes = useStyles({ row, containedSat });
-  const Lectures = useReactiveVar(lectures);
-  const selectedTabIdx = useReactiveVar(nowSelectedTab);
+  const { timeTableStore } = useStores();
+  const Lectures = useReactiveVar(timeTableStore.state.lectures);
+  const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const fillTableHeader = () => {
     const array = [];
     array.push(<Box className={classes.headerFirst} />);
@@ -91,6 +92,7 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const fillTableByLectures = () => {
     if (selectedTabIdx === 0) return <></>;
     const lectureInfos = Lectures[selectedTabIdx - 1];
+    if (!lectureInfos) return <></>;
     return lectureInfos.map((elem) => {
       if (typeof elem.time === 'string') return <></>;
       return elem.time.map((time) => {
