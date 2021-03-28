@@ -2,7 +2,7 @@ import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
 import { Timetable, Notice, SearchBar, SubTitle } from '@/components/UI/molecules';
 import { Box, makeStyles } from '@material-ui/core';
-import { Header, LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
+import { Header, BasketLectureListContainer, SearchedLectureListContainer, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
 
 const useStyles = makeStyles({
   root: {
@@ -43,10 +43,10 @@ const MainPage = (): JSX.Element => {
           <Box className={classes.right}>
             <SubTitle>강의 찾기</SubTitle>
             <SearchBar />
-            <LectureList />
+            <SearchedLectureListContainer />
             <SubTitle>나만의 스케줄 추가</SubTitle>
             <SubTitle>장바구니</SubTitle>
-            <LectureList isBasketList />
+            <BasketLectureListContainer />
           </Box>
         </Box>
         <AlertSnackbar />

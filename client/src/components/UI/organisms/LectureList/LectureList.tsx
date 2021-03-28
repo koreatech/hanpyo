@@ -1,13 +1,12 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
-import { useReactiveVar } from '@apollo/client';
-import { useStores } from '@/stores';
 
 interface LectureListProps {
   isBasketList?: boolean;
+  lectures: Array<LectureInfos>;
+  onClick: (lectureInfos: LectureInfos) => void;
 }
 
 interface CSSProps {
@@ -61,237 +60,21 @@ const headerInfos = {
   time: '시간',
 };
 
-const testData = [
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    class: '01',
-    prof: '도눅스',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111112',
-    name: '신과함께',
-    class: '01',
-    prof: '갓우진',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 2340, end: 2460 }],
-  },
-  {
-    code: '222222',
-    name: '백엔드 심화과정',
-    class: '01',
-    prof: '백마',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 5100, end: 5160 }],
-  },
-  {
-    code: '333333',
-    name: '허접한 진혀쿠',
-    class: '01',
-    prof: '지녀쿠',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 5400, end: 5520 }],
-  },
-  {
-    code: '444444',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: '555555',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: '666666',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: '777777',
-    name: '디자인',
-    class: '01',
-    prof: '정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYs',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYa',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYb',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYc',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYd',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYe',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYf',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYg',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYh',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYi',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-  {
-    code: 'HANPYO',
-    name: '디자인커뮤니케이션',
-    class: '01',
-    prof: '윤정식',
-    grade: '03',
-    personnel: '25',
-    dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
-  },
-];
-
-const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
+const LectureList = ({ isBasketList = false, lectures, onClick }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
-  const { timeTableStore, snackbarStore } = useStores();
-  const savedLectures = useReactiveVar(timeTableStore.state.lectures);
-  const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
-  const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
   const fillLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
-      return (
-        <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
-      );
+      return <LectureInfo infos={elem} onClick={onClick} isBasketList={isBasketList} />;
     });
-  };
-
-  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
-    timeTableStore.addLectureToTable(lectureInfos);
-    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
-    snackbarStore.setSnackbarState(true);
-  };
-
-  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
-    timeTableStore.removeLectureFromTable(lectureInfos.name);
-    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
-    snackbarStore.setSnackbarState(true);
   };
 
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.root}>
-        <LectureInfo isHeader infos={headerInfos} onClick={onLectureSearchClickListener} />
-        <Box className={classes.itemWrapper}>{fillLectureInfos(isBasketList ? savedLecturesInSelectedTab : testData)}</Box>
+        <LectureInfo isHeader infos={headerInfos} onClick={onClick} />
+        <Box className={classes.itemWrapper}>{fillLectureInfos(lectures)}</Box>
       </Box>
     </Box>
   );
