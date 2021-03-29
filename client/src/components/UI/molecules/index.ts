@@ -15,3 +15,4 @@ export { TimeTableTabBtnGroup } from './TimeTableTabBtnGroup/TimeTableTabBtnGrou
 export type { TimeTableTabBtnGroupProps } from './TimeTableTabBtnGroup/TimeTableTabBtnGroup';
 export { TimeTableTabMenu } from './TimeTableTabMenu/TimeTableTabMenu';
 export type { TimeTableTabMenuProps } from './TimeTableTabMenu/TimeTableTabMenu';
+export { LectureBoxContainer } from './LectureBoxContainer/LectureBoxContainer';
