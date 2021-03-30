@@ -1,11 +1,10 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
+import { LectureInfo, LectureInfos, BasketLectureListBody, SearchedLectureListBody } from '@/components/UI/molecules';
 
 interface LectureListProps {
   isBasketList?: boolean;
-  lectures: Array<LectureInfos>;
   onClick: (lectureInfos: LectureInfos) => void;
 }
 
@@ -31,22 +30,6 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     alignItems: 'center',
   },
-  itemWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '0.25rem',
-    width: '100%',
-    alignItems: 'center',
-    overflow: 'auto',
-    '&::-webkit-scrollbar': {
-      width: '0.3rem',
-      display: 'block',
-    },
-    '&::-webkit-scrollbar-thumb': {
-      backgroundColor: theme.palette.grey[300],
-      borderRadius: '0.7rem',
-    },
-  },
 }));
 
 const headerInfos = {
@@ -60,21 +43,29 @@ const headerInfos = {
   time: '시간',
 };
 
-const LectureList = ({ isBasketList = false, lectures, onClick }: LectureListProps): JSX.Element => {
+const LectureList = ({ isBasketList = false, onClick }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
 
-  const fillLectureInfos = (infos: Array<LectureInfos>) => {
+  const getLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
       return <LectureInfo infos={elem} onClick={onClick} isBasketList={isBasketList} />;
     });
   };
 
+  const getLectureBody = () => {
+    return isBasketList ? (
+      <BasketLectureListBody isBasketList={isBasketList} getLectureInfos={getLectureInfos} />
+    ) : (
+      <SearchedLectureListBody isBasketList={isBasketList} getLectureInfos={getLectureInfos} />
+    );
+  };
+
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.root}>
         <LectureInfo isHeader infos={headerInfos} onClick={onClick} />
-        <Box className={classes.itemWrapper}>{fillLectureInfos(lectures)}</Box>
+        {getLectureBody()}
       </Box>
     </Box>
   );
