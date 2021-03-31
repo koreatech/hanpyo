@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos, BasketLectureListBody, SearchedLectureListBody } from '@/components/UI/molecules';
+import { useStores } from '@/stores';
 
 interface LectureListProps {
   isBasketList?: boolean;
-  onClick: (lectureInfos: LectureInfos) => void;
 }
 
 interface CSSProps {
@@ -43,13 +45,28 @@ const headerInfos = {
   time: '시간',
 };
 
-const LectureList = ({ isBasketList = false, onClick }: LectureListProps): JSX.Element => {
+const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
 
+  const { timeTableStore, snackbarStore } = useStores();
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    timeTableStore.addLectureToTable(lectureInfos);
+    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
+  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    timeTableStore.removeLectureFromTable(lectureInfos.name);
+    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
+    snackbarStore.setSnackbarState(true);
+  };
   const getLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
-      return <LectureInfo infos={elem} onClick={onClick} isBasketList={isBasketList} />;
+      return (
+        <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
+      );
     });
   };
 
@@ -64,7 +81,7 @@ const LectureList = ({ isBasketList = false, onClick }: LectureListProps): JSX.E
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.root}>
-        <LectureInfo isHeader infos={headerInfos} onClick={onClick} />
+        <LectureInfo isHeader infos={headerInfos} onClick={() => {}} />
         {getLectureBody()}
       </Box>
     </Box>
