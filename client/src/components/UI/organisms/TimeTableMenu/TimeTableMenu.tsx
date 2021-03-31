@@ -1,11 +1,13 @@
 import React from 'react';
 import { useStores } from '@/stores';
 import { TimeTableModalType } from '@/components/UI/molecules';
+import { useReactiveVar } from '@apollo/client';
 import { TimeTableMenuArea } from './TimeTableMenuArea';
 
 const TimeTableMenu = (): JSX.Element => {
-  const { modalStore } = useStores();
-
+  const { timeTableStore, modalStore } = useStores();
+  const tables = useReactiveVar(timeTableStore.state.tables);
+  const selectedTab = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const mockTables = [
     {
       index: 1,
@@ -31,8 +33,8 @@ const TimeTableMenu = (): JSX.Element => {
 
   const mockSeletedTab = 1;
 
-  const onTimeTableTabChangeListener = (): void => {
-    alert('onTimeTableTabChangeListener');
+  const onTimeTableTabChangeListener = (e: React.ChangeEvent<{}>, newValue: number): void => {
+    timeTableStore.selectTab(newValue);
   };
 
   const onTabAddBtnClickListener = () => {
@@ -45,8 +47,8 @@ const TimeTableMenu = (): JSX.Element => {
 
   return (
     <TimeTableMenuArea
-      tables={mockTables}
-      seletedTab={mockSeletedTab}
+      tables={tables}
+      seletedTab={selectedTab}
       onTimeTableTabChange={onTimeTableTabChangeListener}
       onTabAddBtnClick={onTabAddBtnClickListener}
       onTabRemoveBtnClick={onTabRemoveBtnClickListener}

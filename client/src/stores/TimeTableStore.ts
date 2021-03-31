@@ -38,7 +38,6 @@ class TimeTableStore {
   }
 
   addTable(name: string): void {
-    const { modalStore } = this.rootStore;
     const { tableIndex, tables, lectures } = this.state;
     const nextIndex = tableIndex() + 1;
     const newTable = {
@@ -54,11 +53,9 @@ class TimeTableStore {
     lectures(newLectures);
 
     this.selectTab(tables().length);
-    modalStore.setModalState(false);
   }
 
-  removeTable(input: any): void {
-    const { modalStore } = this.rootStore;
+  removeTable(): void {
     const { tables, selectedTabIdx, lectures } = this.state;
 
     if (tables().length === 1) return;
@@ -72,15 +69,26 @@ class TimeTableStore {
     lectures(newLectures);
 
     this.selectTab(nextSelectedTab);
-    modalStore.setModalState(false);
   }
 
   addLectureToTable(input: LectureInfos): void {
     const { selectedTabIdx, lectures } = this.state;
     if (!selectedTabIdx()) return;
-    const newLecture = [...lectures()[selectedTabIdx()], input];
+    const isNoDuplicateLecture = lectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
+    if (!isNoDuplicateLecture) return;
+    const newLecture = [...lectures()[selectedTabIdx() - 1], input];
     const newLectures = lectures().map((elem, idx) => {
-      if (idx === selectedTabIdx()) return newLecture;
+      if (idx === selectedTabIdx() - 1) return newLecture;
+      return elem;
+    });
+    lectures(newLectures);
+  }
+
+  removeLectureFromTable(input: string): void {
+    const { selectedTabIdx, lectures } = this.state;
+    const newLecture = [...lectures()[selectedTabIdx() - 1]].filter((elem) => elem.name !== input);
+    const newLectures = lectures().map((elem, idx) => {
+      if (idx === selectedTabIdx() - 1) return newLecture;
       return elem;
     });
     lectures(newLectures);

@@ -2,13 +2,12 @@ import React from 'react';
 import { Box, Typography, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { removeLectureFromTable } from '@/stores/timetable';
 import { useStores } from '@/stores';
 import { SnackbarType } from '@/components/UI/atoms';
 
 interface LectureBoxProps {
-  starttime: number;
-  endtime: number;
+  startTime: number;
+  endTime: number;
   bgcolor?: string;
   name: string;
   division?: string;
@@ -62,14 +61,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureBox = ({ starttime, endtime, bgcolor, name, division, prof }: LectureBoxProps): JSX.Element => {
-  const columnPos = Math.floor(starttime / 1440);
-  const rowStartPos = ((starttime % 1440) - 540) / 30;
-  const rowEndPos = (endtime - starttime) / 30;
+const LectureBox = ({ startTime, endTime, bgcolor, name, division, prof }: LectureBoxProps): JSX.Element => {
+  const columnPos = Math.floor(startTime / 1440);
+  const rowStartPos = ((startTime % 1440) - 540) / 30;
+  const rowEndPos = (endTime - startTime) / 30;
   const classes = useStyles({ columnPos, rowStartPos, rowEndPos, bgcolor });
-  const { snackbarStore } = useStores();
+  const { timeTableStore, snackbarStore } = useStores();
   const onClickHandler = () => {
-    removeLectureFromTable(name);
+    timeTableStore.removeLectureFromTable(name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };

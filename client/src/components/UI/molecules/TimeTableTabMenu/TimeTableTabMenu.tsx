@@ -11,7 +11,7 @@ interface TableInfo {
 interface TimeTableTabMenuProps {
   tables: Array<TableInfo>;
   seletedTab: number;
-  onTimeTableTabChange: () => void;
+  onTimeTableTabChange: (e: React.ChangeEvent<{}>, newValue: number) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
