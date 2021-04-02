@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import { LectureGrid } from '@/components/UI/atoms';
@@ -37,6 +38,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: theme.palette.grey[600],
+    '&:first-of-type': {
+      borderTopLeftRadius: `1rem`,
+    },
+    '&:nth-of-type(6)': {
+      borderTopRightRadius: `1rem`,
+    },
   },
   headerFirst: {
     backgroundColor: '#fffaf3',
@@ -52,21 +59,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const days = [
+  { id: 1, name: 'Mon' },
+  { id: 2, name: 'Tue' },
+  { id: 3, name: 'Wed' },
+  { id: 4, name: 'Thu' },
+  { id: 5, name: 'Fri' },
+  { id: 6, name: 'Sat' },
+];
+
+interface dayType {
+  id: number;
+  name: string;
+}
+
 const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const classes = useStyles({ row, containedSat });
 
   const fillTableHeader = () => {
-    const array = [];
-    array.push(<Box className={classes.headerFirst} />);
-    array.push(<Box className={classes.header}>Mon</Box>);
-    array.push(<Box className={classes.header}>Tue</Box>);
-    array.push(<Box className={classes.header}>Wed</Box>);
-    array.push(<Box className={classes.header}>Thu</Box>);
-
-    if (containedSat) {
-      array.push(<Box className={classes.header}>Fri</Box>);
-      array.push(<Box className={classes.headerEnd}>Sat</Box>);
-    } else array.push(<Box className={classes.headerEnd}>Fri</Box>);
+    // return days.reduce<JSX.Element | Element | Element[]>(
+    //   (acc: JSX.Element | Element | Element[], day: dayType) => {
+    //     if (!containedSat && day.name === 'Sat') {
+    //       return acc;
+    //     }
+    //     return (
+    //       <Box key={day.id} className={classes.header}>
+    //         {day.name}
+    //       </Box>
+    //     );
+    //   },
+    //   [<Box key={0} className={classes.header} />],
+    // );
+    const array = [<Box key={0} className={classes.header} />];
+    for (let i = 0; i < days.length; i += 1) {
+      const day = days[i];
+      if (i === 5) {
+        if (!containedSat) continue;
+      }
+      array.push(
+        <Box key={day.id} className={classes.header}>
+          {day.name}
+        </Box>,
+      );
+    }
     return array;
   };
   const makeRow = (time: number) => {

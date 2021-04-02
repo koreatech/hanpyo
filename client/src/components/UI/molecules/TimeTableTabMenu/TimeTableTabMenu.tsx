@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tab: {
     width: '6.875rem',
-    '@media (min-width: 600px)': {
+    '@media (minWidth: 600px)': {
       minWidth: '6.875rem !important',
     },
   },
@@ -47,7 +47,7 @@ const TimeTableTabMenu = ({ tables, seletedTab, onTimeTableTabChange }: TimeTabl
   const classes = useStyles();
 
   const getTabs = () => {
-    return tables.map((table) => <Tab className={classes.tab} label={table.name} {...TabProps(table.index)} />);
+    return tables.map((table) => <Tab key={table.index} className={classes.tab} label={table.name} {...TabProps(table.index)} />);
   };
 
   return (

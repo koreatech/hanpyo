@@ -9,13 +9,13 @@ const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
 });
 
-// subscription socket 통신 주소
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql`,
-  options: {
-    reconnect: true,
-  },
-});
+// // subscription socket 통신 주소
+// const wsLink = new WebSocketLink({
+//   uri: `ws://localhost:4000/graphql`,
+//   options: {
+//     reconnect: true,
+//   },
+// });
 
 // 작성한 두 주소 병합
 const link = split(
@@ -23,7 +23,7 @@ const link = split(
     const { kind, operation } = getMainDefinition(query) as OperationDefinitionNode;
     return kind === 'OperationDefinition' && operation === 'subscription';
   },
-  wsLink,
+  // wsLink,
   httpLink,
 );
 
