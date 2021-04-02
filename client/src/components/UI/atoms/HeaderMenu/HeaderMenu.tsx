@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   text: {
-    color: theme.palette.grey[400],
+    color: theme.palette.grey[500],
   },
 }));
 
