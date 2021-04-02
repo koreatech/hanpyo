@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import Box from '@material-ui/core/Box';
-import { Typography, TypographyType } from '@/components/UI/atoms';
+import React from 'react';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface HeaderMenuProps {
@@ -19,17 +18,22 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.main,
       borderBottom: `1rem solid ${theme.palette.primary.main}`,
       borderTop: `1rem solid ${theme.palette.secondary.main}`,
+      '& .MuiTypography-root': {
+        color: theme.palette.primary.main,
+      },
     },
+  },
+  text: {
+    color: theme.palette.grey[400],
   },
 }));
 
 const HeaderMenu = ({ children }: HeaderMenuProps): JSX.Element => {
   const classes = useStyles();
-  const [isHover, setIsHover] = useState(false);
 
   return (
-    <Box className={classes.menu} onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <Typography size="L" typoType={isHover ? TypographyType.primary : TypographyType.secondaryDark}>
+    <Box className={classes.menu}>
+      <Typography className={classes.text} variant="h4">
         {children}
       </Typography>
     </Box>
