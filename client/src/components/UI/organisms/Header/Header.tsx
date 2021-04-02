@@ -1,6 +1,6 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import { Typography, TypographyType, HeaderMenu } from '@/components/UI/atoms';
+import { Box, Typography } from '@material-ui/core';
+import { HeaderMenu } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { HeaderAuthSection } from '@/components/UI/molecules';
@@ -33,7 +33,7 @@ const Header = (): JSX.Element => {
   return (
     <Box bgcolor="secondary.main" className={classes.wrapper}>
       <Box className={classes.container}>
-        <Typography size="XL" typoType={TypographyType.primary}>
+        <Typography variant="h3" color="primary">
           한표
         </Typography>
         <HeaderMenu>시간표짜기</HeaderMenu>
