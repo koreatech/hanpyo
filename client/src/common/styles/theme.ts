@@ -24,6 +24,9 @@ const theme = createMuiTheme({
       },
     },
   },
+  typography: {
+    fontFamily: ['AppleSDGothicNeo'].join(','),
+  },
   palette: {
     primary: {
       main: '#ffb84d',
