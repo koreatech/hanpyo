@@ -65,7 +65,12 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
       return (
-        <LectureInfo infos={elem} onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener} isBasketList={isBasketList} />
+        <LectureInfo
+          key={elem.code}
+          infos={elem}
+          onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
+          isBasketList={isBasketList}
+        />
       );
     });
   };
