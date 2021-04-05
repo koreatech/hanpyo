@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Tooltip } from '@material-ui/core';
+import { Box, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0.25rem 0rem',
   },
   item: {
-    height: '1.8rem',
+    height: '2rem',
     padding: `0.25rem 0rem`,
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
@@ -78,7 +78,9 @@ const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }:
   };
   const getLectureTime = (times: Array<TimeTypes> | string) => {
     if (typeof times === 'string') return times;
-    return times.reduce((acc, curr) => acc + convertTimeToString(curr), '');
+    return times.map((time) => {
+      return <Typography variant="caption">{convertTimeToString(time)}</Typography>;
+    });
   };
   return (
     <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
