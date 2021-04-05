@@ -15,7 +15,7 @@ enum LectureInfoTitleType {
 
 interface TitleProps {
   className: LectureInfoTitleType;
-  children: React.ReactChild;
+  children: any;
   isHeader: boolean;
 }
 
@@ -54,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
     width: '18%',
   },
   text: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: (props: CSSProps) => (props.isHeader ? theme.palette.grey[500] : theme.palette.grey[800]),
   },
 }));
