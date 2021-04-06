@@ -6,3 +6,4 @@ export { LectureInfoDivider } from './LectureInfoDivider/LectureInfoDivider';
 export { LectureBox } from './LectureBox/LectureBox';
 export { AlertSnackbar, SnackbarType } from './AlertSnackbar/AlertSnackbar';
 export { HeaderMenu } from './HeaderMenu/HeaderMenu';
+export { SelectMenu } from './SelectMenu/SelectMenu';
