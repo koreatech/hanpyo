@@ -33,16 +33,12 @@ const TimeTableModalContent = ({ modalType, onModalClose }: TimeTableModalConten
     return null;
   };
 
-  const onModalCloseListener = () => {
-    if (onModalClose) onModalClose();
-  };
-
   return (
     <>
       <DialogTitle id="form-dialog-title">{MODAL_INFO[modalType].TITLE}</DialogTitle>
       <DialogContent>{getTextField(modalType)}</DialogContent>
       <DialogActions>
-        <Button onClick={onModalCloseListener} color="primary">
+        <Button onClick={onModalClose} color="primary">
           {MODAL_INFO[modalType].SUBMIT_BTN_NAME}
         </Button>
       </DialogActions>
