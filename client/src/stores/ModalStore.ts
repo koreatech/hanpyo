@@ -1,10 +1,10 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
-import { TimeTableModalType } from '@/components/UI/molecules';
+import { ModalType, modalTypes } from '@/components/UI/organisms';
 
 interface ModalStoreState {
   modalState: ReactiveVar<boolean>;
-  modalType: ReactiveVar<TimeTableModalType>;
+  modalType: ReactiveVar<ModalType>;
 }
 
 class ModalStore {
@@ -16,16 +16,16 @@ class ModalStore {
     this.rootStore = rootStore;
     this.state = {
       modalState: makeVar<boolean>(false),
-      modalType: makeVar<TimeTableModalType>(TimeTableModalType.TAB_ADD_MODAL),
+      modalType: makeVar<ModalType>(modalTypes.TAB_ADD_MODAL),
     };
   }
 
-  changeModalState(newModalType: TimeTableModalType, newModalState: boolean): void {
+  changeModalState(newModalType: ModalType, newModalState: boolean): void {
     this.setModalType(newModalType);
     this.setModalState(newModalState);
   }
 
-  setModalType(newModalType: TimeTableModalType): void {
+  setModalType(newModalType: ModalType): void {
     const { modalType } = this.state;
 
     if (modalType() === newModalType) return;
