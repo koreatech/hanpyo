@@ -41,3 +41,4 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
 };
 
 export { LoginModalContent, LoginModalType };
+export type { LoginModalContentProps };
