@@ -1,14 +1,20 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { TimeTableModalType } from '@/components/UI/molecules';
+import { TimeTableModalType, LoginModalType } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
 import { TimeTableModalPopup } from './TimeTableModalPopup';
+import { LoginModalPopup } from './LoginModalPopup';
+
+type ModalType = TimeTableModalType | LoginModalType;
+
+const modalTypes = { ...TimeTableModalType, ...LoginModalType };
 
 const ModalPopup = (): JSX.Element => {
   const { timeTableStore, modalStore } = useStores();
   const { modalState, modalType } = modalStore.state;
   const nowModalState = useReactiveVar(modalState);
-  const nowModalType = useReactiveVar(modalType);
+  const nowModalType = useReactiveVar<ModalType>(modalType);
 
   const onModalCloseListener = () => {
     modalStore.setModalState(false);
@@ -25,7 +31,7 @@ const ModalPopup = (): JSX.Element => {
   };
 
   const getModalPopup = (): JSX.Element => {
-    if (nowModalType === TimeTableModalType.TAB_ADD_MODAL)
+    if (nowModalType === modalTypes.TAB_ADD_MODAL)
       return (
         <TimeTableModalPopup
           modalOpen={nowModalState}
@@ -34,17 +40,20 @@ const ModalPopup = (): JSX.Element => {
           onModalAreaClose={onModalCloseListener}
         />
       );
-    return (
-      <TimeTableModalPopup
-        modalOpen={nowModalState}
-        modalType={nowModalType}
-        onModalBtnClick={onTabRemoveModalBtnClickListener}
-        onModalAreaClose={onModalCloseListener}
-      />
-    );
+    if (nowModalType === modalTypes.TAB_REMOVE_MODAL)
+      return (
+        <TimeTableModalPopup
+          modalOpen={nowModalState}
+          modalType={nowModalType}
+          onModalBtnClick={onTabRemoveModalBtnClickListener}
+          onModalAreaClose={onModalCloseListener}
+        />
+      );
+    return <LoginModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
   };
 
   return <>{getModalPopup()}</>;
 };
 
-export { ModalPopup };
+export { ModalPopup, modalTypes };
+export type { ModalType };
