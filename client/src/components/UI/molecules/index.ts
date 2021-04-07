@@ -17,3 +17,4 @@ export type { TimeTableTabMenuProps } from './TimeTableTabMenu/TimeTableTabMenu'
 export { LectureBoxContainer } from './LectureBoxContainer/LectureBoxContainer';
 export { BasketLectureListBody } from './LectureListBody/BasketLectureListBody';
 export { SearchedLectureListBody } from './LectureListBody/SearchedLectureListBody';
+export { LoginModalContent, LoginModalType } from './LoginModalContent/LoginModalContent';
