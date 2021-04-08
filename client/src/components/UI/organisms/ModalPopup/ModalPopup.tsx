@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { TimeTableModalType, LoginModalType } from '@/components/UI/molecules';
+import { TimeTableModalType, LoginModalType, SignUpModalType } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
 import { TimeTableModalPopup } from './TimeTableModalPopup';
 import { LoginModalPopup } from './LoginModalPopup';
+import { SignUpModalPopup } from './SignUpModalPopup';
 
-type ModalType = TimeTableModalType | LoginModalType;
+type ModalType = TimeTableModalType | LoginModalType | SignUpModalType;
 
-const modalTypes = { ...TimeTableModalType, ...LoginModalType };
+const modalTypes = { ...TimeTableModalType, ...LoginModalType, ...SignUpModalType };
 
 const ModalPopup = (): JSX.Element => {
   const { timeTableStore, modalStore } = useStores();
@@ -49,6 +50,9 @@ const ModalPopup = (): JSX.Element => {
           onModalAreaClose={onModalCloseListener}
         />
       );
+    if (nowModalType === modalTypes.SIGN_UP_MODAL)
+      return <SignUpModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
+
     return <LoginModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
   };
 
