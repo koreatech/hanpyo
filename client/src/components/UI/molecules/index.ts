@@ -20,3 +20,4 @@ export { SearchedLectureListBody } from './LectureListBody/SearchedLectureListBo
 export { LoginModalContent, LoginModalType } from './LoginModalContent/LoginModalContent';
 export { LectureSearchFilterMenu } from './LectureSearchFilter/LectureSearchFilterMenu';
 export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
+export { SignUpModalContent, SignUpModalType } from './SignUpModalContent/SignUpModalContent';
