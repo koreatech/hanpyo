@@ -4,7 +4,8 @@ import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface HeaderAuthSectionAreaProps {
-  onClick: () => void;
+  onLoginClick: () => void;
+  onSignUpClick: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -25,24 +26,27 @@ const useStyles = makeStyles((theme) => ({
   },
   authText: {
     color: theme.palette.grey[600],
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   promotionText: {
     color: theme.palette.grey[400],
   },
 }));
 
-const HeaderAuthSectionArea = ({ onClick }: HeaderAuthSectionAreaProps): JSX.Element => {
+const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectionAreaProps): JSX.Element => {
   const classes = useStyles();
   return (
     <Box className={classes.loginSection}>
       <Typography className={classes.promotionText} variant="caption">
         한표를 더 편리하게 이용하세요
       </Typography>
-      <Button btnType={ButtonType.login} onClick={onClick}>
+      <Button btnType={ButtonType.login} onClick={onLoginClick}>
         로 그 인
       </Button>
       <Box className={classes.menu}>
-        <Typography className={classes.authText} variant="caption">
+        <Typography className={classes.authText} variant="caption" onClick={onSignUpClick}>
           회 원 가 입
         </Typography>
         <Box className={classes.divider} />
