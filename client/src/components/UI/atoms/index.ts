@@ -7,3 +7,6 @@ export { LectureBox } from './LectureBox/LectureBox';
 export { AlertSnackbar, SnackbarType } from './AlertSnackbar/AlertSnackbar';
 export { HeaderMenu } from './HeaderMenu/HeaderMenu';
 export { SelectMenu } from './SelectMenu/SelectMenu';
+export type { SelectMenuProps } from './SelectMenu/SelectMenu';
+export { TimeSelectMenu } from './TimeSelectMenu/TimeSelectMenu';
+export type { TimeSelectMenuProps } from './TimeSelectMenu/TimeSelectMenu';
