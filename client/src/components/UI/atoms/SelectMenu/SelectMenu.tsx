@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -9,18 +10,20 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 interface MenuItemType {
   id: number;
-  value: any;
+  value: string | number;
   title: string;
 }
 
 interface SelectMenuProps {
   menuLabel: string;
   menus: MenuItemType[];
+  dropMenuWidth?: number | string;
   onSelectMenuChange: () => void;
 }
 
 interface cssProps {
   open: boolean;
+  dropMenuWidth: number | string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,38 +33,36 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       position: 'relative',
-      height: 20,
-      padding: '5.5px 7.3px 5px 11px',
+      height: '1.25rem',
+      padding: '0.34375rem 0.45625rem 0.3125rem 0.6875rem',
       border: `1px solid ${open ? theme.palette.primary.main : theme.palette.grey[300]}`,
-      borderRadius: 5,
+      borderRadius: '0.7rem',
       cursor: 'pointer',
     }),
     label: ({ open }: cssProps) => ({
       color: open ? theme.palette.primary.main : theme.palette.grey[800],
-      fontSize: '7.5px',
+      fontSize: '0.75rem',
     }),
     icon: ({ open }: cssProps) => ({
       color: open ? theme.palette.primary.main : theme.palette.grey[300],
     }),
-    popOver: {
+    popOver: ({ dropMenuWidth }) => ({
       '& .MuiPaper-root': {
-        top: '51px !important',
-        width: '138px',
+        width: dropMenuWidth,
         border: `1px solid ${theme.palette.primary.main}`,
-        borderRadius: 5,
+        borderRadius: '0.7rem',
       },
       '& ul': {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '0px 3px',
         overflow: 'hidden',
         '& li': {
           width: '100%',
-          padding: '5px 0px',
-          borderRadius: '8px',
+          padding: '0.3125rem 0',
+          borderRadius: '0.5rem',
           color: theme.palette.primary.main,
-          fontSize: '5.5px',
+          fontSize: '0.75rem',
           textAlign: 'center',
           cursor: 'pointer',
           '&:hover': {
@@ -70,16 +71,16 @@ const useStyles = makeStyles((theme: Theme) =>
           },
         },
       },
-    },
+    }),
   }),
 );
 
-const SelectMenu = ({ menuLabel, menus, onSelectMenuChange }: SelectMenuProps): JSX.Element => {
+const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange }: SelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
   const [selectValue, setSelectValue] = useState('');
 
   const open = Boolean(anchorEl);
-  const classes = useStyles({ open });
+  const classes = useStyles({ open, dropMenuWidth });
 
   const getMenuItems = (): JSX.Element[] => {
     const menuItems = menus.map((menu) => (
@@ -100,8 +101,13 @@ const SelectMenu = ({ menuLabel, menus, onSelectMenuChange }: SelectMenuProps): 
   };
 
   const onMenuClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const liElement = event.target.closest('li');
-    setSelectValue(liElement.dataset?.title);
+    const target = event.target as HTMLElement;
+    const liElement = target.closest('li');
+
+    if (!liElement) return;
+
+    const { dataset } = liElement;
+    setSelectValue(dataset?.title ?? '');
     setAnchorEl(null);
 
     if (onSelectMenuChange) {
@@ -115,15 +121,22 @@ const SelectMenu = ({ menuLabel, menus, onSelectMenuChange }: SelectMenuProps): 
         <Box className={classes.label} component="span">
           {selectValue || menuLabel}
         </Box>
-        <input type="hidden" aria-hidden="true" value="" />
+        <input type="hidden" aria-hidden="true" value={selectValue} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
       <Popover
         className={classes.popOver}
         open={open}
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        elevation={0}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        elevation={2}
         onClose={onMenuCloseListener}>
         <ul>{getMenuItems()}</ul>
       </Popover>

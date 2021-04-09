@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 const Template: Story<SelectMenuProps> = (args) => {
-  const SelectMenuStory = withStoryBox(args, 140)(SelectMenu);
+  const SelectMenuStory = withStoryBox(args, 160)(SelectMenu);
   return <SelectMenuStory {...args} />;
 };
 
@@ -28,5 +28,6 @@ Default.args = {
     { id: 5, title: '에너지신소재화학공학부', value: 5 },
     { id: 6, title: '산업경영학부', value: 6 },
   ],
+  dropMenuWidth: 160,
   onSelectMenuChange: action('onChange'),
 };
