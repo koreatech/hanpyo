@@ -44,11 +44,12 @@ const useStyles = makeStyles({
     },
   },
   add: {
-    width: '39.6px',
-    height: '15.5px',
+    width: '3.75rem',
+    height: '2.015625rem',
+    borderRadius: '0.7rem',
     boxShadow: '0 0.5px 1.5px 0 rgba(0, 0, 0, 0.16)',
     '& > span': {
-      fontSize: '6px',
+      fontSize: '0.75rem',
     },
   },
 });
