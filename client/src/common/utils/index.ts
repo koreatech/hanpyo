@@ -1,1 +1,1 @@
-export { default as testcalc } from './testcalc';
+export { default as range } from './range';
