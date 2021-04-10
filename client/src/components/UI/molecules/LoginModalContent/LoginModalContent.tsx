@@ -56,6 +56,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
       </DialogTitle>
       <DialogContent>
         <TextField
+          autoComplete="off"
           helperText={isValidEmail ? 'koreatech.ac.kr은 빼고 입력해주세요.' : 'Email 형식이 적합하지 않습니다.'}
           error={!isValidEmail}
           autoFocus
@@ -67,6 +68,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           onChange={onEmailChangeHandler}
         />
         <TextField
+          autoComplete="off"
           helperText={isValidPassword ? 'Password는 8자 이상 12자 이하로 입력해주세요.' : 'Password 형식이 적합하지 않습니다.'}
           error={!isValidPassword}
           margin="dense"
