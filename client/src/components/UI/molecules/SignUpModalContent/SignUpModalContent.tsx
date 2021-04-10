@@ -38,12 +38,10 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
 
   useEffect(() => {
     if (debouncedEmail) {
-      console.log(debouncedEmail.length);
       if (debouncedEmail.length < 8 || debouncedEmail.length > 12) setIsValidEmail(false);
       else setIsValidEmail(true);
     }
     if (debouncedPassword) {
-      console.log(debouncedPassword.length);
       if (debouncedPassword.length < 8 || debouncedPassword.length > 12) setIsValidPassword(false);
       else setIsValidPassword(true);
     }
