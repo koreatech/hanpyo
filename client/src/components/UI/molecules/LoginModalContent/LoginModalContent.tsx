@@ -26,10 +26,10 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
-  const onEmailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onEmailChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const onPasswordChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onPasswordChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
@@ -63,7 +63,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           label="아이디"
           type="email"
           fullWidth
-          onChange={onEmailChangeHandler}
+          onChange={onEmailChangeListener}
         />
         <TextField
           autoComplete="off"
@@ -74,7 +74,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           label="비밀번호"
           type="password"
           fullWidth
-          onChange={onPasswordChangeHandler}
+          onChange={onPasswordChangeListener}
         />
       </DialogContent>
       <DialogActions>
