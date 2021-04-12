@@ -7,6 +7,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { range } from '@/common/utils';
+import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
 
 enum TimeSelectMenuItemType {
   AM_PM = 'AM_PM',
@@ -147,8 +148,20 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
     return menuItems;
   };
 
+  const scrollDown = (eventTarget: HTMLElement) => {
+    const scrollHeight = calculateScrollHeight();
+    const middleScrollHeight = scrollHeight / 2;
+
+    if (eventTarget.offsetTop >= middleScrollHeight) {
+      scrollDownToBottom();
+    }
+  };
+
   const onMenuBoxClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    const eventTarget = event.currentTarget;
+
+    scrollDown(eventTarget);
+    setAnchorEl(eventTarget);
     setIsSelected(true);
   };
 

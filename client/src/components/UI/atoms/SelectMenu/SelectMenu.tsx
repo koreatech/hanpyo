@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
 
 interface MenuItemType {
   id: number;
@@ -92,8 +93,19 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
     return menuItems;
   };
 
+  const scrollDown = (eventTarget: HTMLElement) => {
+    const scrollHeight = calculateScrollHeight();
+    const middleScrollHeight = scrollHeight / 2;
+
+    if (eventTarget.offsetTop >= middleScrollHeight) {
+      scrollDownToBottom();
+    }
+  };
+
   const onMenuBoxClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    const eventTarget = event.currentTarget;
+    scrollDown(eventTarget);
+    setAnchorEl(eventTarget);
   };
 
   const onMenuCloseListener = () => {
