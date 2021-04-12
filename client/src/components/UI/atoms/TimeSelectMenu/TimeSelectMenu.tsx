@@ -118,17 +118,17 @@ const MINUTE_DATAS = Array.from(range(0, 30, 30)).map((minute, idx) => ({
 const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange }: TimeSelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
   const [isSelected, setIsSelected] = useState(false);
-  const [selectAMPM, setSelectAMPM] = useState('오전');
-  const [selectHour, setSelectHour] = useState('01');
-  const [selectMinute, setSelectMinute] = useState('00');
+  const [selectedAMPM, setSelectedAMPM] = useState('오전');
+  const [selectedHour, setSelectedHour] = useState('01');
+  const [selectedMinute, setSelectedMinute] = useState('00');
 
-  const selectedValue = `${selectAMPM}${selectHour && `  ${selectHour} : `}${selectMinute}`;
+  const selectedValue = `${selectedAMPM}${selectedHour && `  ${selectedHour} : `}${selectedMinute}`;
 
   const open = Boolean(anchorEl);
   const classes = useStyles({ open, dropMenuWidth });
 
   const isSelectedMenuItem = (value: string) => {
-    return value === selectAMPM || value === selectHour || value === selectMinute;
+    return value === selectedAMPM || value === selectedHour || value === selectedMinute;
   };
 
   const getMenuItems = (menuItemDatas: TimeSelectMenuDataType[]): JSX.Element[] => {
@@ -165,11 +165,11 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
     const { dataset } = liElement;
     const { type, title } = dataset;
 
-    if (type === TimeSelectMenuItemType.AM_PM) setSelectAMPM(title ?? '');
+    if (type === TimeSelectMenuItemType.AM_PM) setSelectedAMPM(title ?? '');
     if (type === TimeSelectMenuItemType.HOUR) {
-      setSelectHour(title ?? '');
+      setSelectedHour(title ?? '');
     }
-    if (type === TimeSelectMenuItemType.MINUTE) setSelectMinute(title ?? '');
+    if (type === TimeSelectMenuItemType.MINUTE) setSelectedMinute(title ?? '');
 
     if (onSelectMenuChange) {
       onSelectMenuChange();

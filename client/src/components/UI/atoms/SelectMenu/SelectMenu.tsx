@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange }: SelectMenuProps): JSX.Element => {
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [selectValue, setSelectValue] = useState('');
 
   const open = Boolean(anchorEl);
