@@ -21,8 +21,8 @@ const Template: Story<ModalPopupAreaProps> = (args) => (
   </ModalPopupArea>
 );
 
-export const TestModalPopupArea = Template.bind({});
-TestModalPopupArea.args = {
+export const Default = Template.bind({});
+Default.args = {
   modalOpen: true,
   onModalClose: action('onClick'),
 };

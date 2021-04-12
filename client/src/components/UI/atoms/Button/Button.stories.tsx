@@ -12,29 +12,29 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-export const SaveButton = Template.bind({});
-SaveButton.args = {
+export const Save = Template.bind({});
+Save.args = {
   btnType: ButtonType.save,
   onClick: action('onClick'),
   children: '저 장',
 };
 
-export const ShareButton = Template.bind({});
-ShareButton.args = {
+export const Share = Template.bind({});
+Share.args = {
   btnType: ButtonType.share,
   onClick: action('onClick'),
   children: '공 유',
 };
 
-export const LoginButton = Template.bind({});
-LoginButton.args = {
+export const Login = Template.bind({});
+Login.args = {
   btnType: ButtonType.login,
   onClick: action('onClick'),
   children: '로 그 인',
 };
 
-export const AddButton = Template.bind({});
-AddButton.args = {
+export const Add = Template.bind({});
+Add.args = {
   btnType: ButtonType.add,
   onClick: action('onClick'),
   children: '추 가',

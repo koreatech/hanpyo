@@ -13,8 +13,8 @@ export default {
 
 const Template: Story<LoginModalPopupProps> = (args) => <LoginModalPopup {...args} />;
 
-export const TabAddModalPopup = Template.bind({});
-TabAddModalPopup.args = {
+export const Default = Template.bind({});
+Default.args = {
   modalOpen: true,
   modalType: LoginModalType.LOGIN_MODAL,
   onModalAreaClose: action('onClick'),

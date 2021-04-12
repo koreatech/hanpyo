@@ -9,4 +9,6 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export const header = () => <Header />;
+const Template: Story = (args) => <Header {...args} />;
+
+export const Default = Template.bind({});

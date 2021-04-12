@@ -11,12 +11,12 @@ export default {
 
 const Template: Story<LectureListProps> = (args) => <LectureList {...args} />;
 
-export const searchedLectureList = Template.bind({});
-searchedLectureList.args = {
+export const Search = Template.bind({});
+Search.args = {
   isBasketList: false,
 };
 
-export const basketLectureList = Template.bind({});
-basketLectureList.args = {
+export const Basket = Template.bind({});
+Basket.args = {
   isBasketList: true,
 };

@@ -11,12 +11,12 @@ export default {
 
 const Template: Story<React.ReactChild> = (args) => <SubTitle {...args} />;
 
-export const LectureSearchSubTitle = Template.bind({});
-LectureSearchSubTitle.args = {
+export const LectureSearch = Template.bind({});
+LectureSearch.args = {
   children: '강의 찾기',
 };
 
-export const BasketSubTitle = Template.bind({});
-BasketSubTitle.args = {
+export const Basket = Template.bind({});
+Basket.args = {
   children: '장바구니',
 };

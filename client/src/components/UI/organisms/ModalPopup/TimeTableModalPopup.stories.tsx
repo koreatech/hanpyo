@@ -13,16 +13,16 @@ export default {
 
 const Template: Story<TimeTableModalPopupProps> = (args) => <TimeTableModalPopup {...args} />;
 
-export const TabAddModalPopup = Template.bind({});
-TabAddModalPopup.args = {
+export const TabAdd = Template.bind({});
+TabAdd.args = {
   modalOpen: true,
   modalType: TimeTableModalType.TAB_ADD_MODAL,
   onModalAreaClose: action('onClick'),
   onModalBtnClick: action('onClick'),
 };
 
-export const TabRemoveModalPopup = Template.bind({});
-TabRemoveModalPopup.args = {
+export const TabRemove = Template.bind({});
+TabRemove.args = {
   modalOpen: true,
   modalType: TimeTableModalType.TAB_REMOVE_MODAL,
   onModalAreaClose: action('onClick'),

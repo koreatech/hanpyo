@@ -12,8 +12,8 @@ export default {
 
 const Template: Story<TimeTableTabBtnGroupProps> = (args) => <TimeTableTabBtnGroup {...args} />;
 
-export const defaultTimeTableTabBtnGroup = Template.bind({});
-defaultTimeTableTabBtnGroup.args = {
+export const Default = Template.bind({});
+Default.args = {
   onTabAddBtnClick: action('onClick'),
   onTabRemoveBtnClick: action('onClick'),
 };

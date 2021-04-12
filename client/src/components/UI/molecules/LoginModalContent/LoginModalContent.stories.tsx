@@ -16,8 +16,8 @@ const Template: Story<LoginModalContentProps> = (args) => {
   return <LoginModalContentStory />;
 };
 
-export const loginModalContent = Template.bind({});
-loginModalContent.args = {
+export const Default = Template.bind({});
+Default.args = {
   modalType: LoginModalType.LOGIN_MODAL,
   onModalClose: action('onClick'),
 };

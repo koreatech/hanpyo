@@ -1,6 +1,6 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react/types-6-0';
+import { Story, Meta } from '@storybook/react/types-6-0';
 import { SearchBar } from '@/components/UI/molecules';
 
 export default {
@@ -9,4 +9,6 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export const searchBar = () => <SearchBar />;
+const Template: Story = (args) => <SearchBar {...args} />;
+
+export const Default = Template.bind({});
