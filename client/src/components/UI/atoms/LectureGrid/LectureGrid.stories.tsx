@@ -9,4 +9,6 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export const lectureGrid = () => <LectureGrid />;
+const Template: Story = (args) => <LectureGrid {...args} />;
+
+export const Default = Template.bind({});

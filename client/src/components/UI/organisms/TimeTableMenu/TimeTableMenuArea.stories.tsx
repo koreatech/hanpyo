@@ -12,8 +12,8 @@ export default {
 
 const Template: Story<TimeTableMenuAreaProps> = (args) => <TimeTableMenuArea {...args} />;
 
-export const TimeTableMenu = Template.bind({});
-TimeTableMenu.args = {
+export const Default = Template.bind({});
+Default.args = {
   tables: [
     {
       index: 1,

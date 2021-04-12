@@ -11,14 +11,14 @@ export default {
 
 const Template: Story<TimetableProps> = (args) => <Timetable {...args} />;
 
-export const DefaultTimetable = Template.bind({});
-DefaultTimetable.args = {
+export const Default = Template.bind({});
+Default.args = {
   row: 10,
   containedSat: false,
 };
 
-export const SatTimetable = Template.bind({});
-SatTimetable.args = {
+export const Sat = Template.bind({});
+Sat.args = {
   row: 10,
   containedSat: true,
 };

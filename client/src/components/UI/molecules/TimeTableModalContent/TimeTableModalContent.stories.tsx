@@ -16,14 +16,14 @@ const Template: Story<TimeTableModalContentProps> = (args) => {
   return <TimeTableModalContentStory />;
 };
 
-export const tapAddModalContent = Template.bind({});
-tapAddModalContent.args = {
+export const tapAdd = Template.bind({});
+tapAdd.args = {
   modalType: TimeTableModalType.TAB_ADD_MODAL,
   onModalClose: action('onClick'),
 };
 
-export const tapRemoveModalContent = Template.bind({});
-tapRemoveModalContent.args = {
+export const tapRemove = Template.bind({});
+tapRemove.args = {
   modalType: TimeTableModalType.TAB_REMOVE_MODAL,
   onModalClose: action('onClick'),
 };

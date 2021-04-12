@@ -11,7 +11,7 @@ export default {
 
 const Template: Story<React.ReactChild> = (args) => <HeaderMenu {...args} />;
 
-export const MyPageHeaderMenu = Template.bind({});
-MyPageHeaderMenu.args = {
+export const Default = Template.bind({});
+Default.args = {
   children: '마이페이지',
 };
