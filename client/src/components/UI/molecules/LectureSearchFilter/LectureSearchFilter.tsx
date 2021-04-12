@@ -10,6 +10,13 @@ interface LectureSearchFilterProps {
   timeSelectMenu: TimeSelectMenuProps;
 }
 
+const DROP_MENU_WIDTH = {
+  MAJOR: '10rem',
+  DAY: '4.1875rem',
+  GRADE: '4.5rem',
+  TIME: '6.75rem',
+};
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -27,16 +34,16 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     majorSelect: {
-      width: '10rem',
+      width: DROP_MENU_WIDTH.MAJOR,
     },
     daySelect: {
-      width: '4.1875rem',
+      width: DROP_MENU_WIDTH.DAY,
     },
     gradeSelect: {
-      width: '4.5rem',
+      width: DROP_MENU_WIDTH.GRADE,
     },
     timeSelect: {
-      width: '6.75rem',
+      width: DROP_MENU_WIDTH.TIME,
     },
   }),
 );
@@ -47,20 +54,20 @@ const LectureSearchFilter = ({ majorSelectMenu, daySelectMenu, gradeSelectMenu, 
   return (
     <Box className={classes.root}>
       <Box className={classes.majorSelect}>
-        <SelectMenu {...majorSelectMenu} dropMenuWidth="10rem" />
+        <SelectMenu {...majorSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.MAJOR} />
       </Box>
       <Box className={classes.daySelect}>
-        <SelectMenu {...daySelectMenu} dropMenuWidth="4.1875rem" />
+        <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
       </Box>
       <Box className={classes.gradeSelect}>
-        <SelectMenu {...gradeSelectMenu} dropMenuWidth="4.5rem" />
+        <SelectMenu {...gradeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.GRADE} />
       </Box>
       <Box className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth="6.75rem" />
+        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </Box>
       <span>&#126;</span>
       <Box className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth="6.75rem" />
+        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </Box>
     </Box>
   );

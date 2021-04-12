@@ -10,6 +10,11 @@ interface TimeTableAddFormContentProps {
   onTimeTableFormSubmit: () => void;
 }
 
+const DROP_MENU_WIDTH = {
+  DAY: '4.1875rem',
+  TIME: '6.75rem',
+};
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -28,11 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     daySelect: {
-      width: '4.1875rem',
+      width: DROP_MENU_WIDTH.DAY,
     },
 
     timeSelect: {
-      width: '6.75rem',
+      width: DROP_MENU_WIDTH.TIME,
     },
 
     timeTableNameInput: {
@@ -65,13 +70,13 @@ const TimeTableAddFormContent = ({ daySelectMenu, timeSelectMenu, onTimeTableFor
   return (
     <form className={classes.root} onSubmit={onTimeTableFormSubmit}>
       <Box className={classes.daySelect}>
-        <SelectMenu {...daySelectMenu} dropMenuWidth="4.1875rem" />
+        <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
       </Box>
       <Box className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth="6.75rem" />
+        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </Box>
       <Box className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth="6.75rem" />
+        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </Box>
       <TextField
         required
