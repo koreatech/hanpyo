@@ -12,18 +12,19 @@ const useStyles = makeStyles({
   wrapper: {
     display: 'flex',
     width: '80rem',
+    minHeight: '1000px',
     justifyContent: 'space-around',
   },
   left: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
     width: '35rem',
   },
   right: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     width: '35rem',
   },
 });
