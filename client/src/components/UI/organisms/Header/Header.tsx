@@ -7,13 +7,13 @@ import { HeaderAuthSection } from '@/components/UI/molecules';
 
 const useStyles = makeStyles({
   wrapper: {
-    height: '8rem',
     display: 'flex',
     justifyContent: 'center',
+    width: '100%',
+    height: '8rem',
+    paddingRight: '21px',
     position: 'fixed',
     top: '0',
-    left: '0',
-    right: '0',
     zIndex: 1,
   },
   container: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import '@/index.css';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '@/common/styles';
 import { StoreProvider, RootStore } from '@/stores';

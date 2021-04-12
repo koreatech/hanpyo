@@ -18,3 +18,5 @@ export { LectureBoxContainer } from './LectureBoxContainer/LectureBoxContainer';
 export { BasketLectureListBody } from './LectureListBody/BasketLectureListBody';
 export { SearchedLectureListBody } from './LectureListBody/SearchedLectureListBody';
 export { LoginModalContent, LoginModalType } from './LoginModalContent/LoginModalContent';
+export { LectureSearchFilterMenu } from './LectureSearchFilter/LectureSearchFilterMenu';
+export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
