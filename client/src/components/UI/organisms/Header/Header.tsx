@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     width: '100%',
     height: '8rem',
+    paddingRight: '21px',
     position: 'fixed',
     top: '0',
     zIndex: 1,
