@@ -26,26 +26,18 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
-  const onEmailChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const onDebouncedEmailChangeListener = useDebounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-  };
-  const onPasswordChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidEmail(false);
+    else setIsValidEmail(true);
+  }, 500);
+
+  const onDebouncedPasswordChangeListener = useDebounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  };
-
-  const debouncedEmail = useDebounce({ value: email, delay: 500 });
-  const debouncedPassword = useDebounce({ value: password, delay: 500 });
-
-  useEffect(() => {
-    if (debouncedEmail) {
-      if (debouncedEmail.length < 8 || debouncedEmail.length > 12) setIsValidEmail(false);
-      else setIsValidEmail(true);
-    }
-    if (debouncedPassword) {
-      if (debouncedPassword.length < 8 || debouncedPassword.length > 12) setIsValidPassword(false);
-      else setIsValidPassword(true);
-    }
-  }, [debouncedEmail, debouncedPassword]);
+    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidPassword(false);
+    else setIsValidPassword(true);
+  }, 500);
 
   return (
     <>
@@ -63,7 +55,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           label="아이디"
           type="email"
           fullWidth
-          onChange={onEmailChangeListener}
+          onChange={onDebouncedEmailChangeListener}
         />
         <TextField
           autoComplete="off"
@@ -74,7 +66,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           label="비밀번호"
           type="password"
           fullWidth
-          onChange={onPasswordChangeListener}
+          onChange={onDebouncedPasswordChangeListener}
         />
       </DialogContent>
       <DialogActions>
