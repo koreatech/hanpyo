@@ -1,24 +1,15 @@
-import { useState, useEffect } from 'react';
-
-interface debounceProps<T> {
-  value: T;
-  delay: number;
-}
-
-function useDebounce<T>({ value, delay }: debounceProps<T>): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value]);
-
-  return debouncedValue;
-}
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-this-alias */
+const useDebounce = (func: any, wait: number) => {
+  let timeout: NodeJS.Timeout | null;
+  return (...args: any) => {
+    const context = this;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      timeout = null;
+      func.apply(context, args);
+    }, wait);
+  };
+};
 
 export default useDebounce;
