@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-bracket-location */
 import React from 'react';
 import { Tabs, Tab } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-distracting-elements */
 import React from 'react';
 import { InputBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
