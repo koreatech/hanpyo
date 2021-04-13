@@ -9,7 +9,12 @@ const HeaderAuthSection = (): JSX.Element => {
   const onLoginBtnClickListener = () => {
     modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
   };
-  return <HeaderAuthSectionArea onClick={onLoginBtnClickListener} />;
+
+  const onSignUpBtnClickListener = () => {
+    modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
+  };
+
+  return <HeaderAuthSectionArea onLoginClick={onLoginBtnClickListener} onSignUpClick={onSignUpBtnClickListener} />;
 };
 
 export { HeaderAuthSection };

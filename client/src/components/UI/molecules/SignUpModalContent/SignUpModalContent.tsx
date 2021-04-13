@@ -3,11 +3,11 @@ import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@m
 import { makeStyles } from '@material-ui/core/styles';
 import { useDebounce } from '@/common/utils';
 
-enum LoginModalType {
-  LOGIN_MODAL = 'LOGIN_MODAL',
+enum SignUpModalType {
+  SIGN_UP_MODAL = 'SIGN_UP_MODAL',
 }
 
-interface LoginModalContentProps {
+interface SignUpModalContentProps {
   onModalClose: () => void;
 }
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Element => {
+const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,8 +41,8 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
 
   return (
     <>
-      <DialogTitle className={classes.title} id="login-dialog-title" disableTypography>
-        한표 로그인
+      <DialogTitle className={classes.title} id="SignUp-dialog-title" disableTypography>
+        한표 회원가입
       </DialogTitle>
       <DialogContent>
         <TextField
@@ -68,15 +68,17 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           fullWidth
           onChange={onDebouncedPasswordChangeListener}
         />
+        <TextField autoComplete="off" margin="dense" id="name" label="이름" type="text" fullWidth />
+        <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth />
       </DialogContent>
       <DialogActions>
         <Button onClick={onModalClose} color="primary">
-          로그인
+          회원가입
         </Button>
       </DialogActions>
     </>
   );
 };
 
-export { LoginModalContent, LoginModalType };
-export type { LoginModalContentProps };
+export { SignUpModalContent, SignUpModalType };
+export type { SignUpModalContentProps };
