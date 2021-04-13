@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Divider, Box } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface SubTitleProps {
@@ -23,12 +23,12 @@ const SubTitle = ({ children }: SubTitleProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Typography variant="h5" color="primary">
         {children}
       </Typography>
       <Divider className={classes.divider} />
-    </Box>
+    </div>
   );
 };
 

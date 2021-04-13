@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Tooltip, IconButton } from '@material-ui/core';
+import { Tooltip, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 const TimeTableTabBtnGroup = ({ onTabAddBtnClick, onTabRemoveBtnClick }: TimeTableTabBtnGroupProps): JSX.Element => {
   const classes = useStyles();
   return (
-    <Box className={classes.buttons}>
+    <div className={classes.buttons}>
       <Tooltip title="시간표 추가" onClick={onTabAddBtnClick}>
         <IconButton aria-label="add">
           <AddCircleTwoToneIcon color="primary" />
@@ -32,7 +32,7 @@ const TimeTableTabBtnGroup = ({ onTabAddBtnClick, onTabRemoveBtnClick }: TimeTab
           <DeleteIcon color="primary" />
         </IconButton>
       </Tooltip>
-    </Box>
+    </div>
   );
 };
 

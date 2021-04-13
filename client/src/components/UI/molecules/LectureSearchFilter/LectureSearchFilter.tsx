@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps } from '@/components/UI/atoms';
 
@@ -52,24 +51,24 @@ const LectureSearchFilter = ({ majorSelectMenu, daySelectMenu, gradeSelectMenu, 
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.majorSelect}>
+    <div className={classes.root}>
+      <div className={classes.majorSelect}>
         <SelectMenu {...majorSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.MAJOR} />
-      </Box>
-      <Box className={classes.daySelect}>
+      </div>
+      <div className={classes.daySelect}>
         <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
-      </Box>
-      <Box className={classes.gradeSelect}>
+      </div>
+      <div className={classes.gradeSelect}>
         <SelectMenu {...gradeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.GRADE} />
-      </Box>
-      <Box className={classes.timeSelect}>
+      </div>
+      <div className={classes.timeSelect}>
         <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
-      </Box>
+      </div>
       <span>&#126;</span>
-      <Box className={classes.timeSelect}>
+      <div className={classes.timeSelect}>
         <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

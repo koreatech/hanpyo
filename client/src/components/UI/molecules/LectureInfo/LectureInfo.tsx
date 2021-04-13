@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Tooltip, Typography } from '@material-ui/core';
+import { Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
 
@@ -26,10 +26,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
       cursor: 'pointer',
       color: 'white',
-      '& .MuiBox-root:nth-child(even)': {
+      '& div:nth-child(even)': {
         borderLeft: `1px solid white`,
       },
-      '& .MuiBox-root> .MuiTypography-root': {
+      '& div> .MuiTypography-root': {
         color: 'white',
       },
     },
@@ -84,7 +84,7 @@ const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }:
   };
   return (
     <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
-      <Box className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)}>
+      <div className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
           {infos.code}
         </LectureInfoTitle>
@@ -116,7 +116,7 @@ const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }:
         <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
           {getLectureTime(infos.time)}
         </LectureInfoTitle>
-      </Box>
+      </div>
     </Tooltip>
   );
 };

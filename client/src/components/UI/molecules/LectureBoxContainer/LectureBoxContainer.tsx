@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureBox } from '@/components/UI/atoms';
 import { useStores } from '@/stores';
@@ -33,7 +32,7 @@ const LectureBoxContainer = (): JSX.Element => {
     });
   };
 
-  return <Box className={classes.root}>{fillTableByLectures()}</Box>;
+  return <div className={classes.root}>{fillTableByLectures()}</div>;
 };
 
 export { LectureBoxContainer };

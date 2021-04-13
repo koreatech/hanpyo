@@ -1,6 +1,5 @@
 /* eslint-disable no-continue */
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import { LectureGrid } from '@/components/UI/atoms';
 import { LectureBoxContainer } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core/styles';
@@ -90,16 +89,16 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
     //   },
     //   [<Box key={0} className={classes.header} />],
     // );
-    const array = [<Box key={0} className={classes.header} />];
+    const array = [<div key={0} className={classes.header} />];
     for (let i = 0; i < days.length; i += 1) {
       const day = days[i];
       if (i === 5) {
         if (!containedSat) continue;
       }
       array.push(
-        <Box key={day.id} className={classes.header}>
+        <div key={day.id} className={classes.header}>
           {day.name}
-        </Box>,
+        </div>,
       );
     }
     return array;
@@ -110,10 +109,10 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
       return <LectureGrid />;
     });
     if (time === 0) {
-      array.unshift(<Box className={classes.time}>{`0${time + 9}:00-${time + 10}:00`}</Box>);
+      array.unshift(<div className={classes.time}>{`0${time + 9}:00-${time + 10}:00`}</div>);
     } else if (time === 9) {
-      array.unshift(<Box className={classes.time}>이후</Box>);
-    } else array.unshift(<Box className={classes.time}>{`${time + 9}:00-${time + 10}:00`}</Box>);
+      array.unshift(<div className={classes.time}>이후</div>);
+    } else array.unshift(<div className={classes.time}>{`${time + 9}:00-${time + 10}:00`}</div>);
     return array;
   };
   const fillTable = () => {
@@ -123,11 +122,11 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   };
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       {fillTableHeader()}
       {fillTable()}
       <LectureBoxContainer />
-    </Box>
+    </div>
   );
 };
 

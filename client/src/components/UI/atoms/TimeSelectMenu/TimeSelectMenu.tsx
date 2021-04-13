@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Box, Popover } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { range } from '@/common/utils';
 import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
@@ -188,9 +188,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <Box className={classes.label} component="span">
-          {isSelected ? selectedValue : menuLabel}
-        </Box>
+        <span className={classes.label}>{isSelected ? selectedValue : menuLabel}</span>
         <input type="hidden" aria-hidden="true" value={selectedValue} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
@@ -208,11 +206,11 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
         }}
         elevation={2}
         onClose={onMenuCloseListener}>
-        <Box className={classes.popOverMenu}>
+        <div className={classes.popOverMenu}>
           <ul>{getMenuItems(AM_PM_DATAS)}</ul>
           <ul>{getMenuItems(HOUR_DATAS)}</ul>
           <ul>{getMenuItems(MINUTE_DATAS)}</ul>
-        </Box>
+        </div>
       </Popover>
     </>
   );

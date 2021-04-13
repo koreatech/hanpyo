@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 enum LectureInfoTitleType {
@@ -68,11 +68,11 @@ const LectureInfoTitle = ({ className, children, isHeader }: TitleProps): JSX.El
     return { ...classes }[className];
   };
   return (
-    <Box className={`${classes.default} ${getClassName()}`}>
+    <div className={`${classes.default} ${getClassName()}`}>
       <Typography className={classes.text} variant="caption">
         {children}
       </Typography>
-    </Box>
+    </div>
   );
 };
 

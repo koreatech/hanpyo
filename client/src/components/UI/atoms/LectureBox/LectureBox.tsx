@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, IconButton, Tooltip } from '@material-ui/core';
+import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useStores } from '@/stores';
@@ -74,20 +74,20 @@ const LectureBox = ({ startTime, endTime, bgcolor, name, division, prof }: Lectu
   };
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.membrane} />
+    <div className={classes.root}>
+      <div className={classes.membrane} />
       <Tooltip title="시간표 삭제" arrow placement="right" onClick={() => onClickHandler()}>
         <IconButton aria-label="delete">
           <DeleteIcon style={{ fontSize: 16 }} />
         </IconButton>
       </Tooltip>
-      <Box>
+      <div>
         <Typography variant="subtitle2">{name}</Typography>
-      </Box>
-      <Box>
+      </div>
+      <div>
         <Typography variant="caption">{`${division || '01'} ${prof}`}</Typography>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

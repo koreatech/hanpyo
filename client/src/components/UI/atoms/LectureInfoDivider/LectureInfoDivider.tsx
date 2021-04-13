@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 const LectureInfoDivider = (): JSX.Element => {
   const classes = useStyles();
 
-  return <Box className={classes.divider} />;
+  return <div className={classes.divider} />;
 };
 
 export { LectureInfoDivider };

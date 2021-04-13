@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfos } from '@/components/UI/molecules';
 import { useReactiveVar } from '@apollo/client';
@@ -36,7 +35,7 @@ const BasketLectureListBody = ({ isBasketList = false, getLectureInfos }: Basket
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
-  return <Box className={classes.root}>{getLectureInfos(savedLecturesInSelectedTab)}</Box>;
+  return <div className={classes.root}>{getLectureInfos(savedLecturesInSelectedTab)}</div>;
 };
 
 export { BasketLectureListBody };

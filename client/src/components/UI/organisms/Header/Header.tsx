@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { HeaderMenu } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { HeaderAuthSection } from '@/components/UI/molecules';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     top: '0',
     zIndex: 1,
+    backgroundColor: theme.palette.secondary.main,
   },
   container: {
     display: 'flex',
@@ -25,14 +26,14 @@ const useStyles = makeStyles({
   title: {
     padding: '0 30px',
   },
-});
+}));
 
 const Header = (): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <Box bgcolor="secondary.main" className={classes.wrapper}>
-      <Box className={classes.container}>
+    <div className={classes.wrapper}>
+      <div className={classes.container}>
         <Typography variant="h3" color="primary">
           한표
         </Typography>
@@ -40,8 +41,8 @@ const Header = (): JSX.Element => {
         <HeaderMenu>강의후기</HeaderMenu>
         <HeaderMenu>마이페이지</HeaderMenu>
         <HeaderAuthSection />
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

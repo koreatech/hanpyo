@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos, BasketLectureListBody, SearchedLectureListBody } from '@/components/UI/molecules';
@@ -84,12 +83,12 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   };
 
   return (
-    <Box className={classes.rootWrapper}>
-      <Box className={classes.root}>
+    <div className={classes.rootWrapper}>
+      <div className={classes.root}>
         <LectureInfo isHeader infos={headerInfos} onClick={() => {}} />
         {getLectureBody()}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

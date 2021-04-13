@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Notifications } from '@material-ui/icons';
 
@@ -26,10 +25,10 @@ const Notice = (): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Notifications color="primary" />
-      <Box className={classes.content}>공지사항 입니다.</Box>
-    </Box>
+      <div className={classes.content}>공지사항 입니다.</div>
+    </div>
   );
 };
 

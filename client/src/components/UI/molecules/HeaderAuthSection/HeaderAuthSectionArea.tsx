@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,23 +38,23 @@ const useStyles = makeStyles((theme) => ({
 const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectionAreaProps): JSX.Element => {
   const classes = useStyles();
   return (
-    <Box className={classes.loginSection}>
+    <div className={classes.loginSection}>
       <Typography className={classes.promotionText} variant="caption">
         한표를 더 편리하게 이용하세요
       </Typography>
       <Button btnType={ButtonType.login} onClick={onLoginClick}>
         로 그 인
       </Button>
-      <Box className={classes.menu}>
+      <div className={classes.menu}>
         <Typography className={classes.authText} variant="caption" onClick={onSignUpClick}>
           회 원 가 입
         </Typography>
-        <Box className={classes.divider} />
+        <div className={classes.divider} />
         <Typography className={classes.authText} variant="caption">
           아 이 디 / 비 밀 번 호 찾기
         </Typography>
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

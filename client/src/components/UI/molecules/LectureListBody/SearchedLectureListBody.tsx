@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfos } from '@/components/UI/molecules';
 
@@ -226,7 +225,7 @@ const useStyles = makeStyles((theme) => ({
 const SearchedLectureListBody = ({ isBasketList = false, getLectureInfos }: SearchedLectureListBodyProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
 
-  return <Box className={classes.root}>{getLectureInfos(testData)}</Box>;
+  return <div className={classes.root}>{getLectureInfos(testData)}</div>;
 };
 
 export { SearchedLectureListBody };

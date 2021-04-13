@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps, Button, ButtonType } from '@/components/UI/atoms';
 
@@ -68,15 +68,15 @@ const TimeTableAddFormContent = ({ daySelectMenu, timeSelectMenu, onTimeTableFor
 
   return (
     <form className={classes.root} onSubmit={onTimeTableFormSubmit}>
-      <Box className={classes.daySelect}>
+      <div className={classes.daySelect}>
         <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
-      </Box>
-      <Box className={classes.timeSelect}>
+      </div>
+      <div className={classes.timeSelect}>
         <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
-      </Box>
-      <Box className={classes.timeSelect}>
+      </div>
+      <div className={classes.timeSelect}>
         <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
-      </Box>
+      </div>
       <TextField
         required
         className={classes.timeTableNameInput}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Box, Popover } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
 
@@ -125,9 +125,7 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <Box className={classes.label} component="span">
-          {selectValue || menuLabel}
-        </Box>
+        <span className={classes.label}>{selectValue || menuLabel}</span>
         <input type="hidden" aria-hidden="true" value={selectValue} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
