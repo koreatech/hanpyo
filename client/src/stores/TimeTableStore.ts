@@ -124,7 +124,7 @@ class TimeTableStore {
 
   setNextColor(): void {
     const { colorIndex } = this.state;
-    const nextColorIndex = colorIndex() === colors.length - 1 ? 0 : colorIndex() + 1;
+    const nextColorIndex = (colorIndex() + 1) % colors.length;
     colorIndex(nextColorIndex);
   }
 
