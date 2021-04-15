@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-this-alias */
-const useDebounce = (func: any, wait: number) => {
+const debounce = (func: Function, wait: number): (() => void) => {
   let timeout: NodeJS.Timeout | null;
-  return (...args: any) => {
+
+  return (...args: any[]): void => {
     const context = this;
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
@@ -12,4 +12,4 @@ const useDebounce = (func: any, wait: number) => {
   };
 };
 
-export default useDebounce;
+export default debounce;

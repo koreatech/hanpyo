@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDebounce } from '@/common/utils';
+import { debounce } from '@/common/utils';
 
 enum SignUpModalType {
   SIGN_UP_MODAL = 'SIGN_UP_MODAL',
@@ -27,13 +27,13 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
 
-  const onDebouncedEmailChangeListener = useDebounce((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidEmail(false);
     else setIsValidEmail(true);
   }, 500);
 
-  const onDebouncedPasswordChangeListener = useDebounce((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidPassword(false);
     else setIsValidPassword(true);
