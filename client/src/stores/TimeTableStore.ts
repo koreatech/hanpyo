@@ -12,7 +12,27 @@ interface TimeTableStoreState {
   tables: ReactiveVar<TableInfo[]>;
   tableIndex: ReactiveVar<number>;
   lectures: ReactiveVar<Array<LectureInfos[]>>;
+  colorIndex: ReactiveVar<number>;
 }
+
+const colors = [
+  '#ff8a80',
+  '#ff80ab',
+  '#ea80fc',
+  '#b388ff',
+  '#8c9eff',
+  '#82b1ff',
+  '#80d8ff',
+  '#84ffff',
+  '#a7ffeb',
+  '#b9f6ca',
+  '#ccff90',
+  '#f4ff81',
+  '#ffff8d',
+  '#ffe57f',
+  '#ffd180',
+  '#ff9e80',
+];
 
 class TimeTableStore {
   rootStore: RootStore;
@@ -26,6 +46,7 @@ class TimeTableStore {
       tables: makeVar<TableInfo[]>([]),
       tableIndex: makeVar(0),
       lectures: makeVar<Array<LectureInfos[]>>([]),
+      colorIndex: makeVar<number>(Math.floor(Math.random() * colors.length)),
     };
   }
 
@@ -76,11 +97,13 @@ class TimeTableStore {
     if (!selectedTabIdx()) return;
     const isNoDuplicateLecture = lectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
     if (!isNoDuplicateLecture) return;
-    const newLecture = [...lectures()[selectedTabIdx() - 1], input];
+    const inputWithColor = { ...input, color: this.getColor() };
+    const newLecture = [...lectures()[selectedTabIdx() - 1], inputWithColor];
     const newLectures = lectures().map((elem, idx) => {
       if (idx === selectedTabIdx() - 1) return newLecture;
       return elem;
     });
+    this.setNextColor();
     lectures(newLectures);
   }
 
@@ -97,6 +120,17 @@ class TimeTableStore {
   getLecturesFromTable(): LectureInfos[] {
     const { selectedTabIdx, lectures } = this.state;
     return lectures()[selectedTabIdx()];
+  }
+
+  setNextColor(): void {
+    const { colorIndex } = this.state;
+    const nextColorIndex = colorIndex() === colors.length - 1 ? 0 : colorIndex() + 1;
+    colorIndex(nextColorIndex);
+  }
+
+  getColor(): string {
+    const { colorIndex } = this.state;
+    return colors[colorIndex()];
   }
 }
 
