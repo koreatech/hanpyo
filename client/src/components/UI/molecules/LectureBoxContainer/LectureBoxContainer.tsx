@@ -27,7 +27,7 @@ const LectureBoxContainer = (): JSX.Element => {
     return lectureInfos.map((elem) => {
       if (typeof elem.time === 'string') return <></>;
       return elem.time.map((time) => {
-        return <LectureBox startTime={time.start} endTime={time.end} name={elem.name} division={elem.class} prof={elem.prof} />;
+        return <LectureBox startTime={time.start} endTime={time.end} name={elem.name} division={elem.class} prof={elem.prof} bgcolor={elem.color} />;
       });
     });
   };

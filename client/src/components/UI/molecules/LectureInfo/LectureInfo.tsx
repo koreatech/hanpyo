@@ -50,6 +50,7 @@ interface LectureInfos {
   personnel: string;
   dept: string;
   time: Array<TimeTypes> | string;
+  color?: string;
 }
 
 interface LectureInfoProps {
