@@ -19,6 +19,12 @@ class LectureInfoStore {
       selectedLecture: makeVar<LectureInfos | null>(null),
     };
   }
+
+  getSameLectures(): LectureInfos[] {
+    const { lectures, selectedLecture } = this.state;
+    if (selectedLecture() === null) return [];
+    return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
+  }
 }
 
 const testData = [
@@ -146,7 +152,7 @@ const testData = [
     time: [{ start: 3660, end: 3780 }],
   },
   {
-    code: 'HANPYd',
+    code: 'hanpyo',
     name: '디자인커뮤니케이션',
     class: '01',
     prof: '윤정식',
@@ -156,24 +162,24 @@ const testData = [
     time: [{ start: 3660, end: 3780 }],
   },
   {
-    code: 'HANPYe',
+    code: 'hanpyo',
     name: '디자인커뮤니케이션',
-    class: '01',
+    class: '02',
     prof: '윤정식',
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
+    time: [{ start: 540, end: 600 }],
   },
   {
-    code: 'HANPYf',
+    code: 'hanpyo',
     name: '디자인커뮤니케이션',
-    class: '01',
+    class: '03',
     prof: '윤정식',
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: [{ start: 3660, end: 3780 }],
+    time: [{ start: 1980, end: 2040 }],
   },
   {
     code: 'HANPYg',

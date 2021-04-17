@@ -47,7 +47,7 @@ const headerInfos = {
 const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
 
-  const { timeTableStore, snackbarStore } = useStores();
+  const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     timeTableStore.addLectureToTable(lectureInfos);
@@ -60,6 +60,12 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    lectureInfoStore.state.selectedLecture(lectureInfos);
+    console.log(lectureInfoStore.state.selectedLecture());
+  };
+
   const getLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
@@ -68,7 +74,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
           key={elem.code}
           infos={elem}
           onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
-          onClick={() => {}}
+          onClick={isBasketList ? () => {} : onLectureSearchClickListener}
           isBasketList={isBasketList}
         />
       );
