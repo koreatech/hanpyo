@@ -4,6 +4,7 @@ import { LectureInfos } from '@/components/UI/molecules';
 
 interface LectureInfoStoreState {
   lectures: ReactiveVar<LectureInfos[]>;
+  selectedLecture: ReactiveVar<LectureInfos | null>;
 }
 
 class LectureInfoStore {
@@ -15,6 +16,7 @@ class LectureInfoStore {
     this.rootStore = rootStore;
     this.state = {
       lectures: makeVar<LectureInfos[]>(testData),
+      selectedLecture: makeVar<LectureInfos | null>(null),
     };
   }
 }

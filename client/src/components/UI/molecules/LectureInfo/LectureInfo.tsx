@@ -56,11 +56,12 @@ interface LectureInfos {
 interface LectureInfoProps {
   isHeader?: boolean;
   infos: LectureInfos;
-  onClick: (infos: LectureInfos) => void;
+  onDoubleClick: (infos: LectureInfos) => void;
+  onClick: () => void;
   isBasketList?: boolean;
 }
 
-const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
+const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
   const convertNumberToTime = (time: number) => {
@@ -85,7 +86,7 @@ const LectureInfo = ({ isHeader = false, infos, onClick, isBasketList = false }:
   };
   return (
     <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
-      <div className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)}>
+      <div className={`${classes.root} ${subClass}`} onDoubleClick={() => onDoubleClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
           {infos.code}
         </LectureInfoTitle>

@@ -48,13 +48,13 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   const classes = useStyles({ isBasketList });
 
   const { timeTableStore, snackbarStore } = useStores();
-  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+  const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     timeTableStore.addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
-  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+  const onBasketLectureDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     timeTableStore.removeLectureFromTable(lectureInfos.name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
@@ -67,7 +67,8 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
         <LectureInfo
           key={elem.code}
           infos={elem}
-          onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
+          onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
+          onClick={() => {}}
           isBasketList={isBasketList}
         />
       );
@@ -85,7 +86,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   return (
     <div className={classes.rootWrapper}>
       <div className={classes.root}>
-        <LectureInfo isHeader infos={headerInfos} onClick={() => {}} />
+        <LectureInfo isHeader infos={headerInfos} onDoubleClick={() => {}} onClick={() => {}} />
         {getLectureBody()}
       </div>
     </div>
