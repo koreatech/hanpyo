@@ -63,7 +63,6 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     lectureInfoStore.state.selectedLecture(lectureInfos);
-    console.log(lectureInfoStore.state.selectedLecture());
   };
 
   const getLectureInfos = (infos: Array<LectureInfos>) => {

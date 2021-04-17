@@ -35,7 +35,6 @@ const LectureBoxContainer = (): JSX.Element => {
 
   const showSameLectures = () => {
     const sameLectures = lectureInfoStore.getSameLectures();
-    console.log(sameLectures);
     return sameLectures.map((sameLecture) => {
       if (typeof sameLecture.time === 'string') return <></>;
       return sameLecture.time.map((time) => {
