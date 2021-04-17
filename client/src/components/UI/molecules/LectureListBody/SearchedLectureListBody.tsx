@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchedLectureListBody = ({ isBasketList = false, getLectureInfos }: SearchedLectureListBodyProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
-  const { timeTableStore } = useStores();
-  const lecturesData = timeTableStore.state.lectures();
+  const { lectureInfoStore } = useStores();
+  const lecturesData = lectureInfoStore.state.lectures();
 
   return <div className={classes.root}>{getLectureInfos(lecturesData)}</div>;
 };
