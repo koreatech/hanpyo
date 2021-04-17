@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
 const LectureBoxContainer = (): JSX.Element => {
   const classes = useStyles();
   const { timeTableStore } = useStores();
-  const lectures = useReactiveVar(timeTableStore.state.lectures);
+  const savedLectures = useReactiveVar(timeTableStore.state.selectedTabLectures);
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
 
   const fillTableByLectures = () => {
     if (selectedTabIdx === 0) return <></>;
-    const lectureInfos = lectures[selectedTabIdx - 1];
+    const lectureInfos = savedLectures[selectedTabIdx - 1];
     if (!lectureInfos) return <></>;
     return lectureInfos.map((elem) => {
       if (typeof elem.time === 'string') return <></>;

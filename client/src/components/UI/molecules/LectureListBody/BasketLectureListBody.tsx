@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const BasketLectureListBody = ({ isBasketList = false, getLectureInfos }: BasketLectureListBodyProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
   const { timeTableStore } = useStores();
-  const savedLectures = useReactiveVar(timeTableStore.state.lectures);
+  const savedLectures = useReactiveVar(timeTableStore.state.selectedTabLectures);
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const savedLecturesInSelectedTab = savedLectures[selectedTabIdx - 1];
 
