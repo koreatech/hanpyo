@@ -2,6 +2,8 @@ import React from 'react';
 import { Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
+import { useStores } from '@/stores';
+import { useReactiveVar } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     height: '2rem',
     padding: `0.25rem 0rem`,
     '&:hover': {
+      opacity: 0.6,
+    },
+    '&:hover, &[data-selected=true]': {
       backgroundColor: theme.palette.primary.main,
       cursor: 'pointer',
       color: 'white',
@@ -64,6 +69,11 @@ interface LectureInfoProps {
 const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
+  const { lectureInfoStore } = useStores();
+  const nowSelectedLectureInfo = useReactiveVar(lectureInfoStore.state.selectedLecture);
+  const isSelectedLecture = () => {
+    return nowSelectedLectureInfo?.code === infos.code && nowSelectedLectureInfo?.class === infos.class;
+  };
   const convertNumberToTime = (time: number) => {
     const hour = Math.floor((time % 1440) / 60)
       .toString()
@@ -86,7 +96,11 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
   };
   return (
     <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
-      <div className={`${classes.root} ${subClass}`} onClick={() => onClick(infos)} onDoubleClick={() => onDoubleClick(infos)}>
+      <div
+        className={`${classes.root} ${subClass}`}
+        data-selected={isSelectedLecture()}
+        onClick={() => onClick(infos)}
+        onDoubleClick={() => onDoubleClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
           {infos.code}
         </LectureInfoTitle>
