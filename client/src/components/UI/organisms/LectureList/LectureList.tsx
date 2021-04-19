@@ -73,7 +73,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     return infos.map((elem: LectureInfos) => {
       return (
         <LectureInfo
-          key={elem.code}
+          key={`${elem.code}${elem.class}`}
           infos={elem}
           onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
           onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
