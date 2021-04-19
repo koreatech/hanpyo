@@ -70,7 +70,9 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
   const { lectureInfoStore } = useStores();
-  const nowSelectedLectureInfo = useReactiveVar(lectureInfoStore.state.selectedLecture);
+  const nowSelectedLectureInfo = isBasketList
+    ? useReactiveVar(lectureInfoStore.state.basketSelectedLecture)
+    : useReactiveVar(lectureInfoStore.state.selectedLecture);
   const isSelectedLecture = () => {
     return nowSelectedLectureInfo?.code === infos.code && nowSelectedLectureInfo?.class === infos.class;
   };

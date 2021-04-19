@@ -64,7 +64,10 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
     if (typeof lectureInfos.time === 'string') return;
     lectureInfoStore.state.selectedLecture(lectureInfos);
   };
-
+  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    lectureInfoStore.state.basketSelectedLecture(lectureInfos);
+  };
   const getLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
@@ -73,7 +76,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
           key={elem.code}
           infos={elem}
           onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
-          onClick={isBasketList ? () => {} : onLectureSearchClickListener}
+          onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
           isBasketList={isBasketList}
         />
       );
