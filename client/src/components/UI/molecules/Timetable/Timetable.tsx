@@ -3,6 +3,7 @@ import React from 'react';
 import { LectureGrid } from '@/components/UI/atoms';
 import { LectureBoxContainer } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core/styles';
+import { useStores } from '@/stores';
 
 interface TimetableProps {
   row: number;
@@ -74,7 +75,7 @@ interface dayType {
 
 const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const classes = useStyles({ row, containedSat });
-
+  const { lectureInfoStore } = useStores();
   const fillTableHeader = () => {
     // return days.reduce<JSX.Element | Element | Element[]>(
     //   (acc: JSX.Element | Element | Element[], day: dayType) => {
@@ -120,9 +121,12 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
       return makeRow(index);
     });
   };
+  const onMouseEnterListener = () => {
+    lectureInfoStore.state.selectedLecture(null);
+  };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onMouseEnter={onMouseEnterListener}>
       {fillTableHeader()}
       {fillTable()}
       <LectureBoxContainer />

@@ -169,7 +169,10 @@ const testData = [
     grade: '03',
     personnel: '25',
     dept: '디자인건축공학부',
-    time: [{ start: 540, end: 600 }],
+    time: [
+      { start: 540, end: 600 },
+      { start: 5220, end: 5340 },
+    ],
   },
   {
     code: 'hanpyo',
