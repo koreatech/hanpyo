@@ -1,9 +1,11 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 interface HeaderMenuProps {
   children: React.ReactChild;
+  link: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -26,16 +28,21 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: theme.palette.grey[500],
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
-const HeaderMenu = ({ children }: HeaderMenuProps): JSX.Element => {
+const HeaderMenu = ({ children, link }: HeaderMenuProps): JSX.Element => {
   const classes = useStyles();
 
   return (
     <div className={classes.menu}>
-      <Typography className={classes.text} variant="h4">
-        {children}
-      </Typography>
+      <Link to={link} className={classes.link}>
+        <Typography className={classes.text} variant="h4">
+          {children}
+        </Typography>
+      </Link>
     </div>
   );
 };
