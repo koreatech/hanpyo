@@ -15,17 +15,17 @@ interface CSSProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: ({ columnPos, rowStartPos, rowEndPos, nowSelected }: CSSProps) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
-    height: (props: CSSProps) => (props.rowStartPos * 2 + props.rowEndPos * 2 <= 40 ? `${props.rowEndPos * 2}rem` : '4rem'),
+    height: rowStartPos * 2 + rowEndPos * 2 <= 40 ? `${rowEndPos * 2}rem` : '4rem',
     width: '5rem',
     boxSizing: 'border-box',
-    left: (props: CSSProps) => `${5 + props.columnPos * 5}rem`,
-    top: (props: CSSProps) => (props.rowStartPos * 2 + props.rowEndPos * 2 <= 40 ? `${4 + props.rowStartPos * 2}rem` : '40rem'),
-    border: (props: CSSProps) => `${props.nowSelected ? 4 : 2}px solid ${theme.palette.primary.main}`,
-  },
+    left: `${5 + columnPos * 5}rem`,
+    top: rowStartPos * 2 + rowEndPos * 2 <= 40 ? `${4 + rowStartPos * 2}rem` : '40rem',
+    border: `${nowSelected ? 4 : 2}px solid ${theme.palette.primary.main}`,
+  }),
 }));
 
 const SameLectureBox = ({ startTime, endTime, nowSelected }: SameLectureBoxProps): JSX.Element => {
