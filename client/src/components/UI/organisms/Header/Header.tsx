@@ -37,9 +37,9 @@ const Header = (): JSX.Element => {
         <Typography variant="h3" color="primary">
           한표
         </Typography>
-        <HeaderMenu>시간표짜기</HeaderMenu>
-        <HeaderMenu>강의후기</HeaderMenu>
-        <HeaderMenu>마이페이지</HeaderMenu>
+        <HeaderMenu link="/">시간표짜기</HeaderMenu>
+        <HeaderMenu link="/review">강의후기</HeaderMenu>
+        <HeaderMenu link="/my">마이페이지</HeaderMenu>
         <HeaderAuthSection />
       </div>
     </div>
