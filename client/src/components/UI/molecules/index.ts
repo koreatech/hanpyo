@@ -21,3 +21,4 @@ export { LoginModalContent, LoginModalType } from './LoginModalContent/LoginModa
 export { LectureSearchFilterMenu } from './LectureSearchFilter/LectureSearchFilterMenu';
 export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
 export { SignUpModalContent, SignUpModalType } from './SignUpModalContent/SignUpModalContent';
+export { LectureReviewInfo } from './LectureReviewInfo/LectureReviewInfo';
