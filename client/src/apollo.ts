@@ -2,7 +2,6 @@ import { ApolloClient, HttpLink, split, InMemoryCache } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { OperationDefinitionNode } from 'graphql';
-import { nowSelectedTab } from '@/stores/timetable';
 
 // graphql api 주소
 const httpLink = new HttpLink({
@@ -30,19 +29,7 @@ const link = split(
 // apollo client 생성
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          getSelectedTabIndex: {
-            read() {
-              return nowSelectedTab();
-            },
-          },
-        },
-      },
-    },
-  }),
+  cache: new InMemoryCache({}),
 });
 
 export default client;

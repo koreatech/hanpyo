@@ -47,26 +47,35 @@ const headerInfos = {
 const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
 
-  const { timeTableStore, snackbarStore } = useStores();
-  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+  const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
+  const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     timeTableStore.addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
-  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+  const onBasketLectureDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
     timeTableStore.removeLectureFromTable(lectureInfos.name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
+  };
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    lectureInfoStore.state.selectedLecture(lectureInfos);
+  };
+  const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
+    if (typeof lectureInfos.time === 'string') return;
+    lectureInfoStore.state.basketSelectedLecture(lectureInfos);
   };
   const getLectureInfos = (infos: Array<LectureInfos>) => {
     if (!infos) return <></>;
     return infos.map((elem: LectureInfos) => {
       return (
         <LectureInfo
-          key={elem.code}
+          key={`${elem.code}${elem.class}`}
           infos={elem}
+          onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
           onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
           isBasketList={isBasketList}
         />
@@ -85,7 +94,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   return (
     <div className={classes.rootWrapper}>
       <div className={classes.root}>
-        <LectureInfo isHeader infos={headerInfos} onClick={() => {}} />
+        <LectureInfo isHeader infos={headerInfos} onDoubleClick={() => {}} onClick={() => {}} />
         {getLectureBody()}
       </div>
     </div>

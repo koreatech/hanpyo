@@ -11,7 +11,7 @@ interface TimeTableStoreState {
   selectedTabIdx: ReactiveVar<any>;
   tables: ReactiveVar<TableInfo[]>;
   tableIndex: ReactiveVar<number>;
-  lectures: ReactiveVar<Array<LectureInfos[]>>;
+  selectedTabLectures: ReactiveVar<Array<LectureInfos[]>>;
   colorIndex: ReactiveVar<number>;
 }
 
@@ -45,7 +45,7 @@ class TimeTableStore {
       selectedTabIdx: makeVar<any>(false),
       tables: makeVar<TableInfo[]>([]),
       tableIndex: makeVar(0),
-      lectures: makeVar<Array<LectureInfos[]>>([]),
+      selectedTabLectures: makeVar<Array<LectureInfos[]>>([]),
       colorIndex: makeVar<number>(Math.floor(Math.random() * colors.length)),
     };
   }
@@ -59,7 +59,7 @@ class TimeTableStore {
   }
 
   addTable(name: string): void {
-    const { tableIndex, tables, lectures } = this.state;
+    const { tableIndex, tables, selectedTabLectures } = this.state;
     const nextIndex = tableIndex() + 1;
     const newTable = {
       name,
@@ -70,14 +70,14 @@ class TimeTableStore {
     tables(newTables);
     tableIndex(nextIndex);
 
-    const newLectures = [...lectures(), []];
-    lectures(newLectures);
+    const newLectures = [...selectedTabLectures(), []];
+    selectedTabLectures(newLectures);
 
     this.selectTab(tables().length);
   }
 
   removeTable(): void {
-    const { tables, selectedTabIdx, lectures } = this.state;
+    const { tables, selectedTabIdx, selectedTabLectures } = this.state;
 
     if (tables().length === 1) return;
 
@@ -86,40 +86,40 @@ class TimeTableStore {
 
     tables(newTables);
 
-    const newLectures = lectures().filter((elem, idx) => idx !== selectedTabIdx() - 1);
-    lectures(newLectures);
+    const newLectures = selectedTabLectures().filter((elem, idx) => idx !== selectedTabIdx() - 1);
+    selectedTabLectures(newLectures);
 
     this.selectTab(nextSelectedTab);
   }
 
   addLectureToTable(input: LectureInfos): void {
-    const { selectedTabIdx, lectures } = this.state;
+    const { selectedTabIdx, selectedTabLectures } = this.state;
     if (!selectedTabIdx()) return;
-    const isNoDuplicateLecture = lectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
+    const isNoDuplicateLecture = selectedTabLectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
     if (!isNoDuplicateLecture) return;
     const inputWithColor = { ...input, color: this.getColor() };
-    const newLecture = [...lectures()[selectedTabIdx() - 1], inputWithColor];
-    const newLectures = lectures().map((elem, idx) => {
+    const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1], inputWithColor];
+    const newLectures = selectedTabLectures().map((elem, idx) => {
       if (idx === selectedTabIdx() - 1) return newLecture;
       return elem;
     });
     this.setNextColor();
-    lectures(newLectures);
+    selectedTabLectures(newLectures);
   }
 
   removeLectureFromTable(input: string): void {
-    const { selectedTabIdx, lectures } = this.state;
-    const newLecture = [...lectures()[selectedTabIdx() - 1]].filter((elem) => elem.name !== input);
-    const newLectures = lectures().map((elem, idx) => {
+    const { selectedTabIdx, selectedTabLectures } = this.state;
+    const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1]].filter((elem) => elem.name !== input);
+    const newLectures = selectedTabLectures().map((elem, idx) => {
       if (idx === selectedTabIdx() - 1) return newLecture;
       return elem;
     });
-    lectures(newLectures);
+    selectedTabLectures(newLectures);
   }
 
   getLecturesFromTable(): LectureInfos[] {
-    const { selectedTabIdx, lectures } = this.state;
-    return lectures()[selectedTabIdx()];
+    const { selectedTabIdx, selectedTabLectures } = this.state;
+    return selectedTabLectures()[selectedTabIdx()];
   }
 
   setNextColor(): void {
