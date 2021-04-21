@@ -32,3 +32,4 @@ const LectureReviewRating = ({ rating }: LectureReviewRatingProps): JSX.Element 
 };
 
 export { LectureReviewRating };
+export type { LectureReviewRatingProps };
