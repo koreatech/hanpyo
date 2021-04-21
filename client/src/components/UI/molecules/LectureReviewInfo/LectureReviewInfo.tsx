@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginLeft: '0.5rem',
   },
+  weight: {
+    fontWeight: 'bold',
+  },
 }));
 
 const LectureReviewInfo = ({ lectureName, profName, rating, period }: LectureReviewInfoProps): JSX.Element => {
@@ -25,7 +28,9 @@ const LectureReviewInfo = ({ lectureName, profName, rating, period }: LectureRev
 
   return (
     <div className={classes.root}>
-      <Typography variant="subtitle1">{lectureName}</Typography>
+      <Typography className={classes.weight} variant="subtitle1">
+        {lectureName}
+      </Typography>
       <Typography className={classes.item} variant="subtitle2">
         {profName}
       </Typography>
