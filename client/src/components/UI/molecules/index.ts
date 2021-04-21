@@ -23,3 +23,4 @@ export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
 export { SignUpModalContent, SignUpModalType } from './SignUpModalContent/SignUpModalContent';
 export { LectureReviewInfo } from './LectureReviewInfo/LectureReviewInfo';
 export { LectureReviewThumbs } from './LectureReviewThumbs/LectureReviewThumbs';
+export { LectureReviewHashTags } from './LectureReviewHashTags/LectureReviewHashTags';
