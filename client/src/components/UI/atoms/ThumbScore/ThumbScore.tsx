@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ThumbUp from '@material-ui/icons/ThumbUp';
-import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUpTwoTone';
+import ThumbDown from '@material-ui/icons/ThumbDownTwoTone';
 
 interface ThumbProps {
   thumbDown?: boolean;
