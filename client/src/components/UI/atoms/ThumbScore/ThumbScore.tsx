@@ -47,3 +47,4 @@ const Thumb = ({ thumbDown = false, score, onClick }: ThumbProps): JSX.Element =
 };
 
 export { Thumb };
+export type { ThumbProps };
