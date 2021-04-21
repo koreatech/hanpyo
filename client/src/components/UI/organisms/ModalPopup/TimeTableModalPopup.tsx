@@ -5,7 +5,7 @@ interface TimeTableModalPopupProps {
   modalOpen: boolean;
   modalType: TimeTableModalType;
   onModalAreaClose: () => void;
-  onModalBtnClick: () => void;
+  onModalBtnClick: (inputValue?: string) => void;
 }
 
 const TimeTableModalPopup = ({ modalOpen, modalType, onModalAreaClose, onModalBtnClick }: TimeTableModalPopupProps): JSX.Element => {

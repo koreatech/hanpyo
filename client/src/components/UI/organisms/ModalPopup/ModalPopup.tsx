@@ -21,8 +21,8 @@ const ModalPopup = (): JSX.Element => {
     modalStore.setModalState(false);
   };
 
-  const onTabAddModalBtnClickListener = () => {
-    timeTableStore.addTable('시간표');
+  const onTabAddModalBtnClickListener = (timeTableTabTitle?: string) => {
+    timeTableStore.addTable(timeTableTabTitle as string);
     modalStore.setModalState(false);
   };
 
