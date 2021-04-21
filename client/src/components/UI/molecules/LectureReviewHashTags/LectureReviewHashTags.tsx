@@ -23,3 +23,4 @@ const LectureReviewHashTags = ({ tags }: LectureReviewHashTagsProps): JSX.Elemen
 };
 
 export { LectureReviewHashTags };
+export type { LectureReviewHashTagsProps };
