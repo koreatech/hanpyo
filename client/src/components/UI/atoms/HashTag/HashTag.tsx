@@ -31,3 +31,4 @@ const HashTag = ({ children }: HashTagProps): JSX.Element => {
 };
 
 export { HashTag };
+export type { HashTagProps };
