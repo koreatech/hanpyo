@@ -43,3 +43,4 @@ const LectureReviewInfo = ({ lectureName, profName, rating, period }: LectureRev
 };
 
 export { LectureReviewInfo };
+export type { LectureReviewInfoProps };

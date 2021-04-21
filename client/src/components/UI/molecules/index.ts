@@ -22,5 +22,7 @@ export { LectureSearchFilterMenu } from './LectureSearchFilter/LectureSearchFilt
 export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
 export { SignUpModalContent, SignUpModalType } from './SignUpModalContent/SignUpModalContent';
 export { LectureReviewInfo } from './LectureReviewInfo/LectureReviewInfo';
+export type { LectureReviewInfoProps } from './LectureReviewInfo/LectureReviewInfo';
 export { LectureReviewThumbs } from './LectureReviewThumbs/LectureReviewThumbs';
+export type { LectureReviewThumbsProps } from './LectureReviewThumbs/LectureReviewThumbs';
 export { LectureReviewHashTags } from './LectureReviewHashTags/LectureReviewHashTags';
