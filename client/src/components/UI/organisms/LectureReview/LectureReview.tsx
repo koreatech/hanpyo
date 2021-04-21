@@ -76,3 +76,4 @@ const LectureReview = ({ infos, content, tags, scores, isMine = false }: Lecture
 };
 
 export { LectureReview };
+export type { LectureReviewProps };
