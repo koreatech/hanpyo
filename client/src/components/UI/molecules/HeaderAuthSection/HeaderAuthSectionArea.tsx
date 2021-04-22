@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectionAreaProps): JSX.Element => {
   const classes = useStyles();
+
   return (
     <div className={classes.loginSection}>
       <Typography className={classes.promotionText} variant="caption">
