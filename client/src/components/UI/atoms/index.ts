@@ -11,3 +11,6 @@ export type { SelectMenuProps } from './SelectMenu/SelectMenu';
 export { TimeSelectMenu } from './TimeSelectMenu/TimeSelectMenu';
 export type { TimeSelectMenuProps } from './TimeSelectMenu/TimeSelectMenu';
 export { SameLectureBox } from './SameLectureBox/SameLectureBox';
+export { LectureReviewRating } from './LectureReviewRating/LectureReviewRating';
+export { Thumb } from './ThumbScore/ThumbScore';
+export { HashTag } from './HashTag/HashTag';
