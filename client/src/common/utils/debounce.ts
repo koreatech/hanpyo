@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-this-alias */
 const debounce = (func: Function, wait: number): (() => void) => {
   let timeout: NodeJS.Timeout | null;
