@@ -66,41 +66,64 @@ interface LectureInfoProps {
   isBasketList?: boolean;
 }
 
+const LECTURE_INFO_TOOLTIP_MESSAGE = {
+  REMOVE_MESSAGE: '시간표에서 제거하기',
+  ADD_MESSAGE: '시간표에 추가하기',
+};
+
 const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasketList = false }: LectureInfoProps): JSX.Element => {
   const classes = useStyles();
   const subClass = isHeader ? classes.header : classes.item;
+
   const { lectureInfoStore } = useStores();
+
   const nowSelectedLectureInfo = isBasketList
     ? useReactiveVar(lectureInfoStore.state.basketSelectedLecture)
     : useReactiveVar(lectureInfoStore.state.selectedLecture);
-  const isSelectedLecture = () => {
+
+  const checkSelectedLecture = (): boolean => {
     return nowSelectedLectureInfo?.code === infos.code && nowSelectedLectureInfo?.class === infos.class;
   };
-  const convertNumberToTime = (time: number) => {
+
+  const convertNumberToTime = (time: number): string => {
     const hour = Math.floor((time % 1440) / 60)
       .toString()
       .padStart(2, '0');
     const minute = (time % 60).toString().padEnd(2, '0');
+
     return `${hour}:${minute}`;
   };
-  const convertTimeToString = (times: TimeTypes) => {
+
+  const convertTimeToString = (times: TimeTypes): string => {
     const days = ['월', '화', '수', '목', '금', '토'];
     const startDay = days[Math.floor(times.start / 1440)];
     const startTime = convertNumberToTime(times.start);
     const endTime = convertNumberToTime(times.end);
+
     return `${startDay} ${startTime} - ${endTime}`;
   };
-  const getLectureTime = (times: Array<TimeTypes> | string) => {
+
+  const getLectureTimes = (times: Array<TimeTypes> | string): JSX.Element[] | string => {
     if (typeof times === 'string') return times;
+
     return times.map((time) => {
-      return <Typography variant="caption">{convertTimeToString(time)}</Typography>;
+      return (
+        <Typography key={time.start} variant="caption">
+          {convertTimeToString(time)}
+        </Typography>
+      );
     });
   };
+
   return (
-    <Tooltip title={isBasketList ? '시간표에서 제거하기' : '시간표에 추가하기'} placement="left" arrow disableHoverListener={isHeader}>
+    <Tooltip
+      title={isBasketList ? LECTURE_INFO_TOOLTIP_MESSAGE.REMOVE_MESSAGE : LECTURE_INFO_TOOLTIP_MESSAGE.ADD_MESSAGE}
+      placement="left"
+      arrow
+      disableHoverListener={isHeader}>
       <div
         className={`${classes.root} ${subClass}`}
-        data-selected={isSelectedLecture()}
+        data-selected={checkSelectedLecture()}
         onClick={() => onClick(infos)}
         onDoubleClick={() => onDoubleClick(infos)}>
         <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
@@ -132,7 +155,7 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
-          {getLectureTime(infos.time)}
+          {getLectureTimes(infos.time)}
         </LectureInfoTitle>
       </div>
     </Tooltip>
