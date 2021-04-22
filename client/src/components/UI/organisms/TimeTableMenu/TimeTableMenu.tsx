@@ -8,30 +8,6 @@ const TimeTableMenu = (): JSX.Element => {
   const { timeTableStore, modalStore } = useStores();
   const tables = useReactiveVar(timeTableStore.state.tables);
   const selectedTab = useReactiveVar(timeTableStore.state.selectedTabIdx);
-  const mockTables = [
-    {
-      index: 1,
-      name: '시간표1',
-    },
-    {
-      index: 2,
-      name: '시간표2',
-    },
-    {
-      index: 3,
-      name: '시간표3',
-    },
-    {
-      index: 4,
-      name: '시간표4',
-    },
-    {
-      index: 5,
-      name: '시간표5',
-    },
-  ];
-
-  const mockSeletedTab = 1;
 
   const onTimeTableTabChangeListener = (e: React.ChangeEvent<{}>, newValue: number): void => {
     timeTableStore.selectTab(newValue);
