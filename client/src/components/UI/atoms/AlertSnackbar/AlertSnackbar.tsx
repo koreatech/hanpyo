@@ -19,7 +19,8 @@ const AlertSnackbar = (): JSX.Element => {
   const { snackbarStore } = useStores();
   const snackbarState = useReactiveVar(snackbarStore.state.snackbarState);
   const snackbarType = useReactiveVar(snackbarStore.state.snackbarType);
-  const onCloseHandler = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+
+  const onSnackbarCloseListener = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -36,10 +37,10 @@ const AlertSnackbar = (): JSX.Element => {
         }}
         open={snackbarState}
         autoHideDuration={1500}
-        onClose={onCloseHandler}
+        onClose={onSnackbarCloseListener}
         message={SNACKBAR_MESSAGE[snackbarType]}
         action={
-          <IconButton size="small" aria-label="close" color="inherit" onClick={onCloseHandler}>
+          <IconButton size="small" aria-label="close" color="inherit" onClick={onSnackbarCloseListener}>
             <CloseIcon fontSize="small" />
           </IconButton>
         }
