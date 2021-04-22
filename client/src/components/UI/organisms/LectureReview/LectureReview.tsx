@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    width: '40rem',
+    width: '100%',
     height: '9rem',
     border: `1px solid ${isMine ? theme.palette.primary.main : theme.palette.grey[300]}`,
     backgroundColor: isMine ? '#fdf6eb' : 'white',
