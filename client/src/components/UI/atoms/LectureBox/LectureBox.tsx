@@ -9,9 +9,9 @@ interface LectureBoxProps {
   startTime: number;
   endTime: number;
   bgcolor?: string;
-  name: string;
-  division?: string;
-  prof: string;
+  lectureName: string;
+  classNumber?: string;
+  professorName: string;
 }
 
 interface CSSProps {
@@ -22,27 +22,31 @@ interface CSSProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: ({ rowStartPos, rowEndPos, columnPos, bgcolor }: CSSProps) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
-    height: (props: CSSProps) => (props.rowStartPos * 2 + props.rowEndPos * 2 <= 40 ? `${props.rowEndPos * 2}rem` : '4rem'),
+    height: rowStartPos * 2 + rowEndPos * 2 <= 40 ? `${rowEndPos * 2}rem` : '4rem',
     width: '5rem',
-    left: (props: CSSProps) => `${5 + props.columnPos * 5}rem`,
-    top: (props: CSSProps) => (props.rowStartPos * 2 + props.rowEndPos * 2 <= 40 ? `${4 + props.rowStartPos * 2}rem` : '40rem'),
+    left: `${5 + columnPos * 5}rem`,
+    top: rowStartPos * 2 + rowEndPos * 2 <= 40 ? `${4 + rowStartPos * 2}rem` : '40rem',
     boxSizing: 'border-box',
-    backgroundColor: (props: CSSProps) => props.bgcolor || 'rgba(250, 244, 192)',
+    backgroundColor: bgcolor || 'rgba(250, 244, 192)',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderTop: `2px solid ${theme.palette.grey[300]}`,
+
     '&:hover': {
       boxShadow: '0 3px 4.5px 0 rgba(0, 0, 0, 0.16)',
-      '& > div[class*="makeStyles-membrane"]': {
+
+      '&:first-child': {
         display: 'block',
       },
+
       '& .MuiButtonBase-root': {
         display: 'block',
       },
     },
+
     '& .MuiButtonBase-root': {
       display: 'none',
       position: 'absolute',
@@ -50,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
       top: '50%',
       left: '50%',
     },
-  },
+  }),
   membrane: {
     display: 'none',
     position: 'absolute',
@@ -61,14 +65,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureBox = ({ startTime, endTime, bgcolor, name, division, prof }: LectureBoxProps): JSX.Element => {
+const LectureBox = ({ startTime, endTime, bgcolor, lectureName, classNumber, professorName }: LectureBoxProps): JSX.Element => {
   const columnPos = Math.floor(startTime / 1440);
   const rowStartPos = ((startTime % 1440) - 540) / 30;
   const rowEndPos = (endTime - startTime) / 30;
   const classes = useStyles({ columnPos, rowStartPos, rowEndPos, bgcolor });
+
   const { timeTableStore, snackbarStore } = useStores();
-  const onClickHandler = () => {
-    timeTableStore.removeLectureFromTable(name);
+
+  const onLectureBoxClickListener = () => {
+    timeTableStore.removeLectureFromTable(lectureName);
+
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
@@ -76,16 +83,16 @@ const LectureBox = ({ startTime, endTime, bgcolor, name, division, prof }: Lectu
   return (
     <div className={classes.root}>
       <div className={classes.membrane} />
-      <Tooltip title="시간표 삭제" arrow placement="right" onClick={() => onClickHandler()}>
+      <Tooltip title="시간표 삭제" arrow placement="right" onClick={onLectureBoxClickListener}>
         <IconButton aria-label="delete">
           <DeleteIcon style={{ fontSize: 16 }} />
         </IconButton>
       </Tooltip>
       <div>
-        <Typography variant="subtitle2">{name}</Typography>
+        <Typography variant="subtitle2">{lectureName}</Typography>
       </div>
       <div>
-        <Typography variant="caption">{`${division || '01'} ${prof}`}</Typography>
+        <Typography variant="caption">{`${classNumber || '01'} ${professorName}`}</Typography>
       </div>
     </div>
   );
