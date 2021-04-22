@@ -1,7 +1,6 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Header, LectureReviewContainer } from '@/components/UI/organisms';
+import { LectureReviewContainer } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    minHeight: '1000px',
   },
 }));
 
@@ -16,7 +16,6 @@ const ReviewPage = (): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header />
       <LectureReviewContainer />
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
 import { Timetable, Notice, SearchBar, SubTitle, LectureSearchFilterMenu, TimeTableAddForm } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core';
-import { Header, LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
+import { LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +34,6 @@ const MainPage = (): JSX.Element => {
   return (
     <>
       <div className={classes.root}>
-        <Header />
         <div className={classes.wrapper}>
           <div className={classes.left}>
             <Notice />
