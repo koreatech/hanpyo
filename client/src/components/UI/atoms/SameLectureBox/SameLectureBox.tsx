@@ -4,18 +4,18 @@ import { makeStyles } from '@material-ui/core/styles';
 interface SameLectureBoxProps {
   startTime: number;
   endTime: number;
-  nowSelected?: boolean;
+  isSelectedLecture?: boolean;
 }
 
 interface CSSProps {
   columnPos: number;
   rowStartPos: number;
   rowEndPos: number;
-  nowSelected?: boolean;
+  isSelectedLecture?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: ({ columnPos, rowStartPos, rowEndPos, nowSelected }: CSSProps) => ({
+  root: ({ columnPos, rowStartPos, rowEndPos, isSelectedLecture }: CSSProps) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
@@ -24,15 +24,15 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     left: `${5 + columnPos * 5}rem`,
     top: rowStartPos * 2 + rowEndPos * 2 <= 40 ? `${4 + rowStartPos * 2}rem` : '40rem',
-    border: `${nowSelected ? 4 : 2}px solid ${theme.palette.primary.main}`,
+    border: `${isSelectedLecture ? 4 : 2}px solid ${theme.palette.primary.main}`,
   }),
 }));
 
-const SameLectureBox = ({ startTime, endTime, nowSelected }: SameLectureBoxProps): JSX.Element => {
+const SameLectureBox = ({ startTime, endTime, isSelectedLecture }: SameLectureBoxProps): JSX.Element => {
   const columnPos = Math.floor(startTime / 1440);
   const rowStartPos = ((startTime % 1440) - 540) / 30;
   const rowEndPos = (endTime - startTime) / 30;
-  const classes = useStyles({ columnPos, rowStartPos, rowEndPos, nowSelected });
+  const classes = useStyles({ columnPos, rowStartPos, rowEndPos, isSelectedLecture });
 
   return <div className={classes.root} />;
 };
