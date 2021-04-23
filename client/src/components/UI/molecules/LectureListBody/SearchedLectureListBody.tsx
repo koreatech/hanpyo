@@ -5,7 +5,7 @@ import { useStores } from '@/stores';
 
 interface SearchedLectureListBodyProps {
   isBasketList?: boolean;
-  getLectureInfos: (infos: Array<LectureInfos>) => any;
+  getLectureInfos: (infos: Array<LectureInfos>) => JSX.Element[];
 }
 
 const useStyles = makeStyles((theme) => ({
