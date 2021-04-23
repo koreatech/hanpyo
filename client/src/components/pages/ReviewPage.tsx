@@ -2,6 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core';
+import { ReviewSearchSection } from '@/components/UI/molecules';
 import { Header, LectureReviewContainer } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,14 +20,17 @@ const useStyles = makeStyles((theme) => ({
   },
   titleArea: {
     width: '100%',
-    marginTop: '2rem',
+    marginTop: '1.5rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   searchArea: {
     display: 'flex',
+    width: '100%',
+    marginTop: '1.5rem',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   writeButton: {
     width: '10rem',
@@ -52,7 +56,9 @@ const ReviewPage = (): JSX.Element => {
             강의 후기 쓰기
           </Button>
         </div>
-        <div className={classes.searchArea}>검색 영역</div>
+        <div className={classes.searchArea}>
+          <ReviewSearchSection />
+        </div>
         <LectureReviewContainer />
       </div>
     </div>
