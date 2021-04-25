@@ -1,9 +1,8 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core';
 import { ReviewSearchSection } from '@/components/UI/molecules';
-import { Header, LectureReviewContainer } from '@/components/UI/organisms';
+import { LectureReviewContainer } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '40rem',
     justifyContent: 'center',
     alignItems: 'center',
+    minHeight: '1000px',
   },
   titleArea: {
     width: '100%',
@@ -46,7 +46,6 @@ const ReviewPage = (): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Header />
       <div className={classes.wrapper}>
         <div className={classes.titleArea}>
           <Typography variant="h4" color="primary">

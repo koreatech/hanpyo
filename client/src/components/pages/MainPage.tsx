@@ -1,8 +1,8 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
 import { Timetable, Notice, SearchBar, SubTitle, LectureSearchFilterMenu, TimeTableAddForm } from '@/components/UI/molecules';
-import { Box, makeStyles } from '@material-ui/core';
-import { Header, LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
+import { makeStyles } from '@material-ui/core';
+import { LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
 
 const useStyles = makeStyles({
   root: {
@@ -33,15 +33,14 @@ const MainPage = (): JSX.Element => {
   const classes = useStyles();
   return (
     <>
-      <Box className={classes.root}>
-        <Header />
-        <Box className={classes.wrapper}>
-          <Box className={classes.left}>
+      <div className={classes.root}>
+        <div className={classes.wrapper}>
+          <div className={classes.left}>
             <Notice />
             <TimeTableMenu />
             <Timetable row={10} containedSat={false} />
-          </Box>
-          <Box className={classes.right}>
+          </div>
+          <div className={classes.right}>
             <SubTitle>강의 찾기</SubTitle>
             <SearchBar />
             <LectureSearchFilterMenu />
@@ -50,11 +49,11 @@ const MainPage = (): JSX.Element => {
             <TimeTableAddForm />
             <SubTitle>장바구니</SubTitle>
             <LectureList isBasketList />
-          </Box>
-        </Box>
+          </div>
+        </div>
         <AlertSnackbar />
         <ModalPopup />
-      </Box>
+      </div>
     </>
   );
 };

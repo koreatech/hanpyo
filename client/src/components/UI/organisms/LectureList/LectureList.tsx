@@ -46,35 +46,44 @@ const headerInfos = {
 
 const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element => {
   const classes = useStyles({ isBasketList });
-
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
+
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
+
     timeTableStore.addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
+
   const onBasketLectureDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
+
     timeTableStore.removeLectureFromTable(lectureInfos.name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
     snackbarStore.setSnackbarState(true);
   };
+
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
+
     lectureInfoStore.state.selectedLecture(lectureInfos);
   };
+
   const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
     if (typeof lectureInfos.time === 'string') return;
+
     lectureInfoStore.state.basketSelectedLecture(lectureInfos);
   };
-  const getLectureInfos = (infos: Array<LectureInfos>) => {
-    if (!infos) return <></>;
-    return infos.map((elem: LectureInfos) => {
+
+  const getLectureInfos = (lectureInfoDatas: Array<LectureInfos>): JSX.Element[] => {
+    if (!lectureInfoDatas) return [];
+
+    return lectureInfoDatas.map((lectureInfoData: LectureInfos) => {
       return (
         <LectureInfo
-          key={`${elem.code}${elem.class}`}
-          infos={elem}
+          key={`${lectureInfoData.code}${lectureInfoData.class}`}
+          infos={lectureInfoData}
           onDoubleClick={isBasketList ? onBasketLectureDoubleClickListener : onLectureSearchDoubleClickListener}
           onClick={isBasketList ? onBasketLectureClickListener : onLectureSearchClickListener}
           isBasketList={isBasketList}

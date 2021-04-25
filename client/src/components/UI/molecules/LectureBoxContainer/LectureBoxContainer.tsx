@@ -4,7 +4,7 @@ import { LectureBox, SameLectureBox } from '@/components/UI/atoms';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     position: 'absolute',
     top: 0,
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
-}));
+});
 
 const LectureBoxContainer = (): JSX.Element => {
   const classes = useStyles();
@@ -21,32 +21,49 @@ const LectureBoxContainer = (): JSX.Element => {
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const nowSelectedLecture = useReactiveVar(lectureInfoStore.state.selectedLecture);
 
-  const fillTableByLectures = () => {
+  const getLectureBoxes = () => {
     if (selectedTabIdx === 0) return <></>;
+
     const lectureInfos = savedLectures[selectedTabIdx - 1];
     if (!lectureInfos) return <></>;
-    return lectureInfos.map((elem) => {
-      if (typeof elem.time === 'string') return <></>;
-      return elem.time.map((time) => {
-        return <LectureBox startTime={time.start} endTime={time.end} name={elem.name} division={elem.class} prof={elem.prof} bgcolor={elem.color} />;
+
+    return lectureInfos.map((lectureInfo) => {
+      if (typeof lectureInfo.time === 'string') return <></>;
+
+      return lectureInfo.time.map((time) => {
+        return (
+          <LectureBox
+            startTime={time.start}
+            endTime={time.end}
+            lectureName={lectureInfo.name}
+            classNumber={lectureInfo.class}
+            professorName={lectureInfo.prof}
+            bgcolor={lectureInfo.color}
+          />
+        );
       });
     });
   };
 
-  const showSameLectures = () => {
+  const getSameLectureBoxes = () => {
     const sameLectures = lectureInfoStore.getSameLectures();
+
     return sameLectures.map((sameLecture) => {
       if (typeof sameLecture.time === 'string') return <></>;
+
       return sameLecture.time.map((time) => {
-        if (sameLecture.class === nowSelectedLecture?.class) return <SameLectureBox startTime={time.start} endTime={time.end} nowSelected />;
+        if (sameLecture.class === nowSelectedLecture?.class) {
+          return <SameLectureBox startTime={time.start} endTime={time.end} isSelectedLecture />;
+        }
         return <SameLectureBox startTime={time.start} endTime={time.end} />;
       });
     });
   };
+
   return (
     <div className={classes.root}>
-      {fillTableByLectures()}
-      {showSameLectures()}
+      {getLectureBoxes()}
+      {getSameLectureBoxes()}
     </div>
   );
 };

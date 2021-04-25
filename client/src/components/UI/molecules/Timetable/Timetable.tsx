@@ -1,9 +1,9 @@
-/* eslint-disable no-continue */
 import React from 'react';
 import { LectureGrid } from '@/components/UI/atoms';
 import { LectureBoxContainer } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core/styles';
 import { useStores } from '@/stores';
+import { range } from '@/common/utils';
 
 interface TimetableProps {
   row: number;
@@ -11,11 +11,11 @@ interface TimetableProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: (props: TimetableProps) => ({
+  root: ({ row, containedSat }: TimetableProps) => ({
     display: 'grid',
     position: 'relative',
-    gridTemplateRows: `repeat(${props.row + 1}, 1fr)`,
-    gridTemplateColumns: `repeat(${props.containedSat ? 7 : 6}, 1fr)`,
+    gridTemplateRows: `repeat(${row + 1}, 1fr)`,
+    gridTemplateColumns: `repeat(${containedSat ? 7 : 6}, 1fr)`,
     width: '30rem',
     height: '44rem',
     border: `1px solid ${theme.palette.grey[300]}`,
@@ -68,67 +68,60 @@ const days = [
   { id: 6, name: 'Sat' },
 ];
 
-interface dayType {
-  id: number;
-  name: string;
-}
-
 const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   const classes = useStyles({ row, containedSat });
   const { lectureInfoStore } = useStores();
-  const fillTableHeader = () => {
-    // return days.reduce<JSX.Element | Element | Element[]>(
-    //   (acc: JSX.Element | Element | Element[], day: dayType) => {
-    //     if (!containedSat && day.name === 'Sat') {
-    //       return acc;
-    //     }
-    //     return (
-    //       <Box key={day.id} className={classes.header}>
-    //         {day.name}
-    //       </Box>
-    //     );
-    //   },
-    //   [<Box key={0} className={classes.header} />],
-    // );
-    const array = [<div key={0} className={classes.header} />];
-    for (let i = 0; i < days.length; i += 1) {
-      const day = days[i];
-      if (i === 5) {
-        if (!containedSat) continue;
-      }
-      array.push(
-        <div key={day.id} className={classes.header}>
-          {day.name}
-        </div>,
+
+  const getTableHeaders = (): JSX.Element[] => {
+    const headers = days.reduce<JSX.Element[]>(
+      (acc, day, idx) => {
+        if (idx === 5 && !containedSat) return acc;
+
+        return acc.concat(
+          <div key={day.id} className={classes.header}>
+            {day.name}
+          </div>,
+        );
+      },
+      [<div key={0} className={classes.header} />],
+    );
+
+    return headers;
+  };
+
+  const getTimeGridInRow = (time: number): JSX.Element => {
+    if (time === 0) return <div key={0} className={classes.time}>{`0${time + 9}:00-${time + 10}:00`}</div>;
+
+    if (time === 9)
+      return (
+        <div key={0} className={classes.time}>
+          이후
+        </div>
       );
-    }
-    return array;
+
+    return <div key={0} className={classes.time}>{`${time + 9}:00-${time + 10}:00`}</div>;
   };
-  const makeRow = (time: number) => {
-    const column = containedSat ? 6 : 5;
-    const array = [...Array(column)].map((n, index) => {
-      return <LectureGrid />;
-    });
-    if (time === 0) {
-      array.unshift(<div className={classes.time}>{`0${time + 9}:00-${time + 10}:00`}</div>);
-    } else if (time === 9) {
-      array.unshift(<div className={classes.time}>이후</div>);
-    } else array.unshift(<div className={classes.time}>{`${time + 9}:00-${time + 10}:00`}</div>);
-    return array;
+
+  const makeRowGrid = (time: number) => {
+    const columnCount = containedSat ? 6 : 5;
+    const rowGrid = [getTimeGridInRow(time)];
+
+    Array.from(range(1, columnCount)).forEach((key) => rowGrid.push(<LectureGrid key={key} />));
+    return rowGrid;
   };
-  const fillTable = () => {
-    return [...Array(row)].map((n, index) => {
-      return makeRow(index);
-    });
+
+  const getTableGrid = () => {
+    return [...Array(row)].map((_, idx) => makeRowGrid(idx));
   };
+
   const onMouseEnterListener = () => {
     lectureInfoStore.state.selectedLecture(null);
   };
 
   return (
     <div className={classes.root} onMouseEnter={onMouseEnterListener}>
-      {fillTableHeader()}
-      {fillTable()}
+      {getTableHeaders()}
+      {getTableGrid()}
       <LectureBoxContainer />
     </div>
   );
