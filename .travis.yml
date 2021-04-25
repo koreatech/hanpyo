@@ -13,6 +13,7 @@ before_install:
 branches:
   only:
     - main
+    - develop
 
 jobs:
   include:
