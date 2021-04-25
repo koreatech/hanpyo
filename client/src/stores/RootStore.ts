@@ -1,4 +1,4 @@
-import { ModalStore, TimeTableStore, SnackbarStore, LectureInfoStore } from '@/stores';
+import { ModalStore, TimeTableStore, SnackbarStore, LectureInfoStore, LectureReviewStore } from '@/stores';
 
 class RootStore {
   modalStore: ModalStore;
@@ -9,11 +9,14 @@ class RootStore {
 
   lectureInfoStore: LectureInfoStore;
 
+  lectureReviewStore: LectureReviewStore;
+
   constructor() {
     this.modalStore = new ModalStore(this);
     this.timeTableStore = new TimeTableStore(this);
     this.snackbarStore = new SnackbarStore(this);
     this.lectureInfoStore = new LectureInfoStore(this);
+    this.lectureReviewStore = new LectureReviewStore(this);
   }
 }
 
