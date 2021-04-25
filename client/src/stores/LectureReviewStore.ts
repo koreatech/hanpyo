@@ -1,10 +1,10 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
-import { LectureReviewProps } from '@/components/UI/organisms';
+import { LectureReviewData } from '@/components/UI/organisms';
 
 interface LectureReviewStoreState {
-  reviews: ReactiveVar<LectureReviewProps[]>;
-  nowSelectedReviewData: ReactiveVar<LectureReviewProps | null>;
+  reviews: ReactiveVar<LectureReviewData[]>;
+  nowSelectedReviewData: ReactiveVar<LectureReviewData | null>;
 }
 
 class LectureReviewStore {
@@ -15,8 +15,8 @@ class LectureReviewStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.state = {
-      reviews: makeVar<LectureReviewProps[]>(mockData),
-      nowSelectedReviewData: makeVar<LectureReviewProps | null>(null),
+      reviews: makeVar<LectureReviewData[]>(mockData),
+      nowSelectedReviewData: makeVar<LectureReviewData | null>(null),
     };
   }
 }
