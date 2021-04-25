@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfo, LectureInfos, BasketLectureListBody, SearchedLectureListBody } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
+import { isString } from '@/common/utils/typeCheck';
 
 interface LectureListProps {
   isBasketList?: boolean;
@@ -49,7 +50,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
 
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
+    if (isString(lectureInfos.time)) return;
 
     timeTableStore.addLectureToTable(lectureInfos);
     snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
@@ -57,7 +58,7 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   };
 
   const onBasketLectureDoubleClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
+    if (isString(lectureInfos.time)) return;
 
     timeTableStore.removeLectureFromTable(lectureInfos.name);
     snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
@@ -65,13 +66,13 @@ const LectureList = ({ isBasketList = false }: LectureListProps): JSX.Element =>
   };
 
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
+    if (isString(lectureInfos.time)) return;
 
     lectureInfoStore.state.selectedLecture(lectureInfos);
   };
 
   const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
-    if (typeof lectureInfos.time === 'string') return;
+    if (isString(lectureInfos.time)) return;
 
     lectureInfoStore.state.basketSelectedLecture(lectureInfos);
   };
