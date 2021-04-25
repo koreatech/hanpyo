@@ -1,6 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { LectureReview } from './LectureReview';
+
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    marginTop: '1.5rem',
+  },
+});
 
 const mockData = [
   {
@@ -51,12 +59,13 @@ const mockData = [
 ];
 
 const LectureReviewContainer = (): JSX.Element => {
+  const classes = useStyles();
   const getLectureReviews = () => {
     return mockData.map((data, idx) => {
       return <LectureReview key={idx} infos={data.infos} content={data.content} tags={data.tags} scores={data.scores} isMine={data.isMine} />;
     });
   };
-  return <>{getLectureReviews()}</>;
+  return <div className={classes.root}>{getLectureReviews()}</div>;
 };
 
 export { LectureReviewContainer };

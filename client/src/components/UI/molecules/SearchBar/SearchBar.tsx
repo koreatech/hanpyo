@@ -3,18 +3,25 @@ import { InputBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Search } from '@material-ui/icons';
 
+interface SearchBarProps {
+  width?: string;
+}
+
+interface CSSProps {
+  width: string;
+}
+
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: ({ width }: CSSProps) => ({
     display: 'flex',
-    width: '100%',
+    width: `${width}`,
     boxSizing: 'border-box',
     borderRadius: '10rem',
     padding: `0.25rem 1.5rem`,
-    margin: '1.2rem 0 0 0',
     backgroundColor: `${theme.palette.grey[100]}`,
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
+  }),
   input: {
     width: '85%',
   },
@@ -23,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = (): JSX.Element => {
-  const classes = useStyles();
+const SearchBar = ({ width = '100%' }: SearchBarProps): JSX.Element => {
+  const classes = useStyles({ width });
 
   return (
     <form className={classes.root}>
@@ -35,3 +42,4 @@ const SearchBar = (): JSX.Element => {
 };
 
 export { SearchBar };
+export type { SearchBarProps };

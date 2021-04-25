@@ -26,3 +26,4 @@ export type { LectureReviewInfoProps } from './LectureReviewInfo/LectureReviewIn
 export { LectureReviewThumbs } from './LectureReviewThumbs/LectureReviewThumbs';
 export type { LectureReviewThumbsProps } from './LectureReviewThumbs/LectureReviewThumbs';
 export { LectureReviewHashTags } from './LectureReviewHashTags/LectureReviewHashTags';
+export { ReviewSearchSection } from './ReviewSearchSection/ReviewSearchSection';
