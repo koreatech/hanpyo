@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
-import { TimeTableModalType, LoginModalType, SignUpModalType } from '@/components/UI/molecules';
+import { TimeTableModalType, LoginModalType, SignUpModalType, ReviewDetailModalType } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
 import { TimeTableModalPopup } from './TimeTableModalPopup';
 import { LoginModalPopup } from './LoginModalPopup';
 import { SignUpModalPopup } from './SignUpModalPopup';
+import { ReviewDetailModalPopup } from './ReviewDetailModalPopup';
 
-type ModalType = TimeTableModalType | LoginModalType | SignUpModalType;
+type ModalType = TimeTableModalType | LoginModalType | SignUpModalType | ReviewDetailModalType;
 
-const modalTypes = { ...TimeTableModalType, ...LoginModalType, ...SignUpModalType };
+const modalTypes = { ...TimeTableModalType, ...LoginModalType, ...SignUpModalType, ...ReviewDetailModalType };
 
 const ModalPopup = (): JSX.Element => {
   const { timeTableStore, modalStore } = useStores();
@@ -52,7 +53,8 @@ const ModalPopup = (): JSX.Element => {
       );
     if (nowModalType === modalTypes.SIGN_UP_MODAL)
       return <SignUpModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
-
+    if (nowModalType === modalTypes.REVIEW_DETAIL_MODAL)
+      return <ReviewDetailModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
     return <LoginModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
   };
 
