@@ -4,7 +4,7 @@ import { LectureReviewData } from '@/components/UI/organisms';
 
 interface LectureReviewStoreState {
   reviews: ReactiveVar<LectureReviewData[]>;
-  nowSelectedReviewData: ReactiveVar<LectureReviewData | null>;
+  nowSelectedReviewId: ReactiveVar<number>;
 }
 
 class LectureReviewStore {
@@ -16,13 +16,13 @@ class LectureReviewStore {
     this.rootStore = rootStore;
     this.state = {
       reviews: makeVar<LectureReviewData[]>(mockData),
-      nowSelectedReviewData: makeVar<LectureReviewData | null>(null),
+      nowSelectedReviewId: makeVar<number>(0),
     };
   }
 
-  getNowSelectedReview(id: number) {
-    const { reviews } = this.state;
-    return reviews()[id];
+  getNowSelectedReview() {
+    const { reviews, nowSelectedReviewId } = this.state;
+    return reviews()[nowSelectedReviewId()];
   }
 }
 

@@ -9,6 +9,7 @@ import {
 } from '@/components/UI/molecules';
 
 interface LectureReviewData {
+  id: number;
   infos: LectureReviewInfoProps;
   content: string;
   tags: string[];
@@ -17,7 +18,6 @@ interface LectureReviewData {
 
 interface LectureReviewProps {
   data: LectureReviewData;
-  onClick: (infos: LectureReviewProps) => void;
   isMine?: boolean;
 }
 
@@ -64,11 +64,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureReview = ({ data, onClick, isMine = false }: LectureReviewProps): JSX.Element => {
+const LectureReview = ({ data, isMine = false }: LectureReviewProps): JSX.Element => {
   const classes = useStyles({ isMine });
 
   return (
-    <div className={classes.root} onClick={() => onClick}>
+    <span className={classes.root} data-id={data.id}>
       <div className={classes.header}>
         <LectureReviewInfo
           lectureName={data.infos.lectureName}
@@ -82,7 +82,7 @@ const LectureReview = ({ data, onClick, isMine = false }: LectureReviewProps): J
       <div className={classes.bottom}>
         <LectureReviewHashTags tags={data.tags} />
       </div>
-    </div>
+    </span>
   );
 };
 
