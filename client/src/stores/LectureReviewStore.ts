@@ -19,10 +19,16 @@ class LectureReviewStore {
       nowSelectedReviewData: makeVar<LectureReviewData | null>(null),
     };
   }
+
+  getNowSelectedReview(id: number) {
+    const { reviews } = this.state;
+    return reviews()[id];
+  }
 }
 
 const mockData = [
   {
+    id: 0,
     infos: {
       lectureName: '디자인커뮤니케이션',
       profName: '윤정식',
@@ -38,6 +44,7 @@ const mockData = [
     },
   },
   {
+    id: 1,
     infos: {
       lectureName: '취준하며놀고먹기',
       profName: '진혀쿠',
@@ -53,6 +60,7 @@ const mockData = [
     isMine: true,
   },
   {
+    id: 2,
     infos: {
       lectureName: '디자인커뮤니케이션',
       profName: '윤정식',
