@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { LectureBox, SameLectureBox } from '@/components/UI/atoms';
+import { TimeTypes } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
+import { isString } from '@/common/utils/typeCheck';
 
 const useStyles = makeStyles({
   root: {
@@ -28,9 +30,11 @@ const LectureBoxContainer = (): JSX.Element => {
     if (!lectureInfos) return <></>;
 
     return lectureInfos.map((lectureInfo) => {
-      if (typeof lectureInfo.time === 'string') return <></>;
+      if (isString(lectureInfo.time)) return <></>;
 
-      return lectureInfo.time.map((time) => {
+      const times = lectureInfo.time as TimeTypes[];
+
+      return times.map((time) => {
         return (
           <LectureBox
             startTime={time.start}
