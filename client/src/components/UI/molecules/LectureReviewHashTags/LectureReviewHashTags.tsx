@@ -9,6 +9,7 @@ interface LectureReviewHashTagsProps {
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexWrap: 'wrap',
   },
 }));
 
