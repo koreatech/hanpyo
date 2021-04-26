@@ -5,6 +5,7 @@ import { Thumb } from '@/components/UI/atoms';
 interface LectureReviewThumbsProps {
   upScore: number;
   downScore: number;
+  detail?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -13,12 +14,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureReviewThumbs = ({ upScore, downScore }: LectureReviewThumbsProps): JSX.Element => {
+const LectureReviewThumbs = ({ upScore, downScore, detail = false }: LectureReviewThumbsProps): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Thumb score={upScore} />
-      <Thumb score={downScore} thumbDown />
+      <Thumb score={upScore} detail={detail} />
+      <Thumb score={downScore} thumbDown detail={detail} />
     </div>
   );
 };
