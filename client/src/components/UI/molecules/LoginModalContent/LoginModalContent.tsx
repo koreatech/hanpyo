@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { debounce } from '@/common/utils';
+import { isEmailID, isPassword } from '@/common/utils/validator';
 
 enum LoginModalType {
   LOGIN_MODAL = 'LOGIN_MODAL',
@@ -20,6 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const HELPER_TEXT = {
+  EMAIL: {
+    DEFAULT: 'koreatech.ac.kr은 빼고 입력해주세요.',
+    ERROR: 'Email 형식이 적합하지 않습니다.',
+  },
+  PASSWORD: {
+    DEFAULT: 'Password는 8자 이상 12자 이하로 입력해주세요.',
+    ERROR: 'Password 형식이 적합하지 않습니다.',
+  },
+};
+
 const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Element => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
@@ -28,15 +40,17 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
   const [isValidPassword, setIsValidPassword] = useState(true);
 
   const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidEmail(false);
-    else setIsValidEmail(true);
+    const { value: emailIDValue } = e.target;
+
+    setEmail(emailIDValue);
+    setIsValidEmail(isEmailID(emailIDValue));
   }, 500);
 
   const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidPassword(false);
-    else setIsValidPassword(true);
+    const { value: passwordValue } = e.target;
+
+    setPassword(passwordValue);
+    setIsValidPassword(isPassword(passwordValue));
   }, 500);
 
   return (
@@ -47,7 +61,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
       <DialogContent>
         <TextField
           autoComplete="off"
-          helperText={isValidEmail ? 'koreatech.ac.kr은 빼고 입력해주세요.' : 'Email 형식이 적합하지 않습니다.'}
+          helperText={isValidEmail ? HELPER_TEXT.EMAIL.DEFAULT : HELPER_TEXT.EMAIL.ERROR}
           error={!isValidEmail}
           autoFocus
           margin="dense"
@@ -59,7 +73,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
         />
         <TextField
           autoComplete="off"
-          helperText={isValidPassword ? 'Password는 8자 이상 12자 이하로 입력해주세요.' : 'Password 형식이 적합하지 않습니다.'}
+          helperText={isValidPassword ? HELPER_TEXT.PASSWORD.DEFAULT : HELPER_TEXT.PASSWORD.ERROR}
           error={!isValidPassword}
           margin="dense"
           id="password"

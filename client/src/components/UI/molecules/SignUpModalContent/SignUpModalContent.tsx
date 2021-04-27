@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { debounce } from '@/common/utils';
+import { isEmailID, isPassword, isName } from '@/common/utils/validator';
 
 enum SignUpModalType {
   SIGN_UP_MODAL = 'SIGN_UP_MODAL',
@@ -20,23 +21,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const HELPER_TEXT = {
+  EMAIL: {
+    DEFAULT: 'koreatech.ac.kr은 빼고 입력해주세요.',
+    ERROR: 'Email 형식이 적합하지 않습니다.',
+  },
+  PASSWORD: {
+    DEFAULT: 'Password는 8자 이상 12자 이하로 입력해주세요.',
+    ERROR: 'Password 형식이 적합하지 않습니다.',
+  },
+  NAME: {
+    DEFAULT: '이름은 2자 이상 입력해주세요.',
+    ERROR: '이름 형식이 적합하지 않습니다.',
+  },
+};
+
 const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidName, setIsValidName] = useState(true);
 
   const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidEmail(false);
-    else setIsValidEmail(true);
+    const { value: emailIDValue } = e.target;
+
+    setEmail(emailIDValue);
+    setIsValidEmail(isEmailID(emailIDValue));
   }, 500);
 
   const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if ((e.target.value.length !== 0 && e.target.value.length < 8) || e.target.value.length > 12) setIsValidPassword(false);
-    else setIsValidPassword(true);
+    const { value: passwordValue } = e.target;
+
+    setPassword(passwordValue);
+    setIsValidPassword(isPassword(passwordValue));
+  }, 500);
+
+  const onDebouncedNameChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: nameValue } = e.target;
+
+    setName(nameValue);
+    setIsValidName(isName(nameValue));
   }, 500);
 
   return (
@@ -47,7 +74,7 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
       <DialogContent>
         <TextField
           autoComplete="off"
-          helperText={isValidEmail ? 'koreatech.ac.kr은 빼고 입력해주세요.' : 'Email 형식이 적합하지 않습니다.'}
+          helperText={isValidEmail ? HELPER_TEXT.EMAIL.DEFAULT : HELPER_TEXT.EMAIL.ERROR}
           error={!isValidEmail}
           autoFocus
           margin="dense"
@@ -59,7 +86,7 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
         />
         <TextField
           autoComplete="off"
-          helperText={isValidPassword ? 'Password는 8자 이상 12자 이하로 입력해주세요.' : 'Password 형식이 적합하지 않습니다.'}
+          helperText={isValidPassword ? HELPER_TEXT.PASSWORD.DEFAULT : HELPER_TEXT.PASSWORD.ERROR}
           error={!isValidPassword}
           margin="dense"
           id="password"
@@ -68,7 +95,17 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
           fullWidth
           onChange={onDebouncedPasswordChangeListener}
         />
-        <TextField autoComplete="off" margin="dense" id="name" label="이름" type="text" fullWidth />
+        <TextField
+          autoComplete="off"
+          helperText={isValidName ? HELPER_TEXT.NAME.DEFAULT : HELPER_TEXT.NAME.ERROR}
+          error={!isValidName}
+          margin="dense"
+          id="name"
+          label="이름"
+          type="text"
+          fullWidth
+          onChange={onDebouncedNameChangeListener}
+        />
         <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth />
       </DialogContent>
       <DialogActions>
