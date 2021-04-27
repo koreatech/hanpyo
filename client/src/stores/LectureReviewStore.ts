@@ -37,7 +37,7 @@ const mockData = [
     },
     content:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam. 안녕하세요 제 이름은 지녀쿠입니다. 한기대학생이 아니지만 한표를 만들고 있답니다 하하',
-    tags: ['꿀수업', '진혀쿠', '돔황챠'],
+    tags: ['꿀수업', '진혀쿠', '돔황챠', '진혀쿠', '돔황챠', '진혀쿠', '돔황챠', '진혀쿠', '돔황챠', '진혀쿠', '돔황챠', '진혀쿠', '돔황챠'],
     scores: {
       upScore: 20,
       downScore: 3,

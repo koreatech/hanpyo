@@ -54,7 +54,14 @@ const ModalPopup = (): JSX.Element => {
     if (nowModalType === modalTypes.SIGN_UP_MODAL)
       return <SignUpModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
     if (nowModalType === modalTypes.REVIEW_DETAIL_MODAL)
-      return <ReviewDetailModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
+      return (
+        <ReviewDetailModalPopup
+          modalOpen={nowModalState}
+          onModalModifyBtnClick={() => {}}
+          onModalDeleteBtnClick={() => {}}
+          onModalAreaClose={onModalCloseListener}
+        />
+      );
     return <LoginModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
   };
 
