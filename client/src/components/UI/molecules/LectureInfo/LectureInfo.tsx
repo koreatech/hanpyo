@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LectureInfoTitle, LectureInfoTitleType, LectureInfoDivider } from '@/components/UI/atoms';
 import { useStores } from '@/stores';
 import { useReactiveVar } from '@apollo/client';
+import { isString } from '@/common/utils/typeCheck';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,9 +105,9 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
   };
 
   const getLectureTimes = (times: Array<TimeTypes> | string): JSX.Element[] | string => {
-    if (typeof times === 'string') return times;
+    if (isString(times)) return times as string;
 
-    return times.map((time) => {
+    return (times as TimeTypes[]).map((time) => {
       return (
         <Typography key={time.start} variant="caption">
           {convertTimeToString(time)}
