@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core';
 import { ReviewSearchSection } from '@/components/UI/molecules';
-import { LectureReviewContainer } from '@/components/UI/organisms';
+import { LectureReviewContainer, ModalPopup } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,22 +45,25 @@ const useStyles = makeStyles((theme) => ({
 const ReviewPage = (): JSX.Element => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
-        <div className={classes.titleArea}>
-          <Typography variant="h4" color="primary">
-            강의 후기
-          </Typography>
-          <Button className={classes.writeButton} variant="contained" color="primary">
-            강의 후기 쓰기
-          </Button>
+    <>
+      <div className={classes.root}>
+        <div className={classes.wrapper}>
+          <div className={classes.titleArea}>
+            <Typography variant="h4" color="primary">
+              강의 후기
+            </Typography>
+            <Button className={classes.writeButton} variant="contained" color="primary">
+              강의 후기 쓰기
+            </Button>
+          </div>
+          <div className={classes.searchArea}>
+            <ReviewSearchSection />
+          </div>
+          <LectureReviewContainer />
         </div>
-        <div className={classes.searchArea}>
-          <ReviewSearchSection />
-        </div>
-        <LectureReviewContainer />
       </div>
-    </div>
+      <ModalPopup />
+    </>
   );
 };
 

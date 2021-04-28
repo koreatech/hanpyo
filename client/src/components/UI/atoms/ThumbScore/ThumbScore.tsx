@@ -8,6 +8,7 @@ interface ThumbProps {
   thumbDown?: boolean;
   score: number;
   onClick?: () => void;
+  detail: boolean;
 }
 
 interface CSSProps {
@@ -28,20 +29,27 @@ const useStyles = makeStyles((theme) => ({
   }),
   down: {
     color: '#F15F5F',
-    marginRight: '0.2rem',
   },
   up: {
     color: '#6799FF',
+  },
+  marginRight: {
     marginRight: '0.2rem',
   },
 }));
 
-const Thumb = ({ thumbDown = false, score, onClick }: ThumbProps): JSX.Element => {
+const Thumb = ({ thumbDown = false, score, onClick, detail }: ThumbProps): JSX.Element => {
   const classes = useStyles({ thumbDown });
   return (
     <div className={classes.root} onClick={onClick}>
-      {thumbDown ? <ThumbDown fontSize="small" className={classes.down} /> : <ThumbUp fontSize="small" className={classes.up} />}
-      <Typography>{score}</Typography>
+      {thumbDown ? (
+        <ThumbDown fontSize={detail ? 'large' : 'small'} className={`${classes.down} ${classes.marginRight}`} />
+      ) : (
+        <ThumbUp fontSize={detail ? 'large' : 'small'} className={`${classes.up} ${classes.marginRight}`} />
+      )}
+      <Typography className={thumbDown ? classes.down : classes.up} variant={detail ? 'h6' : 'subtitle2'}>
+        {score}
+      </Typography>
     </div>
   );
 };

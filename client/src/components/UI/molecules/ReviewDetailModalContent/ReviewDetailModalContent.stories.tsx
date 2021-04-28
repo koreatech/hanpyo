@@ -1,12 +1,13 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { action } from '@storybook/addon-actions';
 import { withStoryBox } from '@/components/HOC';
-import { LectureReview, LectureReviewProps } from './LectureReview';
+import { ReviewDetailModalContent, ReviewDetailModalType, ReviewDetailModalContentProps } from './ReviewDetailModalContent';
 
 export default {
-  title: 'organisms/LectureReview',
-  component: LectureReview,
+  title: 'molecules/ReviewDetailModalContent',
+  component: ReviewDetailModalContent,
   decorators: [withKnobs],
 } as Meta;
 
@@ -27,18 +28,26 @@ const mockData = {
   },
 };
 
-const Template: Story<LectureReviewProps> = (args) => {
-  const LectureReviewStory = withStoryBox(args, 800)(LectureReview);
-  return <LectureReviewStory {...args} />;
+const Template: Story<ReviewDetailModalContentProps> = (args) => {
+  const ReviewDetailModalContentStory = withStoryBox(args, 700)(ReviewDetailModalContent);
+  return <ReviewDetailModalContentStory />;
 };
 
-export const MyReview = Template.bind({});
-MyReview.args = {
+export const OthersReviewDetail = Template.bind({});
+OthersReviewDetail.args = {
   data: mockData,
+  modalType: ReviewDetailModalType.REVIEW_DETAIL_MODAL,
+  onModalClose: action('onClick'),
+  onModalModifyBtnClick: action('onClick'),
+  onModalDeleteBtnClick: action('onClick'),
+};
+
+export const MyReviewDetail = Template.bind({});
+MyReviewDetail.args = {
+  data: mockData,
+  modalType: ReviewDetailModalType.REVIEW_DETAIL_MODAL,
+  onModalClose: action('onClick'),
   isMine: true,
-};
-
-export const OthersReview = Template.bind({});
-OthersReview.args = {
-  data: mockData,
+  onModalModifyBtnClick: action('onClick'),
+  onModalDeleteBtnClick: action('onClick'),
 };

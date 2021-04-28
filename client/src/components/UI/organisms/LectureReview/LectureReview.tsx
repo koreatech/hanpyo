@@ -8,11 +8,16 @@ import {
   LectureReviewThumbsProps,
 } from '@/components/UI/molecules';
 
-interface LectureReviewProps {
+interface LectureReviewData {
+  id: number;
   infos: LectureReviewInfoProps;
   content: string;
   tags: string[];
   scores: LectureReviewThumbsProps;
+}
+
+interface LectureReviewProps {
+  data: LectureReviewData;
   isMine?: boolean;
 }
 
@@ -59,22 +64,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureReview = ({ infos, content, tags, scores, isMine = false }: LectureReviewProps): JSX.Element => {
+const LectureReview = ({ data, isMine = false }: LectureReviewProps): JSX.Element => {
   const classes = useStyles({ isMine });
 
   return (
-    <div className={classes.root}>
+    <span className={classes.root} data-id={data.id}>
       <div className={classes.header}>
-        <LectureReviewInfo lectureName={infos.lectureName} profName={infos.profName} rating={infos.rating} period={infos.period} />
-        <LectureReviewThumbs upScore={scores.upScore} downScore={scores.downScore} />
+        <LectureReviewInfo
+          lectureName={data.infos.lectureName}
+          profName={data.infos.profName}
+          rating={data.infos.rating}
+          period={data.infos.period}
+        />
+        <LectureReviewThumbs upScore={data.scores.upScore} downScore={data.scores.downScore} />
       </div>
-      <div className={classes.content}>{content}</div>
+      <div className={classes.content}>{data.content}</div>
       <div className={classes.bottom}>
-        <LectureReviewHashTags tags={tags} />
+        <LectureReviewHashTags tags={data.tags} />
       </div>
-    </div>
+    </span>
   );
 };
 
 export { LectureReview };
-export type { LectureReviewProps };
+export type { LectureReviewProps, LectureReviewData };
