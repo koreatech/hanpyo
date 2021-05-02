@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   LectureReviewInfo,
@@ -19,7 +19,7 @@ interface LectureReviewData {
 interface LectureReviewProps {
   data: LectureReviewData;
   isMine?: boolean;
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick: (event: React.MouseEvent<HTMLElement>, ref: HTMLSpanElement | null) => void;
 }
 
 interface CSSProps {
@@ -67,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
 
 const LectureReview = ({ data, isMine = false, onClick }: LectureReviewProps): JSX.Element => {
   const classes = useStyles({ isMine });
-
+  const lectureReview = useRef<HTMLSpanElement>(null);
   return (
-    <span className={classes.root} data-id={data.id} onClick={onClick}>
+    <span className={classes.root} data-id={data.id} ref={lectureReview} onClick={(event) => onClick(event, lectureReview.current)}>
       <div className={classes.header}>
         <LectureReviewInfo
           lectureName={data.infos.lectureName}

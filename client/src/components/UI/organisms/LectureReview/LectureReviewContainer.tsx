@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useReactiveVar } from '@apollo/client';
 import { useStores } from '@/stores';
 import { modalTypes } from '@/components/UI/organisms';
-import { LectureReview, LectureReviewData } from './LectureReview';
+import { LectureReview } from './LectureReview';
 
 const useStyles = makeStyles({
   root: {
@@ -18,9 +18,9 @@ const LectureReviewContainer = (): JSX.Element => {
   const { lectureReviewStore, modalStore } = useStores();
   const reviews = useReactiveVar(lectureReviewStore.state.reviews);
 
-  const onClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.currentTarget as HTMLElement;
-    const { dataset } = target;
+  const onClickListener = (event: React.MouseEvent<HTMLElement>, ref: HTMLSpanElement | null) => {
+    if (!ref) return;
+    const { dataset } = ref;
     lectureReviewStore.state.nowSelectedReviewId(Number(dataset?.id));
     modalStore.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
   };
