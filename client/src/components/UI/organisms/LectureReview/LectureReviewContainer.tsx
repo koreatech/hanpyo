@@ -19,12 +19,8 @@ const LectureReviewContainer = (): JSX.Element => {
   const reviews = useReactiveVar(lectureReviewStore.state.reviews);
 
   const onClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    const spanElement = target.closest('span');
-
-    if (!spanElement) return;
-
-    const { dataset } = spanElement;
+    const target = event.currentTarget as HTMLElement;
+    const { dataset } = target;
     lectureReviewStore.state.nowSelectedReviewId(Number(dataset?.id));
     modalStore.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
   };
@@ -36,14 +32,10 @@ const LectureReviewContainer = (): JSX.Element => {
   };
   const getLectureReviews = () => {
     return reviews.map((review, idx) => {
-      return <LectureReview key={idx} data={review} />;
+      return <LectureReview key={idx} data={review} onClick={onClickListener} />;
     });
   };
-  return (
-    <div className={classes.root} onClick={onClickListener}>
-      {getLectureReviews()}
-    </div>
-  );
+  return <div className={classes.root}>{getLectureReviews()}</div>;
 };
 
 export { LectureReviewContainer };

@@ -19,6 +19,7 @@ interface LectureReviewData {
 interface LectureReviewProps {
   data: LectureReviewData;
   isMine?: boolean;
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 interface CSSProps {
@@ -64,11 +65,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureReview = ({ data, isMine = false }: LectureReviewProps): JSX.Element => {
+const LectureReview = ({ data, isMine = false, onClick }: LectureReviewProps): JSX.Element => {
   const classes = useStyles({ isMine });
 
   return (
-    <span className={classes.root} data-id={data.id}>
+    <span className={classes.root} data-id={data.id} onClick={onClick}>
       <div className={classes.header}>
         <LectureReviewInfo
           lectureName={data.infos.lectureName}
