@@ -2,12 +2,14 @@ import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
 import { Timetable, Notice, SearchBar, SubTitle, LectureSearchFilterMenu, TimeTableAddForm } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core';
-import { LectureList, ModalPopup, TimeTableMenu } from '@/components/UI/organisms';
+import { LectureList, ModalPopup, TimeTableMenu, Footer } from '@/components/UI/organisms';
 
 const useStyles = makeStyles({
   root: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   wrapper: {
     display: 'flex',
@@ -57,6 +59,7 @@ const MainPage = (): JSX.Element => {
             <LectureList isBasketList />
           </div>
         </div>
+        <Footer />
         <AlertSnackbar />
         <ModalPopup />
       </div>
