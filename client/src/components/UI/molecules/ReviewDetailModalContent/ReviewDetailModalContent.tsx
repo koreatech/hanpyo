@@ -109,7 +109,7 @@ const ReviewDetailModalContent = ({
           <LectureReviewRating rating={data.infos.rating} />
         </div>
         <div>
-          <LectureReviewHashTags tags={data.tags} />
+          <LectureReviewHashTags tags={data.tags} isDetail />
         </div>
       </DialogTitle>
       <DialogContent>
