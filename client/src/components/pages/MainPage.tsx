@@ -27,6 +27,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
     width: '35rem',
   },
+  marginTop: {
+    width: '100%',
+    marginTop: '1rem',
+  },
 });
 
 const MainPage = (): JSX.Element => {
@@ -42,7 +46,9 @@ const MainPage = (): JSX.Element => {
           </div>
           <div className={classes.right}>
             <SubTitle>강의 찾기</SubTitle>
-            <SearchBar />
+            <div className={classes.marginTop}>
+              <SearchBar />
+            </div>
             <LectureSearchFilterMenu />
             <LectureList />
             <SubTitle>나만의 스케줄 추가</SubTitle>
