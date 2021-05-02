@@ -7,7 +7,7 @@ import ThumbDown from '@material-ui/icons/ThumbDownTwoTone';
 interface ThumbProps {
   thumbDown?: boolean;
   score: number;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   detail: boolean;
 }
 

@@ -16,10 +16,19 @@ const useStyles = makeStyles((theme) => ({
 
 const LectureReviewThumbs = ({ upScore, downScore, detail = false }: LectureReviewThumbsProps): JSX.Element => {
   const classes = useStyles();
+
+  const onUpClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+  };
+
+  const onDownClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+  };
+
   return (
     <div className={classes.root}>
-      <Thumb score={upScore} detail={detail} />
-      <Thumb score={downScore} thumbDown detail={detail} />
+      <Thumb score={upScore} detail={detail} onClick={onUpClickListener} />
+      <Thumb score={downScore} thumbDown detail={detail} onClick={onDownClickListener} />
     </div>
   );
 };
