@@ -22,9 +22,9 @@ const LectureReviewRating = ({ rating }: LectureReviewRatingProps): JSX.Element 
     const Stars = Math.floor(rating);
     const isHalfStar = !!(rating - Stars);
     const borderStars = isHalfStar ? 4 - Stars : 5 - Stars;
-    for (let i = 0; i < Stars; i++) array.push(<Star fontSize="small" color="primary" />);
-    if (isHalfStar) array.push(<StarHalf fontSize="small" color="primary" />);
-    for (let i = 0; i < borderStars; i++) array.push(<StarBorder fontSize="small" color="primary" />);
+    for (let i = 0; i < Stars; i++) array.push(<Star key={`S${i}`} fontSize="small" color="primary" />);
+    if (isHalfStar) array.push(<StarHalf key="SH" fontSize="small" color="primary" />);
+    for (let i = 0; i < borderStars; i++) array.push(<StarBorder key={`BS${i}`} fontSize="small" color="primary" />);
     return array;
   };
 

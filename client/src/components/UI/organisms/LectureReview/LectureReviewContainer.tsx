@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useReactiveVar } from '@apollo/client';
 import { useStores } from '@/stores';
 import { modalTypes } from '@/components/UI/organisms';
-import { LectureReview, LectureReviewData } from './LectureReview';
+import { LectureReview } from './LectureReview';
 
 const useStyles = makeStyles({
   root: {
@@ -18,13 +18,9 @@ const LectureReviewContainer = (): JSX.Element => {
   const { lectureReviewStore, modalStore } = useStores();
   const reviews = useReactiveVar(lectureReviewStore.state.reviews);
 
-  const onClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    const spanElement = target.closest('span');
-
-    if (!spanElement) return;
-
-    const { dataset } = spanElement;
+  const onClickListener = (event: React.MouseEvent<HTMLElement>, ref: HTMLSpanElement | null) => {
+    if (!ref) return;
+    const { dataset } = ref;
     lectureReviewStore.state.nowSelectedReviewId(Number(dataset?.id));
     modalStore.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
   };
@@ -36,14 +32,10 @@ const LectureReviewContainer = (): JSX.Element => {
   };
   const getLectureReviews = () => {
     return reviews.map((review, idx) => {
-      return <LectureReview key={idx} data={review} />;
+      return <LectureReview key={idx} data={review} onClick={onClickListener} />;
     });
   };
-  return (
-    <div className={classes.root} onClick={onClickListener}>
-      {getLectureReviews()}
-    </div>
-  );
+  return <div className={classes.root}>{getLectureReviews()}</div>;
 };
 
 export { LectureReviewContainer };

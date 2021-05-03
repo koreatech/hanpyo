@@ -6,6 +6,7 @@ interface LectureReviewThumbsProps {
   upScore: number;
   downScore: number;
   detail?: boolean;
+  isMine?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -14,12 +15,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LectureReviewThumbs = ({ upScore, downScore, detail = false }: LectureReviewThumbsProps): JSX.Element => {
+const LectureReviewThumbs = ({ upScore, downScore, detail = false, isMine }: LectureReviewThumbsProps): JSX.Element => {
   const classes = useStyles();
+
+  const onUpClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    if (isMine) return;
+    console.log('up click');
+  };
+
+  const onDownClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    if (isMine) return;
+    console.log('down click');
+  };
+
   return (
     <div className={classes.root}>
-      <Thumb score={upScore} detail={detail} />
-      <Thumb score={downScore} thumbDown detail={detail} />
+      <Thumb score={upScore} detail={detail} onClick={onUpClickListener} />
+      <Thumb score={downScore} thumbDown detail={detail} onClick={onDownClickListener} />
     </div>
   );
 };
