@@ -8,6 +8,8 @@ interface HeaderAuthSectionAreaProps {
   onSignUpClick: () => void;
 }
 
+const BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 19.2 };
+
 const useStyles = makeStyles((theme) => ({
   loginSection: {
     display: 'flex',
@@ -43,7 +45,7 @@ const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectio
       <Typography className={classes.promotionText} variant="caption">
         한표를 더 편리하게 이용하세요
       </Typography>
-      <Button btnType={ButtonType.login} onClick={onLoginClick}>
+      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onLoginClick}>
         로 그 인
       </Button>
       <div className={classes.menu}>

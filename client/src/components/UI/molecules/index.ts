@@ -28,3 +28,4 @@ export type { LectureReviewThumbsProps } from './LectureReviewThumbs/LectureRevi
 export { LectureReviewHashTags } from './LectureReviewHashTags/LectureReviewHashTags';
 export { ReviewSearchSection } from './ReviewSearchSection/ReviewSearchSection';
 export { ReviewDetailModalContent, ReviewDetailModalType } from './ReviewDetailModalContent/ReviewDetailModalContent';
+export { LectureReviewTitle } from './LectureReviewTitle/LectureReviewTitle';
