@@ -1,70 +1,47 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { toRem } from '@/common/utils/unit';
 
 enum ButtonType {
-  save = 'save',
-  share = 'share',
-  login = 'login',
-  add = 'add',
+  primary = 'primary',
+}
+
+interface ButtonStyle {
+  width: number;
+  height: number;
+  borderRadius: number;
+  fontSize: number;
 }
 
 interface ButtonProps {
   btnType: ButtonType;
   onClick?: () => void;
   children: React.ReactChild;
+  style: ButtonStyle;
 }
 
 const useStyles = makeStyles({
-  save: {
-    width: '13rem',
-    height: '2.3rem',
-    borderRadius: '2rem',
+  primary: ({ width, height, borderRadius, fontSize }: ButtonStyle) => ({
+    width: `${toRem(width)}rem`,
+    height: `${toRem(height)}rem`,
+    borderRadius: `${toRem(borderRadius)}rem`,
     boxShadow: '0 1.5px 3px 0 rgba(0, 0, 0, 0.16)',
     '& > span': {
-      fontSize: '0.8rem',
+      fontSize: `${toRem(fontSize)}rem`,
     },
-  },
-  share: {
-    width: '13rem',
-    height: '2.3rem',
-    borderRadius: '2rem',
-    boxShadow: '0 1.5px 3px 0 rgba(0, 0, 0, 0.16)',
-    '& > span': {
-      fontSize: '0.8rem',
-    },
-  },
-  login: {
-    width: '12rem',
-    height: '2.2rem',
-    borderRadius: '4px',
-    boxShadow: '0.5px 0.5px 0.5px 0 rgba(0, 0, 0, 0.16)',
-    '& > span': {
-      fontSize: '1.2rem',
-    },
-  },
-  add: {
-    width: '3.75rem',
-    height: '2.015625rem',
-    borderRadius: '0.7rem',
-    boxShadow: '0 0.5px 1.5px 0 rgba(0, 0, 0, 0.16)',
-    '& > span': {
-      fontSize: '0.75rem',
-    },
-  },
+  }),
 });
 
-const StyledButton = ({ btnType, onClick, children }: ButtonProps): JSX.Element => {
-  const classes = useStyles();
+const StyledButton = ({ btnType, onClick, children, style }: ButtonProps): JSX.Element => {
+  const classes = useStyles({ ...style });
 
   const getClassName = () => {
     return { ...classes }[btnType];
   };
 
-  const getColor = () => (btnType === ButtonType.share ? 'secondary' : 'primary');
-
   return (
-    <Button className={getClassName()} variant="contained" color={getColor()} onClick={onClick}>
+    <Button className={getClassName()} variant="contained" color="primary" onClick={onClick}>
       {children}
     </Button>
   );

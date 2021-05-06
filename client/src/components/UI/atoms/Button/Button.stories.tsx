@@ -12,30 +12,15 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-export const Save = Template.bind({});
-Save.args = {
-  btnType: ButtonType.save,
+export const Primary = Template.bind({});
+Primary.args = {
+  btnType: ButtonType.primary,
   onClick: action('onClick'),
-  children: '저 장',
-};
-
-export const Share = Template.bind({});
-Share.args = {
-  btnType: ButtonType.share,
-  onClick: action('onClick'),
-  children: '공 유',
-};
-
-export const Login = Template.bind({});
-Login.args = {
-  btnType: ButtonType.login,
-  onClick: action('onClick'),
-  children: '로 그 인',
-};
-
-export const Add = Template.bind({});
-Add.args = {
-  btnType: ButtonType.add,
-  onClick: action('onClick'),
-  children: '추 가',
+  children: 'Primary',
+  style: {
+    width: 208,
+    height: 36.8,
+    borderRadius: 32,
+    fontSize: 12.8,
+  },
 };
