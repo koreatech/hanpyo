@@ -57,7 +57,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "pretypes": "apollo schema:download --endpoint=http://localhost:4000/graphql",
+    "pretypes": "apollo schema:download --endpoint=https://hanpyo-server.herokuapp.com/graphql",
     "types": "apollo codegen:generate src/api.d.ts --queries=src/queries/*.queries.ts --addTypename --localSchemaFile=schema.json --target typescript --outputFlat"
   },
   "eslintConfig": {
