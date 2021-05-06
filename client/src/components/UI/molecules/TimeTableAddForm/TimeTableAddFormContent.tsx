@@ -14,6 +14,8 @@ const DROP_MENU_WIDTH = {
   TIME: '6.75rem',
 };
 
+const BUTTON_STYLE_PROPS = { width: 60, height: 32.25, borderRadius: 11.2, fontSize: 12 };
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -86,7 +88,9 @@ const TimeTableAddFormContent = ({ daySelectMenu, timeSelectMenu, onTimeTableFor
           placeholder: '이름을 입력해주세요. ex ) 근장',
         }}
       />
-      <Button btnType={ButtonType.add}>추 가</Button>
+      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS}>
+        추 가
+      </Button>
     </form>
   );
 };
