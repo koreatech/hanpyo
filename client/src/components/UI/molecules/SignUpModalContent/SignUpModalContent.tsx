@@ -18,6 +18,7 @@ interface SignUpModalContentProps {
   onEmailChange: () => void;
   onPasswordChange: () => void;
   onNameChange: () => void;
+  onNicknameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +45,14 @@ const HELPER_TEXT = {
   },
 };
 
-const SignUpModalContent = ({ valid, onModalClose, onEmailChange, onPasswordChange, onNameChange }: SignUpModalContentProps): JSX.Element => {
+const SignUpModalContent = ({
+  valid,
+  onModalClose,
+  onEmailChange,
+  onPasswordChange,
+  onNameChange,
+  onNicknameChange,
+}: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
   const { isValidEmail, isValidPassword, isValidName } = valid;
 
@@ -88,7 +96,7 @@ const SignUpModalContent = ({ valid, onModalClose, onEmailChange, onPasswordChan
           fullWidth
           onChange={onNameChange}
         />
-        <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth />
+        <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth onChange={onNicknameChange} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onModalClose} color="primary">
