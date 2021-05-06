@@ -1,10 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
-import { ReviewSearchSection } from '@/components/UI/molecules';
+import { ReviewSearchSection, LectureReviewTitle } from '@/components/UI/molecules';
 import { LectureReviewContainer, ModalPopup } from '@/components/UI/organisms';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -17,13 +16,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     minHeight: '1000px',
   },
-  titleArea: {
-    width: '100%',
-    marginTop: '1.5rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   searchArea: {
     display: 'flex',
     width: '100%',
@@ -31,15 +23,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  writeButton: {
-    width: '10rem',
-    padding: '2rem, 1rem',
-    '& > span': {
-      fontSize: '1.3rem',
-    },
-    borderRadius: '1rem',
-  },
-}));
+});
 
 const ReviewPage = (): JSX.Element => {
   const classes = useStyles();
@@ -47,14 +31,7 @@ const ReviewPage = (): JSX.Element => {
     <>
       <div className={classes.root}>
         <div className={classes.wrapper}>
-          <div className={classes.titleArea}>
-            <Typography variant="h4" color="primary">
-              강의 후기
-            </Typography>
-            <Button className={classes.writeButton} variant="contained" color="primary">
-              강의 후기 쓰기
-            </Button>
-          </div>
+          <LectureReviewTitle />
           <div className={classes.searchArea}>
             <ReviewSearchSection />
           </div>
