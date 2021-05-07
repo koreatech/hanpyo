@@ -30,9 +30,9 @@ const LectureBoxContainer = (): JSX.Element => {
     if (!lectureInfos) return <></>;
 
     return lectureInfos.map((lectureInfo) => {
-      if (isString(lectureInfo.time)) return <></>;
+      if (isString(lectureInfo.lectureTimes)) return <></>;
 
-      const times = lectureInfo.time as TimeTypes[];
+      const times = lectureInfo.lectureTimes as TimeTypes[];
 
       return times.map((time) => {
         return (
@@ -40,8 +40,8 @@ const LectureBoxContainer = (): JSX.Element => {
             startTime={time.start}
             endTime={time.end}
             lectureName={lectureInfo.name}
-            classNumber={lectureInfo.class}
-            professorName={lectureInfo.prof}
+            classNumber={lectureInfo.divisionNumber}
+            professorName={lectureInfo.professor}
             bgcolor={lectureInfo.color}
           />
         );
@@ -53,10 +53,10 @@ const LectureBoxContainer = (): JSX.Element => {
     const sameLectures = lectureInfoStore.getSameLectures();
 
     return sameLectures.map((sameLecture) => {
-      if (typeof sameLecture.time === 'string') return <></>;
+      if (typeof sameLecture.lectureTimes === 'string') return <></>;
 
-      return sameLecture.time.map((time) => {
-        if (sameLecture.class === nowSelectedLecture?.class) {
+      return sameLecture.lectureTimes.map((time) => {
+        if (sameLecture.divisionNumber === nowSelectedLecture?.divisionNumber) {
           return <SameLectureBox startTime={time.start} endTime={time.end} isSelectedLecture />;
         }
         return <SameLectureBox startTime={time.start} endTime={time.end} />;

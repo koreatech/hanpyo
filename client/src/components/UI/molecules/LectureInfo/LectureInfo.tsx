@@ -48,14 +48,18 @@ interface TimeTypes {
 }
 
 interface LectureInfos {
+  id?: number;
   code: string;
   name: string;
-  class: string;
-  prof: string;
-  grade: string;
-  personnel: string;
-  dept: string;
-  time: Array<TimeTypes> | string;
+  divisionNumber: number | string;
+  professor: string;
+  totalStudentNumber: number | string;
+  department: string;
+  lectureTimes: Array<TimeTypes> | string;
+  room?: string;
+  requiredGrade: number | string;
+  requiredMajor?: string;
+  credit?: number;
   color?: string;
 }
 
@@ -83,7 +87,7 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
     : useReactiveVar(lectureInfoStore.state.selectedLecture);
 
   const checkSelectedLecture = (): boolean => {
-    return nowSelectedLectureInfo?.code === infos.code && nowSelectedLectureInfo?.class === infos.class;
+    return nowSelectedLectureInfo?.code === infos.code && nowSelectedLectureInfo?.divisionNumber === infos.divisionNumber;
   };
 
   const convertNumberToTime = (time: number): string => {
@@ -106,6 +110,7 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
 
   const getLectureTimes = (times: Array<TimeTypes> | string): JSX.Element[] | string => {
     if (isString(times)) return times as string;
+    if (!times) return [<></>];
 
     return (times as TimeTypes[]).map((time) => {
       return (
@@ -136,27 +141,23 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.class} isHeader={isHeader}>
-          {infos.class}
+          {infos.divisionNumber}
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.prof} isHeader={isHeader}>
-          {infos.prof}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
-          {infos.grade}
+          {infos.professor}
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
-          {infos.personnel}
+          {infos.totalStudentNumber}
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>
-          {infos.dept}
+          {infos.department}
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
-          {getLectureTimes(infos.time)}
+          {getLectureTimes(infos.lectureTimes)}
         </LectureInfoTitle>
       </div>
     </Tooltip>

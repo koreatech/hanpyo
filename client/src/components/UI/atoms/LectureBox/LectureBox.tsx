@@ -10,7 +10,7 @@ interface LectureBoxProps {
   endTime: number;
   bgcolor?: string;
   lectureName: string;
-  classNumber?: string;
+  classNumber?: string | number;
   professorName: string;
 }
 
