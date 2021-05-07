@@ -57,7 +57,7 @@ interface LectureInfos {
   department: string;
   lectureTimes: Array<TimeTypes> | string;
   room?: string;
-  requiredGrade: number | string;
+  requiredGrade?: number | string;
   requiredMajor?: string;
   credit?: number;
   color?: string;
@@ -150,6 +150,10 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
           {infos.totalStudentNumber}
+        </LectureInfoTitle>
+        <LectureInfoDivider />
+        <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
+          {infos.requiredMajor}
         </LectureInfoTitle>
         <LectureInfoDivider />
         <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>

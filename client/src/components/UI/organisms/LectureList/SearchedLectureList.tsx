@@ -14,10 +14,11 @@ const LECTURE_INFOS = gql`
       department
       room
       professor
+      credit
       requiredGrade
       requiredMajor
       divisionNumber
-      department
+      totalStudentNumber
       lectureTimes {
         start
         end

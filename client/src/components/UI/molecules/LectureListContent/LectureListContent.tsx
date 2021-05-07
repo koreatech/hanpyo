@@ -55,7 +55,7 @@ const headerInfos = {
   name: '강의명',
   divisionNumber: '분반',
   professor: '교수님',
-  requiredGrade: '대상',
+  requiredMajor: '대상',
   totalStudentNumber: '정원',
   department: '개설학부',
   lectureTimes: '시간',
