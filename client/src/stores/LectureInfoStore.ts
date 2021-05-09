@@ -16,7 +16,7 @@ class LectureInfoStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.state = {
-      lectures: makeVar<LectureInfos[]>(testData),
+      lectures: makeVar<LectureInfos[]>([]),
       selectedLecture: makeVar<LectureInfos | null>(null),
       basketSelectedLecture: makeVar<LectureInfos | null>(null),
     };

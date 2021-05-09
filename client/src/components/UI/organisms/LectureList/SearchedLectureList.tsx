@@ -4,6 +4,7 @@ import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
 import { useQuery, gql } from '@apollo/client';
+import client from '@/apollo';
 
 const LECTURE_INFOS = gql`
   query GetLectureInfos {
@@ -48,13 +49,16 @@ const SearchedLectureList = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log(data.lectureInfos.slice(0, 20));
 
+  const { lectureInfos } = client.readQuery({
+    query: LECTURE_INFOS,
+  });
+  lectureInfoStore.state.lectures(lectureInfos);
   return (
     <LectureListContent
       onClick={onLectureSearchClickListener}
       onDoubleClick={onLectureSearchDoubleClickListener}
-      lectureInfos={data.lectureInfos.slice(500, 600)}
+      lectureInfos={data.lectureInfos.slice(0, 200)}
     />
   );
 };
