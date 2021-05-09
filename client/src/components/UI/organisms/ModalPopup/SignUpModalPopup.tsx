@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
 import { isEmailID, isPassword, isName, isNickname, isGrade, isMajor } from '@/common/utils/validator';
@@ -27,10 +28,17 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const [isValidGrade, setIsValidGrade] = useState(true);
   const [isValidMajor, setIsValidMajor] = useState(true);
 
-  const { modalStore } = useStores();
+  const { modalStore, snackbarStore } = useStores();
   const [signup] = useMutation(SIGN_UP, {
     onCompleted: () => {
+      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_SUCCESS);
+      snackbarStore.setSnackbarState(true);
+
       modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+    },
+    onError: () => {
+      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_FAILED);
+      snackbarStore.setSnackbarState(true);
     },
   });
 
