@@ -12,6 +12,8 @@ interface SignupValid {
   isValidPassword: boolean;
   isValidName: boolean;
   isValidNickname: boolean;
+  isValidGrade: boolean;
+  isValidMajor: boolean;
 }
 
 interface SelectValue {
@@ -22,6 +24,7 @@ interface SelectValue {
 interface SignUpModalContentProps {
   valid: SignupValid;
   selectValue: SelectValue;
+  isSignupDisabled: boolean;
   onModalClose: () => void;
   onEmailChange: () => void;
   onPasswordChange: () => void;
@@ -88,18 +91,16 @@ const HELPER_TEXT = {
     SUCCESS: '사용가능한 아이디입니다.',
     CHECK: '아이디 중복체크를 진행해주세요.',
     CHECK_ERROR: '중복된 아이디입니다.',
-    ERROR: '한기대 포털 아이디는 1자리 이상 12자리 이하, 영소문자, 숫자, _ 로만 이루어져야합니다. ',
+    ERROR: '한기대 포털 아이디는 1자리 이상 12자리 이하 / 영소문자, 숫자, _ 로만 조합되어야합니다. ',
   },
   PASSWORD: {
-    DEFAULT: '비밀번호는 8자 이상 12자 이하, 영문, 특수문자, 숫자 모두 최소 1개 이상입니다.',
-    ERROR: '비밀번호는 8자 이상 12자 이하, 영문, 특수문자, 숫자 모두 최소 1개 이상이여야합니다',
+    DEFAULT: '비밀번호는 8자 이상 12자 이하 / 영문, 특수문자, 숫자 모두 최소 1개 포함해야합니다',
   },
   NAME: {
-    DEFAULT: '이름은 2자 이상, 한글입니다.',
-    ERROR: '이름은 최소 2자 이상, 한글이어야합니다.',
+    DEFAULT: '이름은 최소 2자 이상 / 한글로만 조합되어야합니다.',
   },
   NICKNAME: {
-    DEFAULT: '닉네임을 입력해주세요.',
+    DEFAULT: '닉네임은 최소 1자리 이상 / 영문, 한글, 숫자로만 조합되어야합니다.',
     SUCCESS: '사용가능한 닉네임입니다.',
     CHECK: '닉네임 중복체크를 진행해주세요.',
     CHECK_ERROR: '중복된 닉네임입니다.',
@@ -133,6 +134,7 @@ const MAJORS = [
 const SignUpModalContent = ({
   valid,
   selectValue,
+  isSignupDisabled,
   onModalClose,
   onEmailChange,
   onPasswordChange,
@@ -143,7 +145,7 @@ const SignUpModalContent = ({
   onMoveLoginBtnClick,
 }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
-  const { isValidEmail, isValidPassword, isValidName, isValidNickname } = valid;
+  const { isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor } = valid;
   const { gradeValue, majorValue } = selectValue;
 
   const getGradeSelectOptions = (): JSX.Element[] => {
@@ -193,7 +195,7 @@ const SignUpModalContent = ({
         </div>
         <TextField
           autoComplete="off"
-          helperText={isValidPassword ? HELPER_TEXT.PASSWORD.DEFAULT : HELPER_TEXT.PASSWORD.ERROR}
+          helperText={HELPER_TEXT.PASSWORD.DEFAULT}
           error={!isValidPassword}
           margin="dense"
           id="password"
@@ -206,7 +208,7 @@ const SignUpModalContent = ({
         />
         <TextField
           autoComplete="off"
-          helperText={isValidName ? HELPER_TEXT.NAME.DEFAULT : HELPER_TEXT.NAME.ERROR}
+          helperText={HELPER_TEXT.NAME.DEFAULT}
           error={!isValidName}
           margin="dense"
           id="name"
@@ -221,6 +223,7 @@ const SignUpModalContent = ({
           <TextField
             autoComplete="off"
             helperText={HELPER_TEXT.NICKNAME.DEFAULT}
+            error={!isValidNickname}
             margin="dense"
             id="nickname"
             label="닉네임"
@@ -237,6 +240,7 @@ const SignUpModalContent = ({
         <div className={classes.selectArea}>
           <TextField
             helperText={HELPER_TEXT.GRADE.DEFAULT}
+            error={!isValidGrade}
             select
             label="학년"
             margin="dense"
@@ -249,6 +253,7 @@ const SignUpModalContent = ({
           </TextField>
           <TextField
             helperText={HELPER_TEXT.MAJOR.DEFAULT}
+            error={!isValidMajor}
             select
             label="전공"
             margin="dense"
@@ -262,7 +267,7 @@ const SignUpModalContent = ({
         </div>
       </DialogContent>
       <DialogActions className={classes.dialogActionRoot}>
-        <Button btnType={ButtonType.primary} onClick={onModalClose} style={SIGNUP_BUTTON_STYLE_PROPS} fullWidth>
+        <Button btnType={ButtonType.primary} onClick={onModalClose} style={SIGNUP_BUTTON_STYLE_PROPS} disabled={isSignupDisabled} fullWidth>
           회원가입
         </Button>
         <div className={classes.linkTextArea}>

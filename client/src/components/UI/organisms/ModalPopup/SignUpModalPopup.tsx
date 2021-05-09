@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
-import { isEmailID, isPassword, isName } from '@/common/utils/validator';
+import { isEmailID, isPassword, isName, isNickname, isGrade, isMajor } from '@/common/utils/validator';
 import { debounce } from '@/common/utils';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from '@/queries';
@@ -17,13 +17,15 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
-  const [gradeValue, setGradeValue] = useState('');
-  const [majorValue, setMajorValue] = useState('');
+  const [grade, setGrade] = useState('');
+  const [major, setMajor] = useState('');
 
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidName, setIsValidName] = useState(true);
   const [isValidNickname, setIsValidNickname] = useState(true);
+  const [isValidGrade, setIsValidGrade] = useState(true);
+  const [isValidMajor, setIsValidMajor] = useState(true);
 
   const { modalStore } = useStores();
   const [signup] = useMutation(SIGN_UP, {
@@ -53,44 +55,58 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     setIsValidName(isName(nameValue));
   }, 500);
 
-  const onNicknameChangeListener = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onNicknameChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: nickNameValue } = e.target;
 
     setNickname(nickNameValue);
-  };
+    setIsValidNickname(isNickname(nickNameValue));
+  }, 500);
 
-  const onGradeChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: gradeSelectValue } = event.target;
+  const onGradeChangeListener = debounce((event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: gradeValue } = event.target;
 
-    setGradeValue(gradeSelectValue);
-  };
+    setGrade(gradeValue);
+    setIsValidGrade(isGrade(gradeValue));
+  }, 500);
 
-  const onMajorChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: majorSelectValue } = event.target;
+  const onMajorChangeListener = debounce((event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: majorValue } = event.target;
 
-    setMajorValue(majorSelectValue);
-  };
-
-  const isValidFormDatas = (): boolean => {
-    return isValidEmail && isValidPassword && isValidName;
-  };
-
-  const onSignUpBtnClickListener = () => {
-    if (!isValidFormDatas()) alert('회원가입 형식이 맞지 않습니다!');
-    signup({
-      variables: { email, password, name, nickname, grade: 1, major: 'CSE' },
-    });
-  };
+    setMajor(majorValue);
+    setIsValidMajor(isMajor(majorValue));
+  }, 500);
 
   const onMoveLoginBtnClickListener = () => {
     modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
   };
 
+  const onSignUpBtnClickListener = () => {
+    signup({
+      variables: { email, password, name, nickname, grade, major },
+    });
+  };
+
+  const checkEmptyFormDatas = (): boolean => {
+    return !(email && password && name && nickname && grade && major);
+  };
+
+  const checkIsValidDatas = (): boolean => {
+    return isValidEmail && isValidPassword && isValidName && isValidNickname && isValidGrade && isValidMajor;
+  };
+
+  const checkAndSetSignupDisabled = (): boolean => {
+    const isExistEmptyFormDatas = checkEmptyFormDatas();
+    const isValidDatas = checkIsValidDatas();
+
+    return !(!isExistEmptyFormDatas && isValidDatas);
+  };
+
   return (
     <ModalPopupArea modalOpen={modalOpen} onModalClose={onModalAreaClose}>
       <SignUpModalContent
-        valid={{ isValidEmail, isValidPassword, isValidName, isValidNickname }}
-        selectValue={{ gradeValue, majorValue }}
+        valid={{ isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor }}
+        selectValue={{ gradeValue: grade, majorValue: major }}
+        isSignupDisabled={checkAndSetSignupDisabled()}
         onModalClose={onSignUpBtnClickListener}
         onEmailChange={onDebouncedEmailChangeListener}
         onPasswordChange={onDebouncedPasswordChangeListener}
