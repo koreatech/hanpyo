@@ -82,6 +82,10 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     });
   };
 
+  const onMoveLoginBtnClickListener = () => {
+    modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+  };
+
   return (
     <ModalPopupArea modalOpen={modalOpen} onModalClose={onModalAreaClose}>
       <SignUpModalContent
@@ -94,6 +98,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
         onNicknameChange={onNicknameChangeListener}
         onGradeChange={onGradeChangeListener}
         onMajorChange={onMajorChangeListener}
+        onMoveLoginBtnClick={onMoveLoginBtnClickListener}
       />
     </ModalPopupArea>
   );

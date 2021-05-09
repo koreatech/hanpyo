@@ -29,6 +29,7 @@ interface SignUpModalContentProps {
   onNicknameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onGradeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onMajorChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onMoveLoginBtnClick: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -139,6 +140,7 @@ const SignUpModalContent = ({
   onNicknameChange,
   onGradeChange,
   onMajorChange,
+  onMoveLoginBtnClick,
 }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
   const { isValidEmail, isValidPassword, isValidName, isValidNickname } = valid;
@@ -264,7 +266,7 @@ const SignUpModalContent = ({
           회원가입
         </Button>
         <div className={classes.linkTextArea}>
-          <Typography className={classes.linkText} variant="caption">
+          <Typography className={classes.linkText} variant="caption" onClick={onMoveLoginBtnClick}>
             이미 가입하셨나요? 로그인하기
           </Typography>
         </div>
