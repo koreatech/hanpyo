@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { useStores } from '@/stores';
@@ -32,16 +32,21 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[400],
     '&:hover': {
       color: theme.palette.primary.main,
+      cursor: 'pointer',
     },
   },
 }));
 
 const MyPageMenu = ({ menuType }: MyPageMenuProps) => {
   const classes = useStyles();
-  const myPageMenu = useRef<HTMLElement>(null);
+  const { myPageStore } = useStores();
+
+  const onClickListener = () => {
+    myPageStore.state.menuType(MyPageMenuType[menuType]);
+  };
 
   return (
-    <Typography ref={myPageMenu} className={classes.root} data-type={nameMapper[menuType]}>
+    <Typography className={classes.root} onClick={onClickListener}>
       {nameMapper[menuType]}
     </Typography>
   );
