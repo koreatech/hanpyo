@@ -94,7 +94,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     return isValidEmail && isValidPassword && isValidName && isValidNickname && isValidGrade && isValidMajor;
   };
 
-  const checkAndSetSignupDisabled = (): boolean => {
+  const checkSignupDisabled = (): boolean => {
     const isExistEmptyFormDatas = checkEmptyFormDatas();
     const isValidDatas = checkIsValidDatas();
 
@@ -106,7 +106,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
       <SignUpModalContent
         valid={{ isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor }}
         selectValue={{ gradeValue: grade, majorValue: major }}
-        isSignupDisabled={checkAndSetSignupDisabled()}
+        isSignupDisabled={checkSignupDisabled()}
         onModalClose={onSignUpBtnClickListener}
         onEmailChange={onDebouncedEmailChangeListener}
         onPasswordChange={onDebouncedPasswordChangeListener}
