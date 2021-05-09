@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { debounce } from '@/common/utils';
-import { isEmailID, isPassword, isName } from '@/common/utils/validator';
 
 enum SignUpModalType {
   SIGN_UP_MODAL = 'SIGN_UP_MODAL',
 }
 
+interface SignupValid {
+  isValidEmail: boolean;
+  isValidPassword: boolean;
+  isValidName: boolean;
+}
+
 interface SignUpModalContentProps {
+  valid: SignupValid;
   onModalClose: () => void;
+  onEmailChange: () => void;
+  onPasswordChange: () => void;
+  onNameChange: () => void;
+  onNicknameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -36,35 +45,16 @@ const HELPER_TEXT = {
   },
 };
 
-const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Element => {
+const SignUpModalContent = ({
+  valid,
+  onModalClose,
+  onEmailChange,
+  onPasswordChange,
+  onNameChange,
+  onNicknameChange,
+}: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-  const [isValidName, setIsValidName] = useState(true);
-
-  const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: emailIDValue } = e.target;
-
-    setEmail(emailIDValue);
-    setIsValidEmail(isEmailID(emailIDValue));
-  }, 500);
-
-  const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: passwordValue } = e.target;
-
-    setPassword(passwordValue);
-    setIsValidPassword(isPassword(passwordValue));
-  }, 500);
-
-  const onDebouncedNameChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: nameValue } = e.target;
-
-    setName(nameValue);
-    setIsValidName(isName(nameValue));
-  }, 500);
+  const { isValidEmail, isValidPassword, isValidName } = valid;
 
   return (
     <>
@@ -82,7 +72,7 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
           label="아이디"
           type="email"
           fullWidth
-          onChange={onDebouncedEmailChangeListener}
+          onChange={onEmailChange}
         />
         <TextField
           autoComplete="off"
@@ -93,7 +83,7 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
           label="비밀번호"
           type="password"
           fullWidth
-          onChange={onDebouncedPasswordChangeListener}
+          onChange={onPasswordChange}
         />
         <TextField
           autoComplete="off"
@@ -104,9 +94,9 @@ const SignUpModalContent = ({ onModalClose }: SignUpModalContentProps): JSX.Elem
           label="이름"
           type="text"
           fullWidth
-          onChange={onDebouncedNameChangeListener}
+          onChange={onNameChange}
         />
-        <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth />
+        <TextField autoComplete="off" margin="dense" id="nickname" label="닉네임" type="text" fullWidth onChange={onNicknameChange} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onModalClose} color="primary">

@@ -42,6 +42,7 @@ const ModalPopup = (): JSX.Element => {
           onModalAreaClose={onModalCloseListener}
         />
       );
+
     if (nowModalType === modalTypes.TAB_REMOVE_MODAL)
       return (
         <TimeTableModalPopup
@@ -51,8 +52,9 @@ const ModalPopup = (): JSX.Element => {
           onModalAreaClose={onModalCloseListener}
         />
       );
-    if (nowModalType === modalTypes.SIGN_UP_MODAL)
-      return <SignUpModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
+
+    if (nowModalType === modalTypes.SIGN_UP_MODAL) return <SignUpModalPopup modalOpen={nowModalState} onModalAreaClose={onModalCloseListener} />;
+
     if (nowModalType === modalTypes.REVIEW_DETAIL_MODAL)
       return (
         <ReviewDetailModalPopup
