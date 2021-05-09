@@ -17,9 +17,14 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
+  const [gradeValue, setGradeValue] = useState('');
+  const [majorValue, setMajorValue] = useState('');
+
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidName, setIsValidName] = useState(true);
+  const [isValidNickname, setIsValidNickname] = useState(true);
+
   const { modalStore } = useStores();
   const [signup] = useMutation(SIGN_UP, {
     onCompleted: () => {
@@ -54,6 +59,18 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     setNickname(nickNameValue);
   };
 
+  const onGradeChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: gradeSelectValue } = event.target;
+
+    setGradeValue(gradeSelectValue);
+  };
+
+  const onMajorChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value: majorSelectValue } = event.target;
+
+    setMajorValue(majorSelectValue);
+  };
+
   const isValidFormDatas = (): boolean => {
     return isValidEmail && isValidPassword && isValidName;
   };
@@ -68,12 +85,15 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   return (
     <ModalPopupArea modalOpen={modalOpen} onModalClose={onModalAreaClose}>
       <SignUpModalContent
-        valid={{ isValidEmail, isValidPassword, isValidName }}
+        valid={{ isValidEmail, isValidPassword, isValidName, isValidNickname }}
+        selectValue={{ gradeValue, majorValue }}
         onModalClose={onSignUpBtnClickListener}
         onEmailChange={onDebouncedEmailChangeListener}
         onPasswordChange={onDebouncedPasswordChangeListener}
         onNameChange={onDebouncedNameChangeListener}
         onNicknameChange={onNicknameChangeListener}
+        onGradeChange={onGradeChangeListener}
+        onMajorChange={onMajorChangeListener}
       />
     </ModalPopupArea>
   );
