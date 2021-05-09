@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +46,11 @@ const MyPage = (): JSX.Element => {
 
   return (
     <div className={classes.root}>
-      <div className={classes.header}>마이페이지 헤더</div>
+      <div className={classes.header}>
+        <Typography variant="h5" color="primary">
+          마이페이지
+        </Typography>
+      </div>
       <div className={classes.body}>
         <div className={classes.left}>바디왼쪽</div>
         <div className={classes.right}>바디오른쪽</div>
