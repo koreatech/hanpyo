@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   authText: {
     color: theme.palette.grey[600],
     '&:hover': {
+      color: theme.palette.primary.main,
+      textDecoration: 'underline',
       cursor: 'pointer',
     },
   },
