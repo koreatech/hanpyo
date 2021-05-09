@@ -14,3 +14,5 @@ export { SameLectureBox } from './SameLectureBox/SameLectureBox';
 export { LectureReviewRating } from './LectureReviewRating/LectureReviewRating';
 export { Thumb } from './ThumbScore/ThumbScore';
 export { HashTag } from './HashTag/HashTag';
+export { MyPageMenu, MyPageMenuType } from './MyPageMenu/MyPageMenu';
+export type { MyPageMenuProps } from './MyPageMenu/MyPageMenu';
