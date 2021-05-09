@@ -25,6 +25,7 @@ interface ButtonProps {
   style: ButtonStyle;
   color?: 'inherit' | 'primary' | 'secondary' | 'default' | undefined;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 const useStyles = makeStyles({
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
   }),
 });
 
-const StyledButton = ({ btnType, onClick, children, style, color = 'primary', fullWidth = false }: ButtonProps): JSX.Element => {
+const StyledButton = ({ btnType, onClick, children, style, color = 'primary', fullWidth = false, disabled = false }: ButtonProps): JSX.Element => {
   const classes = useStyles({ ...style, fullWidth });
 
   const getClassName = () => {
@@ -47,7 +48,7 @@ const StyledButton = ({ btnType, onClick, children, style, color = 'primary', fu
   };
 
   return (
-    <Button className={getClassName()} variant="contained" color={color} onClick={onClick}>
+    <Button className={getClassName()} variant="contained" color={color} onClick={onClick} disabled={disabled}>
       {children}
     </Button>
   );
