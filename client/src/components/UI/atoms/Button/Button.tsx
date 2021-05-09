@@ -14,16 +14,22 @@ interface ButtonStyle {
   fontSize: number;
 }
 
+interface CSSProps extends ButtonStyle {
+  fullWidth: boolean;
+}
+
 interface ButtonProps {
   btnType: ButtonType;
   onClick?: () => void;
   children: React.ReactChild;
   style: ButtonStyle;
+  color?: 'inherit' | 'primary' | 'secondary' | 'default' | undefined;
+  fullWidth?: boolean;
 }
 
 const useStyles = makeStyles({
-  primary: ({ width, height, borderRadius, fontSize }: ButtonStyle) => ({
-    width: `${toRem(width)}rem`,
+  primary: ({ width, height, borderRadius, fontSize, fullWidth }: CSSProps) => ({
+    width: fullWidth ? '100%' : `${toRem(width)}rem`,
     height: `${toRem(height)}rem`,
     borderRadius: `${toRem(borderRadius)}rem`,
     boxShadow: '0 1.5px 3px 0 rgba(0, 0, 0, 0.16)',
@@ -33,15 +39,15 @@ const useStyles = makeStyles({
   }),
 });
 
-const StyledButton = ({ btnType, onClick, children, style }: ButtonProps): JSX.Element => {
-  const classes = useStyles({ ...style });
+const StyledButton = ({ btnType, onClick, children, style, color = 'primary', fullWidth = false }: ButtonProps): JSX.Element => {
+  const classes = useStyles({ ...style, fullWidth });
 
   const getClassName = () => {
     return { ...classes }[btnType];
   };
 
   return (
-    <Button className={getClassName()} variant="contained" color="primary" onClick={onClick}>
+    <Button className={getClassName()} variant="contained" color={color} onClick={onClick}>
       {children}
     </Button>
   );
