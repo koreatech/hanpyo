@@ -86,6 +86,34 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     });
   };
 
+  const resetFormDatas = () => {
+    setEmail('');
+    setPassword('');
+    setName('');
+    setNickname('');
+    setGrade('');
+    setMajor('');
+  };
+
+  const resetValidDatas = () => {
+    setIsValidEmail(true);
+    setIsValidPassword(true);
+    setIsValidName(true);
+    setIsValidNickname(true);
+    setIsValidGrade(true);
+    setIsValidMajor(true);
+  };
+
+  const resetSignupForm = () => {
+    resetFormDatas();
+    resetValidDatas();
+  };
+
+  const onSignupModalCloseListener = () => {
+    resetSignupForm();
+    onModalAreaClose();
+  };
+
   const checkEmptyFormDatas = (): boolean => {
     return !(email && password && name && nickname && grade && major);
   };
@@ -102,12 +130,12 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   };
 
   return (
-    <ModalPopupArea modalOpen={modalOpen} onModalClose={onModalAreaClose}>
+    <ModalPopupArea modalOpen={modalOpen} onModalClose={onSignupModalCloseListener}>
       <SignUpModalContent
         valid={{ isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor }}
         selectValue={{ gradeValue: grade, majorValue: major }}
         isSignupDisabled={checkSignupDisabled()}
-        onModalClose={onSignUpBtnClickListener}
+        onSignupBtnClick={onSignUpBtnClickListener}
         onEmailChange={onDebouncedEmailChangeListener}
         onPasswordChange={onDebouncedPasswordChangeListener}
         onNameChange={onDebouncedNameChangeListener}

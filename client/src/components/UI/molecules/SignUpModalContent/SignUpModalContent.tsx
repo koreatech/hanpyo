@@ -25,7 +25,7 @@ interface SignUpModalContentProps {
   valid: SignupValid;
   selectValue: SelectValue;
   isSignupDisabled: boolean;
-  onModalClose: () => void;
+  onSignupBtnClick: () => void;
   onEmailChange: () => void;
   onPasswordChange: () => void;
   onNameChange: () => void;
@@ -135,7 +135,7 @@ const SignUpModalContent = ({
   valid,
   selectValue,
   isSignupDisabled,
-  onModalClose,
+  onSignupBtnClick,
   onEmailChange,
   onPasswordChange,
   onNameChange,
@@ -267,7 +267,7 @@ const SignUpModalContent = ({
         </div>
       </DialogContent>
       <DialogActions className={classes.dialogActionRoot}>
-        <Button btnType={ButtonType.primary} onClick={onModalClose} style={SIGNUP_BUTTON_STYLE_PROPS} disabled={isSignupDisabled} fullWidth>
+        <Button btnType={ButtonType.primary} onClick={onSignupBtnClick} style={SIGNUP_BUTTON_STYLE_PROPS} disabled={isSignupDisabled} fullWidth>
           회원가입
         </Button>
         <div className={classes.linkTextArea}>
