@@ -45,19 +45,19 @@ const useStyles = makeStyles((theme) => ({
   checkArea: {
     display: 'flex',
     '& > *': {
-      marginRight: '8px',
+      marginRight: '0.5rem',
     },
     '& > *:not(:first-child)': {
-      marginTop: '7px',
+      marginTop: '0.4375rem',
     },
   },
   checkButton: {
-    marginTop: '7px',
+    marginTop: '0.4375rem',
   },
   selectArea: {
     display: 'flex',
     '& > *': {
-      marginRight: '8px',
+      marginRight: '0.5rem',
     },
   },
   dialogActionRoot: {
@@ -65,14 +65,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
 
     '&.MuiDialogActions-root': {
-      padding: '16px 24px',
+      padding: '1rem 1.5rem',
     },
   },
   linkTextArea: {
     display: 'flex',
     justifyContent: 'flex-end',
     width: '100%',
-    paddingTop: '16px',
+    paddingTop: '1rem',
     margin: '0 !important',
   },
   linkText: {
