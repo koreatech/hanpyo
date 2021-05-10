@@ -64,7 +64,7 @@ const ModalPopup = (): JSX.Element => {
           onModalAreaClose={onModalCloseListener}
         />
       );
-    return <LoginModalPopup modalOpen={nowModalState} onModalBtnClick={() => {}} onModalAreaClose={onModalCloseListener} />;
+    return <LoginModalPopup modalOpen={nowModalState} onModalAreaClose={onModalCloseListener} />;
   };
 
   return <>{getModalPopup()}</>;
