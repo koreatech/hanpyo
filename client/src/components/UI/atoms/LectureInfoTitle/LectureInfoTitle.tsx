@@ -15,7 +15,7 @@ enum LectureInfoTitleType {
 
 interface TitleProps {
   className: LectureInfoTitleType;
-  children: JSX.Element[] | string;
+  children?: JSX.Element[] | string | number;
   isHeader: boolean;
 }
 

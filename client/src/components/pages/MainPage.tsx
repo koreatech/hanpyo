@@ -56,7 +56,7 @@ const MainPage = (): JSX.Element => {
             <SubTitle>나만의 스케줄 추가</SubTitle>
             <TimeTableAddForm />
             <SubTitle>장바구니</SubTitle>
-            <LectureList isBasketList />
+            <LectureList isBasket />
           </div>
         </div>
         <Footer />
