@@ -7,3 +7,4 @@ export { TimeTableMenu } from './TimeTableMenu/TimeTableMenu';
 export { LectureReviewContainer } from './LectureReview/LectureReviewContainer';
 export type { LectureReviewProps, LectureReviewData } from './LectureReview/LectureReview';
 export { Footer } from './Footer/Footer';
+export { MyPageContentViewer } from './MyPageContentViewer/MyPageContentViewer';

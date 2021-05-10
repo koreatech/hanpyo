@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { MyPageMenus } from '@/components/UI/molecules';
+import { MyPageContentViewer } from '@/components/UI/organisms';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +58,9 @@ const MyPage = (): JSX.Element => {
         <div className={classes.left}>
           <MyPageMenus />
         </div>
-        <div className={classes.right}>바디오른쪽</div>
+        <div className={classes.right}>
+          <MyPageContentViewer />
+        </div>
       </div>
     </div>
   );
