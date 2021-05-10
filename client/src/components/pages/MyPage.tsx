@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { MyPageMenus } from '@/components/UI/molecules';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,11 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
   left: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     boxSizing: 'border-box',
     width: '25%',
-    padding: '1.5rem',
+    padding: '1.5rem 2rem',
     border: `1px solid ${theme.palette.grey[300]}`,
     borderRadius: '1rem',
     boxShadow: '1px 3px 5px 1px rgba(0, 0, 0, 0.12)',
@@ -55,7 +54,9 @@ const MyPage = (): JSX.Element => {
         </Typography>
       </div>
       <div className={classes.body}>
-        <div className={classes.left}>바디왼쪽</div>
+        <div className={classes.left}>
+          <MyPageMenus />
+        </div>
         <div className={classes.right}>바디오른쪽</div>
       </div>
     </div>
