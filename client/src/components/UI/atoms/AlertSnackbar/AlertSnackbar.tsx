@@ -8,11 +8,15 @@ import { useStores } from '@/stores';
 enum SnackbarType {
   ADD_SUCCESS = 'ADD_SUCCESS',
   DELETE_SUCCESS = 'DELETE_SUCCESS',
+  SIGNUP_SUCCESS = 'SIGNUP_SUCCESS',
+  SIGNUP_FAILED = 'SIGNUP_FAILED',
 }
 
 const SNACKBAR_MESSAGE = {
   [SnackbarType.ADD_SUCCESS]: '시간표가 추가되었습니다.',
   [SnackbarType.DELETE_SUCCESS]: '시간표가 삭제되었습니다.',
+  [SnackbarType.SIGNUP_SUCCESS]: '정상적으로 회원가입되었습니다.',
+  [SnackbarType.SIGNUP_FAILED]: '회원가입이 실패하였습니다. 다시 시도해주세요.',
 };
 
 const AlertSnackbar = (): JSX.Element => {

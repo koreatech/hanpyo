@@ -12,12 +12,32 @@ export default {
 } as Meta;
 
 const Template: Story<SignUpModalContentProps> = (args) => {
-  const SignUpModalContentStory = withStoryBox(args, 300)(SignUpModalContent);
+  const SignUpModalContentStory = withStoryBox(args, 700)(SignUpModalContent);
   return <SignUpModalContentStory />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   modalType: SignUpModalType.SIGN_UP_MODAL,
-  onModalClose: action('onClick'),
+  valid: {
+    isValidEmail: true,
+    isValidPassword: true,
+    isValidName: true,
+    isValidNickname: true,
+    isValidGrade: true,
+    isValidMajor: true,
+  },
+  selectValue: {
+    gradeValue: '',
+    majorValue: '',
+  },
+  isSignupDisabled: true,
+  onSignupBtnClick: action('onClick'),
+  onEmailChange: action('onClick'),
+  onPasswordChange: action('onClick'),
+  onNameChange: action('onClick'),
+  onNicknameChange: action('onClick'),
+  onGradeChange: action('onClick'),
+  onMajorChange: action('onClick'),
+  onMoveLoginBtnClick: action('onClick'),
 };
