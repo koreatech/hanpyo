@@ -29,7 +29,8 @@ const nameMapper = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.palette.grey[400],
+    color: theme.palette.grey[500],
+    marginBottom: '0.7rem',
     '&:hover': {
       color: theme.palette.primary.main,
       cursor: 'pointer',
@@ -46,7 +47,7 @@ const MyPageMenu = ({ menuType }: MyPageMenuProps) => {
   };
 
   return (
-    <Typography className={classes.root} onClick={onClickListener}>
+    <Typography variant="h6" className={classes.root} onClick={onClickListener}>
       {nameMapper[menuType]}
     </Typography>
   );
