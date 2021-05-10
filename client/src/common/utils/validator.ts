@@ -10,22 +10,45 @@
 // 2자 이상
 // 한글만 가능
 
+// 한표 닉네임 제약조건
+// 1자 이상
+// 한글, 영문, 숫자 가능
+
+// 한표 닉네임 제약조건
+// 1자 이상
+// 한글, 영문, 숫자 가능
+
 const REGEX = {
   EMAIL_ID: /^[a-z0-9_][a-z0-9_]{0,11}$/,
   PASSWORD: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,12}$/,
   NAME: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,}$/,
+  NICKNAME: /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{1,}$/,
+  GRADE: /^[1-4]{1}$/,
+  MAJOR: /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{1,}$/,
 };
 
-const isEmailID = (formValue: string): boolean => {
+function isEmailID(formValue: string): boolean {
   return REGEX.EMAIL_ID.test(formValue);
-};
+}
 
-const isPassword = (formValue: string): boolean => {
+function isPassword(formValue: string): boolean {
   return REGEX.PASSWORD.test(formValue);
-};
+}
 
-const isName = (formValue: string): boolean => {
+function isName(formValue: string): boolean {
   return REGEX.NAME.test(formValue);
-};
+}
 
-export { isEmailID, isPassword, isName };
+function isNickname(formValue: string): boolean {
+  return REGEX.NICKNAME.test(formValue);
+}
+
+function isGrade(formValue: string): boolean {
+  return REGEX.GRADE.test(formValue);
+}
+
+function isMajor(formValue: string): boolean {
+  return REGEX.MAJOR.test(formValue);
+}
+
+export { isEmailID, isPassword, isName, isNickname, isGrade, isMajor };

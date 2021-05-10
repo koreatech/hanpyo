@@ -20,7 +20,7 @@ class SnackbarStore {
     };
   }
 
-  setSnackbarState(newSnackbarState: boolean) {
+  setSnackbarState(newSnackbarState: boolean): void {
     const { snackbarState } = this.state;
 
     if (snackbarState() === newSnackbarState) return;
@@ -28,7 +28,7 @@ class SnackbarStore {
     snackbarState(newSnackbarState);
   }
 
-  setSnackbarType(newSnackbarType: SnackbarType) {
+  setSnackbarType(newSnackbarType: SnackbarType): void {
     const { snackbarType } = this.state;
 
     if (snackbarType() === newSnackbarType) return;

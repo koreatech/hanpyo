@@ -4,16 +4,22 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: HelloQuery
+// GraphQL mutation operation: SignUp
 // ====================================================
 
-export interface HelloQuery_hello {
-  __typename: "Hello";
-  message: string;
+export interface SignUp_signUp {
+  __typename: "Member";
+  id: string | null;
+  email: string | null;
+  name: string | null;
+  nickname: string | null;
+  grade: number | null;
+  major: string | null;
+  role: string | null;
 }
 
-export interface HelloQuery {
-  hello: HelloQuery_hello | null;
+export interface SignUp {
+  signUp: SignUp_signUp;
 }
 
 /* tslint:disable */
