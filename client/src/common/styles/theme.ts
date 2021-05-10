@@ -16,10 +16,10 @@ const theme = createMuiTheme({
         },
       },
       containedSecondary: {
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f3f3f3',
         color: '#707070',
         '&:hover': {
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#f3f3f3',
         },
       },
     },
