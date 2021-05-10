@@ -35,6 +35,16 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
     modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
   };
 
+  const resetLoginForm = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const onLoginModalCloseListener = () => {
+    resetLoginForm();
+    onModalAreaClose();
+  };
+
   const checkEmptyFormDatas = (): boolean => {
     return !(email && password);
   };
@@ -46,7 +56,7 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
   };
 
   return (
-    <ModalPopupArea modalOpen={modalOpen} onModalClose={onModalAreaClose}>
+    <ModalPopupArea modalOpen={modalOpen} onModalClose={onLoginModalCloseListener}>
       <LoginModalContent
         isLoginDisabled={checkLoginDisabled()}
         onLoginBtnClick={onLoginBtnClickListener}
