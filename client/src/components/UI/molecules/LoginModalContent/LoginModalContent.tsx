@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
+import { DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core';
+import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 import { debounce } from '@/common/utils';
 import { isEmailID, isPassword } from '@/common/utils/validator';
@@ -19,18 +20,37 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.7rem',
     color: theme.palette.primary.main,
   },
+  dialogContentRoot: {
+    '&.MuiDialogContent-root': {
+      overflow: 'hidden',
+    },
+  },
+  dialogActionRoot: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    '&.MuiDialogActions-root': {
+      padding: '1rem 1.5rem',
+    },
+  },
+  linkTextArea: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '100%',
+    paddingTop: '1rem',
+    margin: '0 !important',
+  },
+  linkText: {
+    color: theme.palette.grey[600],
+    '&:hover': {
+      color: theme.palette.primary.main,
+      textDecoration: 'underline',
+      cursor: 'pointer',
+    },
+  },
 }));
 
-const HELPER_TEXT = {
-  EMAIL: {
-    DEFAULT: 'koreatech.ac.kr은 빼고 입력해주세요.',
-    ERROR: 'Email 형식이 적합하지 않습니다.',
-  },
-  PASSWORD: {
-    DEFAULT: 'Password는 8자 이상 12자 이하로 입력해주세요.',
-    ERROR: 'Password 형식이 적합하지 않습니다.',
-  },
-};
+const LOGIN_BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 16 };
 
 const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Element => {
   const classes = useStyles();
@@ -58,35 +78,40 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
       <DialogTitle className={classes.title} id="login-dialog-title" disableTypography>
         한표 로그인
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.dialogContentRoot}>
         <TextField
           autoComplete="off"
-          helperText={isValidEmail ? HELPER_TEXT.EMAIL.DEFAULT : HELPER_TEXT.EMAIL.ERROR}
-          error={!isValidEmail}
           autoFocus
           margin="dense"
           id="id"
           label="아이디"
           type="email"
+          variant="outlined"
+          required
           fullWidth
           onChange={onDebouncedEmailChangeListener}
         />
         <TextField
           autoComplete="off"
-          helperText={isValidPassword ? HELPER_TEXT.PASSWORD.DEFAULT : HELPER_TEXT.PASSWORD.ERROR}
-          error={!isValidPassword}
           margin="dense"
           id="password"
           label="비밀번호"
           type="password"
+          variant="outlined"
+          required
           fullWidth
           onChange={onDebouncedPasswordChangeListener}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onModalClose} color="primary">
+      <DialogActions className={classes.dialogActionRoot}>
+        <Button btnType={ButtonType.primary} onClick={onModalClose} style={LOGIN_BUTTON_STYLE_PROPS} disabled fullWidth>
           로그인
         </Button>
+        <div className={classes.linkTextArea}>
+          <Typography className={classes.linkText} variant="caption">
+            한표를 더 편리하게 이용하세요. 회원가입하기
+          </Typography>
+        </div>
       </DialogActions>
     </>
   );
