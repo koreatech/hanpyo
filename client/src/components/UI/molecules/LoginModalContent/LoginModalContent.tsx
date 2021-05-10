@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core';
 import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
-import { debounce } from '@/common/utils';
-import { isEmailID, isPassword } from '@/common/utils/validator';
 
 enum LoginModalType {
   LOGIN_MODAL = 'LOGIN_MODAL',
 }
 
 interface LoginModalContentProps {
-  onModalClose: () => void;
+  isLoginDisabled: boolean;
+  onLoginBtnClick: () => void;
+  onEmailChange: () => void;
+  onPasswordChange: () => void;
+  onMovesignUpBtnClick: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -52,26 +54,14 @@ const useStyles = makeStyles((theme) => ({
 
 const LOGIN_BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 16 };
 
-const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Element => {
+const LoginModalContent = ({
+  isLoginDisabled,
+  onLoginBtnClick,
+  onEmailChange,
+  onPasswordChange,
+  onMovesignUpBtnClick,
+}: LoginModalContentProps): JSX.Element => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-
-  const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: emailIDValue } = e.target;
-
-    setEmail(emailIDValue);
-    setIsValidEmail(isEmailID(emailIDValue));
-  }, 500);
-
-  const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: passwordValue } = e.target;
-
-    setPassword(passwordValue);
-    setIsValidPassword(isPassword(passwordValue));
-  }, 500);
 
   return (
     <>
@@ -89,7 +79,7 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           variant="outlined"
           required
           fullWidth
-          onChange={onDebouncedEmailChangeListener}
+          onChange={onEmailChange}
         />
         <TextField
           autoComplete="off"
@@ -100,15 +90,15 @@ const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Elemen
           variant="outlined"
           required
           fullWidth
-          onChange={onDebouncedPasswordChangeListener}
+          onChange={onPasswordChange}
         />
       </DialogContent>
       <DialogActions className={classes.dialogActionRoot}>
-        <Button btnType={ButtonType.primary} onClick={onModalClose} style={LOGIN_BUTTON_STYLE_PROPS} disabled fullWidth>
+        <Button btnType={ButtonType.primary} onClick={onLoginBtnClick} style={LOGIN_BUTTON_STYLE_PROPS} disabled={isLoginDisabled} fullWidth>
           로그인
         </Button>
         <div className={classes.linkTextArea}>
-          <Typography className={classes.linkText} variant="caption">
+          <Typography className={classes.linkText} variant="caption" onClick={onMovesignUpBtnClick}>
             한표를 더 편리하게 이용하세요. 회원가입하기
           </Typography>
         </div>
