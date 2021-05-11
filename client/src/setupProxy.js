@@ -10,4 +10,12 @@ module.exports = function (app) {
       logLevel: 'debug',
     }),
   );
+
+  app.use(
+    createProxyMiddleware('/api', {
+      target: 'https://hanpyo-server.herokuapp.com',
+      changeOrigin: true,
+      logLevel: 'debug',
+    }),
+  );
 };
