@@ -29,4 +29,5 @@ export { LectureReviewHashTags } from './LectureReviewHashTags/LectureReviewHash
 export { ReviewSearchSection } from './ReviewSearchSection/ReviewSearchSection';
 export { ReviewDetailModalContent, ReviewDetailModalType } from './ReviewDetailModalContent/ReviewDetailModalContent';
 export { LectureReviewTitle } from './LectureReviewTitle/LectureReviewTitle';
+export { MyPageMenus } from './MyPageMenus/MyPageMenus';
 export { LectureListContent } from './LectureListContent/LectureListContent';
