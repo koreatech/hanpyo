@@ -12,7 +12,9 @@ interface LoginModalPopupProps {
 }
 
 const LOGIN_URL = '/api/login';
-const FETCH_OPTION = { method: 'POST' };
+const FETCH_OPTION = {
+  method: 'POST',
+};
 
 const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps): JSX.Element => {
   const [email, setEmail] = useState('');
@@ -26,6 +28,10 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
       snackbarStore.setSnackbarState(true);
 
       modalStore.setModalState(false);
+    },
+    onError: () => {
+      snackbarStore.setSnackbarType(SnackbarType.LOGIN_FAILED);
+      snackbarStore.setSnackbarState(true);
     },
   });
 
@@ -42,7 +48,7 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
   }, 500);
 
   const onLoginBtnClickListener = () => {
-    login({ email, password });
+    login({ queryData: { email, password } });
   };
 
   const onMoveSignUpBtnClickListener = () => {
