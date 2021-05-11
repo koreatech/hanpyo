@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
+import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, LoginModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
 import { debounce } from '@/common/utils';
 import { useStores } from '@/stores';
+import { useFetchAsync } from '@/common/hooks';
 
 interface LoginModalPopupProps {
   modalOpen: boolean;
   onModalAreaClose: () => void;
 }
 
+const LOGIN_URL = '/api/login';
+const FETCH_OPTION = { method: 'POST' };
+
 const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { modalStore } = useStores();
+  const { modalStore, snackbarStore } = useStores();
+
+  const [login] = useFetchAsync(LOGIN_URL, FETCH_OPTION, {
+    onCompleted: () => {
+      snackbarStore.setSnackbarType(SnackbarType.LOGIN_SUCCESS);
+      snackbarStore.setSnackbarState(true);
+
+      modalStore.setModalState(false);
+    },
+  });
 
   const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: emailIDValue } = e.target;
@@ -28,7 +42,7 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
   }, 500);
 
   const onLoginBtnClickListener = () => {
-    alert('login');
+    login({ email, password });
   };
 
   const onMoveSignUpBtnClickListener = () => {
