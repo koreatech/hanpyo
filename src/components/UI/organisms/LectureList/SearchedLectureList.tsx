@@ -4,6 +4,7 @@ import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
 import { useQuery, gql } from '@apollo/client';
+import { LectureListSkeleton } from '@/components/Skeleton';
 import client from '@/apollo';
 
 const LECTURE_INFOS = gql`
@@ -47,7 +48,12 @@ const SearchedLectureList = () => {
 
   const { loading, error, data } = useQuery(LECTURE_INFOS);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div>
+        <LectureListSkeleton />
+      </div>
+    );
   if (error) return <p>Error :(</p>;
 
   const { lectureInfos } = client.readQuery({
