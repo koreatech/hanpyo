@@ -6,6 +6,11 @@ interface FetchCallback {
   onError?: Function;
 }
 
+interface FetchParams {
+  queryData?: {};
+  bodyData?: {};
+}
+
 const INIT_REQUEST_OPTION = {
   method: 'GET',
   headers: {
@@ -13,13 +18,15 @@ const INIT_REQUEST_OPTION = {
   },
 };
 
-function useFetchAsync(url: string, option: RequestInit = INIT_REQUEST_OPTION, callback?: FetchCallback): [(bodyData: {}) => Promise<void>, boolean] {
+function useFetchAsync(
+  url: string,
+  option: RequestInit = INIT_REQUEST_OPTION,
+  callback?: FetchCallback,
+): [({ queryData, bodyData }: FetchParams) => Promise<void>, boolean] {
   const [loading, setLoading] = useState(true);
 
-  const executeCallback = (response: Response, data: any) => {
-    if (!callback) return;
-
-    const { onCompleted, onError } = callback;
+  const executeCallback = (response: Response, data: any, callbacks: FetchCallback) => {
+    const { onCompleted, onError } = callbacks;
 
     if (response.ok && onCompleted) {
       onCompleted(data);
@@ -31,11 +38,19 @@ function useFetchAsync(url: string, option: RequestInit = INIT_REQUEST_OPTION, c
     }
   };
 
-  const fetchData = async (bodyData: {}) => {
-    const response = await fetch(url, { ...option, body: JSON.stringify({ ...bodyData }) });
+  const concatURLParams = (urlStr: string, queryParams: {}): string => {
+    return `${urlStr}?${new URLSearchParams(queryParams)}`;
+  };
+
+  const fetchData = async ({ queryData, bodyData }: FetchParams) => {
+    const fetchUrl = queryData ? concatURLParams(url, queryData) : url;
+    const response = await fetch(fetchUrl, { ...option, body: JSON.stringify({ ...bodyData }) });
     const data = response.bodyUsed ? await response.json() : null;
 
-    executeCallback(response, data);
+    if (callback) {
+      executeCallback(response, data, callback);
+    }
+
     setLoading(false);
   };
 
