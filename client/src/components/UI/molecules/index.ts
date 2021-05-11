@@ -15,8 +15,6 @@ export type { TimeTableTabBtnGroupProps } from './TimeTableTabBtnGroup/TimeTable
 export { TimeTableTabMenu } from './TimeTableTabMenu/TimeTableTabMenu';
 export type { TimeTableTabMenuProps } from './TimeTableTabMenu/TimeTableTabMenu';
 export { LectureBoxContainer } from './LectureBoxContainer/LectureBoxContainer';
-export { BasketLectureListBody } from './LectureListBody/BasketLectureListBody';
-export { SearchedLectureListBody } from './LectureListBody/SearchedLectureListBody';
 export { LoginModalContent, LoginModalType } from './LoginModalContent/LoginModalContent';
 export { LectureSearchFilterMenu } from './LectureSearchFilter/LectureSearchFilterMenu';
 export { TimeTableAddForm } from './TimeTableAddForm/TimeTableAddForm';
