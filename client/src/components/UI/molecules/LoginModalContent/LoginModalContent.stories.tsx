@@ -3,7 +3,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { action } from '@storybook/addon-actions';
 import { withStoryBox } from '@/components/HOC';
-import { LoginModalContent, LoginModalType, LoginModalContentProps } from './LoginModalContent';
+import { LoginModalContent, LoginModalContentProps } from './LoginModalContent';
 
 export default {
   title: 'molecules/LoginModalContent',
@@ -18,6 +18,9 @@ const Template: Story<LoginModalContentProps> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  modalType: LoginModalType.LOGIN_MODAL,
-  onModalClose: action('onClick'),
+  isLoginDisabled: true,
+  onLoginBtnClick: action('onClick'),
+  onEmailChange: action('onChange'),
+  onPasswordChange: action('onChange'),
+  onMovesignUpBtnClick: action('onClick'),
 };
