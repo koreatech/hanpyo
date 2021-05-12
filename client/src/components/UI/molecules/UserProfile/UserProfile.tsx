@@ -96,7 +96,7 @@ const UserProfile = (): JSX.Element => {
           className={classes.menuText}
           variant="caption"
           onClick={() => {
-            alert('로그아웃 구현예정입니다 :)');
+            alert('로그아웃 구현예정입니다.');
           }}>
           로 그 아 웃
         </Typography>
