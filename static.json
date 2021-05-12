@@ -10,5 +10,9 @@
       "/graphql": {
         "origin": "https://hanpyo-server.herokuapp.com/"
       }
+    },
+    "logging": {
+        "access": false,
+        "error": "debug"
     }
 }
