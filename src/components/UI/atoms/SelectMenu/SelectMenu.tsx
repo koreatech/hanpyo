@@ -14,7 +14,7 @@ interface SelectMenuProps {
   menuLabel: string;
   menus: MenuItemType[];
   dropMenuWidth?: number | string;
-  onSelectMenuChange: () => void;
+  onSelectMenuChange: (value: string) => void;
 }
 
 interface cssProps {
@@ -114,11 +114,12 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
     if (!liElement) return;
 
     const { dataset } = liElement;
-    setSelectValue(dataset?.title ?? '');
+    const nowSelectedValue = dataset?.title ?? '';
+    setSelectValue(nowSelectedValue);
     setAnchorEl(null);
 
     if (onSelectMenuChange) {
-      onSelectMenuChange();
+      onSelectMenuChange(nowSelectedValue);
     }
   };
 
