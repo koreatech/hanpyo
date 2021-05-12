@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    width: 192,
-    height: 80,
-    borderRadius: 10.5,
+    width: '12rem',
+    height: '5rem',
+    borderRadius: '0.65625rem',
     backgroundColor: '#e9e9e9',
   },
 
@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 5,
+    marginBottom: '0.3125rem',
 
     '& > *': {
-      marginRight: 8,
+      marginRight: '0.5rem',
 
       '&:last-of-type': {
         marginRight: 0,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
 
     '& > *': {
-      marginBottom: 5,
+      marginBottom: '0.3125rem',
       '&:last-child': {
         marginBottom: 0,
       },
@@ -42,18 +42,18 @@ const useStyles = makeStyles((theme) => ({
 
     '& > span:first-child': {
       color: theme.palette.grey[600],
-      fontSize: 15,
+      fontSize: '0.9375rem',
     },
 
     '& > span:last-child': {
       color: theme.palette.grey[500],
-      fontSize: 11,
+      fontSize: '0.6875rem',
     },
   },
 
   divider: {
     borderLeft: `1px solid ${theme.palette.grey[500]}`,
-    margin: '0 10px',
+    margin: '0 0.625rem',
   },
 
   menuRoot: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   menuText: {
-    fontSize: 10,
+    fontSize: '0.625rem',
 
     '& > a, &': {
       color: theme.palette.grey[600],
