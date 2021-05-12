@@ -3,7 +3,7 @@ import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useReactiveVar } from '@apollo/client';
 import { LectureListSkeleton } from '@/components/Skeleton';
 import client from '@/apollo';
 
@@ -31,6 +31,8 @@ const LECTURE_INFOS = gql`
 
 const SearchedLectureList = () => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
+
+  const filteredLectures = useReactiveVar(lectureInfoStore.state.filteredLectures);
 
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
@@ -61,11 +63,7 @@ const SearchedLectureList = () => {
   });
   lectureInfoStore.state.lectures(lectureInfos);
   return (
-    <LectureListContent
-      onClick={onLectureSearchClickListener}
-      onDoubleClick={onLectureSearchDoubleClickListener}
-      lectureInfos={data.lectureInfos.slice(0, 200)}
-    />
+    <LectureListContent onClick={onLectureSearchClickListener} onDoubleClick={onLectureSearchDoubleClickListener} lectureInfos={filteredLectures} />
   );
 };
 

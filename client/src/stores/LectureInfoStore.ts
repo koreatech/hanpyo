@@ -6,6 +6,7 @@ interface LectureInfoStoreState {
   lectures: ReactiveVar<LectureInfos[]>;
   selectedLecture: ReactiveVar<LectureInfos | null>;
   basketSelectedLecture: ReactiveVar<LectureInfos | null>;
+  filteredLectures: ReactiveVar<LectureInfos[] | null>;
 }
 
 class LectureInfoStore {
@@ -19,6 +20,7 @@ class LectureInfoStore {
       lectures: makeVar<LectureInfos[]>([]),
       selectedLecture: makeVar<LectureInfos | null>(null),
       basketSelectedLecture: makeVar<LectureInfos | null>(null),
+      filteredLectures: makeVar<LectureInfos[] | null>(null),
     };
   }
 
@@ -28,164 +30,5 @@ class LectureInfoStore {
     return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
   }
 }
-
-const testData = [
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-  {
-    code: '111111',
-    name: '리눅스의 기초',
-    divisionNumber: '01',
-    professor: '도눅스',
-    requiredGrade: 3,
-    totalStudentNumber: 25,
-    department: '디자인건축공학부',
-    lectureTimes: [
-      { start: 3690, end: 3720 },
-      { start: 540, end: 600 },
-    ],
-  },
-];
 
 export default LectureInfoStore;

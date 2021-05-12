@@ -5,7 +5,7 @@ import { LectureInfo, LectureInfos } from '@/components/UI/molecules';
 
 interface LectureListContentProps {
   isBasket?: boolean;
-  lectureInfos: LectureInfos[];
+  lectureInfos: LectureInfos[] | null;
   onDoubleClick: (lectureInfos: LectureInfos) => void;
   onClick: (lectureInfos: LectureInfos) => void;
 }
@@ -64,8 +64,15 @@ const headerInfos = {
 const LectureListContent = ({ isBasket = false, lectureInfos, onDoubleClick, onClick }: LectureListContentProps): JSX.Element => {
   const classes = useStyles({ isBasket });
 
-  const getLectureInfos = (lectureInfoDatas: Array<LectureInfos>): JSX.Element[] => {
-    if (!lectureInfoDatas) return [];
+  const getLectureInfos = (lectureInfoDatas: Array<LectureInfos> | null): JSX.Element[] => {
+    if (!lectureInfoDatas) {
+      if (isBasket) return [<div>추가된 과목이 없습니다.</div>];
+      return [<div>검색을 통해 강의를 찾아보세요!</div>];
+    }
+    if (lectureInfoDatas.length === 0) {
+      if (isBasket) return [<div>추가된 과목이 없습니다.</div>];
+      return [<div>설정된 조건에 맞는 데이터가 없습니다.</div>];
+    }
 
     return lectureInfoDatas.map((lectureInfoData: LectureInfos) => {
       return (
