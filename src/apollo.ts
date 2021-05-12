@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 
 const link = new HttpLink({
-  uri: '/graphql',
+  uri: 'https://hanpyo-server.herokuapp.com/graphql',
   credentials: 'include',
 });
 
