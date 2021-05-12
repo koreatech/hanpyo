@@ -14,10 +14,5 @@
     "logging": {
         "access": false,
         "error": "debug"
-    },
-    "headers": {
-      "/**": {
-        "Access-Control-Allow-Origin": "*"
-      }
     }
 }
