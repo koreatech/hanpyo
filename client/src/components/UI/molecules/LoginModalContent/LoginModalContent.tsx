@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { Button, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
+import React from 'react';
+import { DialogTitle, DialogContent, DialogActions, TextField, Typography } from '@material-ui/core';
+import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
-import { debounce } from '@/common/utils';
-import { isEmailID, isPassword } from '@/common/utils/validator';
 
 enum LoginModalType {
   LOGIN_MODAL = 'LOGIN_MODAL',
 }
 
 interface LoginModalContentProps {
-  onModalClose: () => void;
+  isLoginDisabled: boolean;
+  onLoginBtnClick: () => void;
+  onEmailChange: () => void;
+  onPasswordChange: () => void;
+  onMovesignUpBtnClick: () => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -19,74 +22,86 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.7rem',
     color: theme.palette.primary.main,
   },
+  dialogContentRoot: {
+    '&.MuiDialogContent-root': {
+      overflow: 'hidden',
+    },
+  },
+  dialogActionRoot: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    '&.MuiDialogActions-root': {
+      padding: '1rem 1.5rem',
+    },
+  },
+  linkTextArea: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '100%',
+    paddingTop: '1rem',
+    margin: '0 !important',
+  },
+  linkText: {
+    color: theme.palette.grey[600],
+    '&:hover': {
+      color: theme.palette.primary.main,
+      textDecoration: 'underline',
+      cursor: 'pointer',
+    },
+  },
 }));
 
-const HELPER_TEXT = {
-  EMAIL: {
-    DEFAULT: 'koreatech.ac.kr은 빼고 입력해주세요.',
-    ERROR: 'Email 형식이 적합하지 않습니다.',
-  },
-  PASSWORD: {
-    DEFAULT: 'Password는 8자 이상 12자 이하로 입력해주세요.',
-    ERROR: 'Password 형식이 적합하지 않습니다.',
-  },
-};
+const LOGIN_BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 16 };
 
-const LoginModalContent = ({ onModalClose }: LoginModalContentProps): JSX.Element => {
+const LoginModalContent = ({
+  isLoginDisabled,
+  onLoginBtnClick,
+  onEmailChange,
+  onPasswordChange,
+  onMovesignUpBtnClick,
+}: LoginModalContentProps): JSX.Element => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-
-  const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: emailIDValue } = e.target;
-
-    setEmail(emailIDValue);
-    setIsValidEmail(isEmailID(emailIDValue));
-  }, 500);
-
-  const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: passwordValue } = e.target;
-
-    setPassword(passwordValue);
-    setIsValidPassword(isPassword(passwordValue));
-  }, 500);
 
   return (
     <>
       <DialogTitle className={classes.title} id="login-dialog-title" disableTypography>
         한표 로그인
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.dialogContentRoot}>
         <TextField
           autoComplete="off"
-          helperText={isValidEmail ? HELPER_TEXT.EMAIL.DEFAULT : HELPER_TEXT.EMAIL.ERROR}
-          error={!isValidEmail}
           autoFocus
           margin="dense"
           id="id"
           label="아이디"
           type="email"
+          variant="outlined"
+          required
           fullWidth
-          onChange={onDebouncedEmailChangeListener}
+          onChange={onEmailChange}
         />
         <TextField
           autoComplete="off"
-          helperText={isValidPassword ? HELPER_TEXT.PASSWORD.DEFAULT : HELPER_TEXT.PASSWORD.ERROR}
-          error={!isValidPassword}
           margin="dense"
           id="password"
           label="비밀번호"
           type="password"
+          variant="outlined"
+          required
           fullWidth
-          onChange={onDebouncedPasswordChangeListener}
+          onChange={onPasswordChange}
         />
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onModalClose} color="primary">
+      <DialogActions className={classes.dialogActionRoot}>
+        <Button btnType={ButtonType.primary} onClick={onLoginBtnClick} style={LOGIN_BUTTON_STYLE_PROPS} disabled={isLoginDisabled} fullWidth>
           로그인
         </Button>
+        <div className={classes.linkTextArea}>
+          <Typography className={classes.linkText} variant="caption" onClick={onMovesignUpBtnClick}>
+            한표를 더 편리하게 이용하세요. 회원가입하기
+          </Typography>
+        </div>
       </DialogActions>
     </>
   );
