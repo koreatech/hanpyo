@@ -5,10 +5,10 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "https://hanpyo-server.herokuapp.com"
+        "origin": "https://hanpyo-server.herokuapp.com/"
       },
-      "/graphql/": {
-        "origin": "https://hanpyo-server.herokuapp.com"
+      "/graphql": {
+        "origin": "https://hanpyo-server.herokuapp.com/"
       }
     }
 }
