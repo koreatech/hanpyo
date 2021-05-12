@@ -7,6 +7,7 @@ interface LectureInfoStoreState {
   selectedLecture: ReactiveVar<LectureInfos | null>;
   basketSelectedLecture: ReactiveVar<LectureInfos | null>;
   filteredLectures: ReactiveVar<LectureInfos[] | null>;
+  selectedDepartment: ReactiveVar<string | null>;
 }
 
 class LectureInfoStore {
@@ -21,6 +22,7 @@ class LectureInfoStore {
       selectedLecture: makeVar<LectureInfos | null>(null),
       basketSelectedLecture: makeVar<LectureInfos | null>(null),
       filteredLectures: makeVar<LectureInfos[] | null>(null),
+      selectedDepartment: makeVar<string | null>(''),
     };
   }
 
