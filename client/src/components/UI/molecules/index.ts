@@ -31,3 +31,4 @@ export { ReviewDetailModalContent, ReviewDetailModalType } from './ReviewDetailM
 export { LectureReviewTitle } from './LectureReviewTitle/LectureReviewTitle';
 export { MyPageMenus } from './MyPageMenus/MyPageMenus';
 export { LectureListContent } from './LectureListContent/LectureListContent';
+export { UserProfile } from './UserProfile/UserProfile';
