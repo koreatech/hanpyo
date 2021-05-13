@@ -13,20 +13,30 @@ interface SignUpModalPopupProps {
   onModalAreaClose: () => void;
 }
 
-const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [grade, setGrade] = useState('');
-  const [major, setMajor] = useState('');
+const INIT_INPUTS_STATE = {
+  email: '',
+  password: '',
+  name: '',
+  nickname: '',
+  grade: '',
+  major: '',
+};
 
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-  const [isValidName, setIsValidName] = useState(true);
-  const [isValidNickname, setIsValidNickname] = useState(true);
-  const [isValidGrade, setIsValidGrade] = useState(true);
-  const [isValidMajor, setIsValidMajor] = useState(true);
+const INIT_VALID_STATE = {
+  isValidEmail: true,
+  isValidPassword: true,
+  isValidName: true,
+  isValidNickname: true,
+  isValidGrade: true,
+  isValidMajor: true,
+};
+
+const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps): JSX.Element => {
+  const [inputs, setInputs] = useState(INIT_INPUTS_STATE);
+  const { email, password, name, nickname, grade, major } = inputs;
+
+  const [valids, setValids] = useState(INIT_VALID_STATE);
+  const { isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor } = valids;
 
   const { modalStore, snackbarStore } = useStores();
   const [signup] = useMutation(SIGN_UP, {
@@ -45,43 +55,43 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: emailIDValue } = e.target;
 
-    setEmail(emailIDValue);
-    setIsValidEmail(isEmailID(emailIDValue));
+    setInputs({ ...inputs, email: emailIDValue });
+    setValids({ ...valids, isValidEmail: isEmailID(emailIDValue) });
   }, 500);
 
   const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: passwordValue } = e.target;
 
-    setPassword(passwordValue);
-    setIsValidPassword(isPassword(passwordValue));
+    setInputs({ ...inputs, password: passwordValue });
+    setValids({ ...valids, isValidPassword: isPassword(passwordValue) });
   }, 500);
 
   const onDebouncedNameChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: nameValue } = e.target;
 
-    setName(nameValue);
-    setIsValidName(isName(nameValue));
+    setInputs({ ...inputs, name: nameValue });
+    setValids({ ...valids, isValidName: isName(nameValue) });
   }, 500);
 
   const onNicknameChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: nickNameValue } = e.target;
 
-    setNickname(nickNameValue);
-    setIsValidNickname(isNickname(nickNameValue));
+    setInputs({ ...inputs, nickname: nickNameValue });
+    setValids({ ...valids, isValidNickname: isNickname(nickNameValue) });
   }, 500);
 
   const onGradeChangeListener = debounce((event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: gradeValue } = event.target;
 
-    setGrade(gradeValue);
-    setIsValidGrade(isGrade(gradeValue));
+    setInputs({ ...inputs, grade: gradeValue });
+    setValids({ ...valids, isValidGrade: isGrade(gradeValue) });
   }, 500);
 
   const onMajorChangeListener = debounce((event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: majorValue } = event.target;
 
-    setMajor(majorValue);
-    setIsValidMajor(isMajor(majorValue));
+    setInputs({ ...inputs, major: majorValue });
+    setValids({ ...valids, isValidMajor: isMajor(majorValue) });
   }, 500);
 
   const onMoveLoginBtnClickListener = () => {
@@ -95,21 +105,11 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   };
 
   const resetFormDatas = () => {
-    setEmail('');
-    setPassword('');
-    setName('');
-    setNickname('');
-    setGrade('');
-    setMajor('');
+    setInputs(INIT_INPUTS_STATE);
   };
 
   const resetValidDatas = () => {
-    setIsValidEmail(true);
-    setIsValidPassword(true);
-    setIsValidName(true);
-    setIsValidNickname(true);
-    setIsValidGrade(true);
-    setIsValidMajor(true);
+    setValids(INIT_VALID_STATE);
   };
 
   const resetSignupForm = () => {
