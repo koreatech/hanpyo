@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
 import { SnackbarType } from '@/components/UI/atoms';
@@ -31,12 +32,31 @@ const SearchedLectureList = () => {
   }
 
   if (error) return <p>Error :(</p>;
+
+  const getTimeBoundByDay = (day: string) => {
+    if (day === '월') return { start: 0, end: 1440 };
+    if (day === '화') return { start: 1440, end: 2880 };
+    if (day === '수') return { start: 2880, end: 4320 };
+    if (day === '목') return { start: 4320, end: 5760 };
+    if (day === '금') return { start: 5760, end: 7200 };
+    if (day === '토') return { start: 7200, end: 8640 };
+    return { start: 0, end: 8640 };
+  };
   const getFilteredLectures = () => {
-    if (!department && !credit) return [];
+    if (!department && !credit && !day) return [];
     let filteredLectures = data.lectureInfos;
     if (department) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.department === department);
     if (credit) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
-
+    if (day)
+      filteredLectures = filteredLectures.filter((lecture: LectureInfos) => {
+        if (typeof lecture.lectureTimes === 'string') return false;
+        if (lecture.lectureTimes) {
+          return lecture.lectureTimes.some(
+            (lectureTime) => lectureTime.start >= getTimeBoundByDay(day).start && lectureTime.end < getTimeBoundByDay(day).end,
+          );
+        }
+        return false;
+      });
     return filteredLectures;
   };
 
