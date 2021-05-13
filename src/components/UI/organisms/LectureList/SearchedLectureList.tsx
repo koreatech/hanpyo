@@ -11,10 +11,12 @@ import { LECTURE_INFOS } from '@/queries';
 
 const SearchedLectureList = () => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
-  const { selectedDepartment, selectedDay, selectedCredit } = lectureInfoStore.state;
+  const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime } = lectureInfoStore.state;
   const department = useReactiveVar(selectedDepartment);
   const day = useReactiveVar(selectedDay);
   const credit = useReactiveVar(selectedCredit);
+  const startTime = useReactiveVar(selectedStartTime);
+  const endTime = useReactiveVar(selectedEndTime);
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
@@ -57,6 +59,15 @@ const SearchedLectureList = () => {
         }
         return false;
       });
+    if (startTime && endTime) {
+      filteredLectures = filteredLectures.filter((lecture: LectureInfos) => {
+        if (typeof lecture.lectureTimes === 'string') return false;
+        if (lecture.lectureTimes) {
+          return lecture.lectureTimes.some((lectureTime) => lectureTime.start % 1440 >= startTime && lectureTime.end % 1440 <= endTime);
+        }
+        return false;
+      });
+    }
     return filteredLectures;
   };
 

@@ -190,11 +190,11 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
       setSelectedMinute(title ?? '');
       minute = title ?? '';
     }
-    ampm = !ampm && selectedAMPM;
-    hour = !hour && selectedHour;
-    minute = !minute && selectedMinute;
+    if (!ampm) ampm = selectedAMPM;
+    if (!hour) hour = selectedHour;
+    if (!minute) minute = selectedMinute;
 
-    if (ampm === 'PM') time += 720;
+    if (ampm === '오후') time += 720;
     time += Number(hour) * 60;
     time += Number(minute);
 
