@@ -29,6 +29,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 2, title: '수', value: 2 },
       { id: 3, title: '목', value: 3 },
       { id: 4, title: '금', value: 4 },
+      { id: 5, title: '토', value: 5 },
     ],
     onSelectMenuChange: (value: string) => {
       lectureInfoStore.state.selectedDay(value);
