@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, LoginModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
-import { debounce } from '@/common/utils';
 import { useStores } from '@/stores';
-import { useFetchAsync } from '@/common/hooks';
+import { useFetchAsync, useInputForm } from '@/common/hooks';
 
 interface LoginModalPopupProps {
   modalOpen: boolean;
   onModalAreaClose: () => void;
 }
+
+interface InputState {
+  email: string;
+  password: string;
+}
+
+const INIT_INPUTS_STATE = {
+  email: '',
+  password: '',
+};
 
 const LOGIN_URL = '/api/login';
 const FETCH_OPTION = {
@@ -17,8 +26,8 @@ const FETCH_OPTION = {
 };
 
 const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [inputs, onInputChange, { reset, isEmpty }] = useInputForm<InputState>(INIT_INPUTS_STATE);
+  const { email, password } = inputs;
 
   const { modalStore, snackbarStore } = useStores();
 
@@ -35,18 +44,6 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
     },
   });
 
-  const onDebouncedEmailChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: emailIDValue } = e.target;
-
-    setEmail(emailIDValue);
-  }, 500);
-
-  const onDebouncedPasswordChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: passwordValue } = e.target;
-
-    setPassword(passwordValue);
-  }, 500);
-
   const onLoginBtnClickListener = () => {
     login({ queryData: { email, password } });
   };
@@ -55,33 +52,17 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
     modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
   };
 
-  const resetLoginForm = () => {
-    setEmail('');
-    setPassword('');
-  };
-
   const onLoginModalCloseListener = () => {
-    resetLoginForm();
+    reset();
     onModalAreaClose();
-  };
-
-  const checkEmptyFormDatas = (): boolean => {
-    return !(email && password);
-  };
-
-  const checkLoginDisabled = (): boolean => {
-    const isExistEmptyFormDatas = checkEmptyFormDatas();
-
-    return isExistEmptyFormDatas;
   };
 
   return (
     <ModalPopupArea modalOpen={modalOpen} onModalClose={onLoginModalCloseListener}>
       <LoginModalContent
-        isLoginDisabled={checkLoginDisabled()}
+        isLoginDisabled={isEmpty}
         onLoginBtnClick={onLoginBtnClickListener}
-        onEmailChange={onDebouncedEmailChangeListener}
-        onPasswordChange={onDebouncedPasswordChangeListener}
+        onInputChange={onInputChange}
         onMovesignUpBtnClick={onMoveSignUpBtnClickListener}
       />
     </ModalPopupArea>
