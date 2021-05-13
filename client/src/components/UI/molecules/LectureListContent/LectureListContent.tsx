@@ -48,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '0.7rem',
     },
   },
+  empty: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: (props: CSSProps) => (props.isBasket ? '10rem' : '17rem'),
+  },
 }));
 
 const headerInfos = {
@@ -66,12 +72,12 @@ const LectureListContent = ({ isBasket = false, lectureInfos, onDoubleClick, onC
 
   const getLectureInfos = (lectureInfoDatas: Array<LectureInfos> | null): JSX.Element[] => {
     if (!lectureInfoDatas) {
-      if (isBasket) return [<div>추가된 과목이 없습니다.</div>];
-      return [<div>검색을 통해 강의를 찾아보세요!</div>];
+      if (isBasket) return [<div className={classes.empty}>추가된 과목이 없습니다.</div>];
+      return [<div className={classes.empty}>검색을 통해 강의를 찾아보세요!</div>];
     }
     if (lectureInfoDatas.length === 0) {
-      if (isBasket) return [<div>추가된 과목이 없습니다.</div>];
-      return [<div>설정된 조건에 맞는 데이터가 없습니다.</div>];
+      if (isBasket) return [<div className={classes.empty}>추가된 과목이 없습니다.</div>];
+      return [<div className={classes.empty}>설정된 조건에 맞는 데이터가 없습니다.</div>];
     }
 
     return lectureInfoDatas.map((lectureInfoData: LectureInfos) => {
