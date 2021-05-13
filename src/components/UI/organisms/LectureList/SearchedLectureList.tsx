@@ -10,7 +10,10 @@ import { LECTURE_INFOS } from '@/queries';
 
 const SearchedLectureList = () => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
-  const selectedDepartment = useReactiveVar(lectureInfoStore.state.selectedDepartment);
+  const { selectedDepartment, selectedDay, selectedCredit } = lectureInfoStore.state;
+  const department = useReactiveVar(selectedDepartment);
+  const day = useReactiveVar(selectedDay);
+  const credit = useReactiveVar(selectedCredit);
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
@@ -28,8 +31,14 @@ const SearchedLectureList = () => {
   }
 
   if (error) return <p>Error :(</p>;
+  const getFilteredLectures = () => {
+    if (!department && !credit) return [];
+    let filteredLectures = data.lectureInfos;
+    if (department) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.department === department);
+    if (credit) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
 
-  const filteredLectures = data.lectureInfos.filter((lecture: LectureInfos) => lecture.department === selectedDepartment);
+    return filteredLectures;
+  };
 
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
@@ -40,7 +49,11 @@ const SearchedLectureList = () => {
   };
 
   return (
-    <LectureListContent onClick={onLectureSearchClickListener} onDoubleClick={onLectureSearchDoubleClickListener} lectureInfos={filteredLectures} />
+    <LectureListContent
+      onClick={onLectureSearchClickListener}
+      onDoubleClick={onLectureSearchDoubleClickListener}
+      lectureInfos={getFilteredLectures()}
+    />
   );
 };
 

@@ -17,8 +17,6 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 6, title: '산업경영학부', value: 6 },
     ],
     onSelectMenuChange: (value: string) => {
-      console.log('학부선택');
-      console.log(value);
       lectureInfoStore.state.selectedDepartment(value);
     },
   };
@@ -45,8 +43,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 2, title: '3학점', value: 3 },
       { id: 3, title: '4학점', value: 4 },
     ],
-    onSelectMenuChange: () => {
-      console.log('학점선택');
+    onSelectMenuChange: (value: string) => {
+      lectureInfoStore.state.selectedCredit(value);
     },
   };
 
