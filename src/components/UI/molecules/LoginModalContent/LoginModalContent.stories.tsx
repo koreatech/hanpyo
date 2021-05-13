@@ -20,7 +20,6 @@ export const Default = Template.bind({});
 Default.args = {
   isLoginDisabled: true,
   onLoginBtnClick: action('onClick'),
-  onEmailChange: action('onChange'),
-  onPasswordChange: action('onChange'),
+  onInputChange: action('onChange'),
   onMovesignUpBtnClick: action('onClick'),
 };
