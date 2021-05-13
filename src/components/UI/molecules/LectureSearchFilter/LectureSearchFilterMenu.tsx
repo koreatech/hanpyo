@@ -50,15 +50,21 @@ const LectureSearchFilterMenu = (): JSX.Element => {
 
   const startTimeSelectMenuProps = {
     menuLabel: '시간',
-    onSelectMenuChange: () => {
-      console.log('시간선택');
+    onSelectMenuChange: (value: number) => {
+      let time = value;
+      if (time === 720) time = 0;
+      if (time === 1440) time = 720;
+      lectureInfoStore.state.selectedStartTime(time);
     },
   };
 
   const endTimeSelectMenuProps = {
     menuLabel: '시간',
-    onSelectMenuChange: () => {
-      console.log('시간선택');
+    onSelectMenuChange: (value: number) => {
+      let time = value;
+      if (time === 720) time = 1440;
+      if (time === 1440) time = 720;
+      lectureInfoStore.state.selectedEndTime(time);
     },
   };
 
