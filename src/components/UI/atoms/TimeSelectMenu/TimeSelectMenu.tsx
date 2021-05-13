@@ -21,7 +21,7 @@ interface TimeSelectMenuDataType {
 interface TimeSelectMenuProps {
   menuLabel: string;
   dropMenuWidth?: number | string;
-  onSelectMenuChange: () => void;
+  onSelectMenuChange: (value: number) => void;
 }
 
 interface cssProps {
@@ -181,7 +181,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
     if (type === TimeSelectMenuItemType.MINUTE) setSelectedMinute(title ?? '');
 
     if (onSelectMenuChange) {
-      onSelectMenuChange();
+      onSelectMenuChange(0);
     }
   };
 

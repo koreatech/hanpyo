@@ -10,6 +10,8 @@ interface LectureInfoStoreState {
   selectedDepartment: ReactiveVar<string | null>;
   selectedDay: ReactiveVar<string | null>;
   selectedCredit: ReactiveVar<string | null>;
+  selectedStartTime: ReactiveVar<number | null>;
+  selectedEndTime: ReactiveVar<number | null>;
 }
 
 class LectureInfoStore {
@@ -27,6 +29,8 @@ class LectureInfoStore {
       selectedDepartment: makeVar<string | null>(null),
       selectedDay: makeVar<string | null>(null),
       selectedCredit: makeVar<string | null>(null),
+      selectedStartTime: makeVar<number | null>(null),
+      selectedEndTime: makeVar<number | null>(null),
     };
   }
 

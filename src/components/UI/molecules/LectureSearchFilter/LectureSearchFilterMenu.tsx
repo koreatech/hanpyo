@@ -48,7 +48,14 @@ const LectureSearchFilterMenu = (): JSX.Element => {
     },
   };
 
-  const timeSelectMenuProps = {
+  const startTimeSelectMenuProps = {
+    menuLabel: '시간',
+    onSelectMenuChange: () => {
+      console.log('시간선택');
+    },
+  };
+
+  const endTimeSelectMenuProps = {
     menuLabel: '시간',
     onSelectMenuChange: () => {
       console.log('시간선택');
@@ -60,7 +67,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       majorSelectMenu={majorSelectMenuProps}
       daySelectMenu={daySelectMenuProps}
       gradeSelectMenu={gradeSelectMenuProps}
-      timeSelectMenu={timeSelectMenuProps}
+      startTimeSelectMenu={startTimeSelectMenuProps}
+      endTimeSelectMenu={endTimeSelectMenuProps}
     />
   );
 };
