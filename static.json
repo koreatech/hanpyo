@@ -1,0 +1,18 @@
+{
+    "root": "build/",
+    "routes": {
+        "/**": "index.html"
+    },
+    "proxies": {
+      "/api/": {
+        "origin": "https://hanpyo-server.herokuapp.com/"
+      },
+      "/graphql": {
+        "origin": "https://hanpyo-server.herokuapp.com/"
+      }
+    },
+    "logging": {
+        "access": false,
+        "error": "debug"
+    }
+}
