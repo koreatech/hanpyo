@@ -45,7 +45,7 @@ const SearchedLectureList = () => {
     return { start: 0, end: 8640 };
   };
   const getFilteredLectures = () => {
-    if (!department && !credit && !day) return [];
+    if (!department && !credit && !day && !startTime && !endTime) return null;
     let filteredLectures = data.lectureInfos;
     if (department) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.department === department);
     if (credit) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
