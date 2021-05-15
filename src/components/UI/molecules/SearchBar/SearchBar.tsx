@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: `${theme.palette.grey[500]}`,
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 }));
 
@@ -41,14 +44,14 @@ const SearchBar = ({ width = '100%' }: SearchBarProps): JSX.Element => {
   const classes = useStyles({ width });
   const inputElem = useRef<HTMLInputElement>(null);
   const { lectureInfoStore } = useStores();
-  const onLectureSearchSubmitListener = (event: any) => {
+  const onLectureSearchListener = (event: any) => {
     event.preventDefault();
     lectureInfoStore.state.searchWord(inputElem.current?.value);
   };
   return (
-    <form className={classes.root} onSubmit={onLectureSearchSubmitListener}>
+    <form className={classes.root} onSubmit={onLectureSearchListener}>
       <input ref={inputElem} className={classes.input} placeholder="검색어를 입력하세요." />
-      <Search className={classes.icon} />
+      <Search className={classes.icon} onClick={onLectureSearchListener} />
     </form>
   );
 };
