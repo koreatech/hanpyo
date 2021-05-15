@@ -6,7 +6,8 @@ interface LectureSearchFilterProps {
   majorSelectMenu: SelectMenuProps;
   daySelectMenu: SelectMenuProps;
   gradeSelectMenu: SelectMenuProps;
-  timeSelectMenu: TimeSelectMenuProps;
+  startTimeSelectMenu: TimeSelectMenuProps;
+  endTimeSelectMenu: TimeSelectMenuProps;
 }
 
 const DROP_MENU_WIDTH = {
@@ -47,7 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const LectureSearchFilter = ({ majorSelectMenu, daySelectMenu, gradeSelectMenu, timeSelectMenu }: LectureSearchFilterProps): JSX.Element => {
+const LectureSearchFilter = ({
+  majorSelectMenu,
+  daySelectMenu,
+  gradeSelectMenu,
+  startTimeSelectMenu,
+  endTimeSelectMenu,
+}: LectureSearchFilterProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -62,11 +69,11 @@ const LectureSearchFilter = ({ majorSelectMenu, daySelectMenu, gradeSelectMenu, 
         <SelectMenu {...gradeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.GRADE} />
       </div>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...startTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <span>&#126;</span>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
     </div>
   );

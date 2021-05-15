@@ -21,7 +21,7 @@ interface TimeSelectMenuDataType {
 interface TimeSelectMenuProps {
   menuLabel: string;
   dropMenuWidth?: number | string;
-  onSelectMenuChange: () => void;
+  onSelectMenuChange: (value: number) => void;
 }
 
 interface cssProps {
@@ -174,14 +174,32 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
     const { dataset } = liElement;
     const { type, title } = dataset;
 
-    if (type === TimeSelectMenuItemType.AM_PM) setSelectedAMPM(title ?? '');
+    let ampm;
+    let hour;
+    let minute;
+    let time = 0;
+    if (type === TimeSelectMenuItemType.AM_PM) {
+      setSelectedAMPM(title ?? '');
+      ampm = title ?? '';
+    }
     if (type === TimeSelectMenuItemType.HOUR) {
       setSelectedHour(title ?? '');
+      hour = title ?? '';
     }
-    if (type === TimeSelectMenuItemType.MINUTE) setSelectedMinute(title ?? '');
+    if (type === TimeSelectMenuItemType.MINUTE) {
+      setSelectedMinute(title ?? '');
+      minute = title ?? '';
+    }
+    if (!ampm) ampm = selectedAMPM;
+    if (!hour) hour = selectedHour;
+    if (!minute) minute = selectedMinute;
+
+    if (ampm === '오후') time += 720;
+    time += Number(hour) * 60;
+    time += Number(minute);
 
     if (onSelectMenuChange) {
-      onSelectMenuChange();
+      onSelectMenuChange(time);
     }
   };
 
