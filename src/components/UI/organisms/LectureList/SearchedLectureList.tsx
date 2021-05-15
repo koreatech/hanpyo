@@ -39,6 +39,8 @@ const SearchedLectureList = () => {
 
   if (error) return <p>Error :(</p>;
 
+  lectureInfoStore.state.lectures(data.lectureInfos);
+
   const getSearchedLecture = (lectures: LectureInfos[]) => {
     if (searchingWord) {
       const words = searchingWord.replaceAll(' ', '').split(',');
