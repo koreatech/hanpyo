@@ -5,14 +5,14 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "https://hanpyo-server.herokuapp.com/"
+        "origin": "https://hanpyo-server.herokuapp.com/api/"
       },
       "/graphql": {
-        "origin": "https://hanpyo-server.herokuapp.com/"
+        "origin": "https://hanpyo-server.herokuapp.com/graphql"
       }
     },
     "logging": {
-        "access": false,
+        "access": true,
         "error": "debug"
     }
 }
