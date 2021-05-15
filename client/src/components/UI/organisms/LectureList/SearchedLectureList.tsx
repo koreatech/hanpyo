@@ -44,13 +44,17 @@ const SearchedLectureList = () => {
     if (day === '토') return { start: 7200, end: 8640 };
     return { start: 0, end: 8640 };
   };
-  const getFilteredLectures = () => {
-    if (!department && !credit && !day && !startTime && !endTime) return null;
-    let filteredLectures = data.lectureInfos;
-    if (department) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.department === department);
-    if (credit) filteredLectures = filteredLectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
+  const getFilteredByDepartmentLectures = (lectures: LectureInfos[]) => {
+    if (department) return lectures.filter((lecture: LectureInfos) => lecture.department === department);
+    return lectures;
+  };
+  const getFilteredByCreditLectures = (lectures: LectureInfos[]) => {
+    if (credit) return lectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
+    return lectures;
+  };
+  const getFilteredByDayLectures = (lectures: LectureInfos[]) => {
     if (day)
-      filteredLectures = filteredLectures.filter((lecture: LectureInfos) => {
+      return lectures.filter((lecture: LectureInfos) => {
         if (typeof lecture.lectureTimes === 'string') return false;
         if (lecture.lectureTimes) {
           return lecture.lectureTimes.some(
@@ -59,8 +63,11 @@ const SearchedLectureList = () => {
         }
         return false;
       });
+    return lectures;
+  };
+  const getFilteredByTimeLectures = (lectures: LectureInfos[]) => {
     if (startTime && endTime) {
-      filteredLectures = filteredLectures.filter((lecture: LectureInfos) => {
+      return lectures.filter((lecture: LectureInfos) => {
         if (typeof lecture.lectureTimes === 'string') return false;
         if (lecture.lectureTimes) {
           return lecture.lectureTimes.some((lectureTime) => lectureTime.start % 1440 >= startTime && lectureTime.end % 1440 <= endTime);
@@ -68,6 +75,15 @@ const SearchedLectureList = () => {
         return false;
       });
     }
+    return lectures;
+  };
+  const getFilteredLectures = () => {
+    if (!department && !credit && !day && !startTime && !endTime) return null;
+    let filteredLectures = data.lectureInfos;
+    filteredLectures = getFilteredByDepartmentLectures(filteredLectures);
+    filteredLectures = getFilteredByCreditLectures(filteredLectures);
+    filteredLectures = getFilteredByDayLectures(filteredLectures);
+    filteredLectures = getFilteredByTimeLectures(filteredLectures);
     return filteredLectures;
   };
 
