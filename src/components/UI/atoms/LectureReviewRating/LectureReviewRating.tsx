@@ -3,29 +3,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 import StarHalf from '@material-ui/icons/StarHalf';
+import { range } from '@/common/utils';
 
 interface LectureReviewRatingProps {
   rating: number;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     display: 'flex',
     marginLeft: '0.5rem',
   },
-}));
+  star: {
+    cursor: 'pointer',
+  },
+});
 
 const LectureReviewRating = ({ rating }: LectureReviewRatingProps): JSX.Element => {
   const classes = useStyles();
+
   const getStars = () => {
-    const array = [];
-    const Stars = Math.floor(rating);
-    const isHalfStar = !!(rating - Stars);
-    const borderStars = isHalfStar ? 4 - Stars : 5 - Stars;
-    for (let i = 0; i < Stars; i++) array.push(<Star key={`S${i}`} fontSize="small" color="primary" />);
-    if (isHalfStar) array.push(<StarHalf key="SH" fontSize="small" color="primary" />);
-    for (let i = 0; i < borderStars; i++) array.push(<StarBorder key={`BS${i}`} fontSize="small" color="primary" />);
-    return array;
+    const numOfStars = Math.floor(rating);
+    const hasHarfStar = !!(rating - numOfStars);
+    const stars = Array.from(range(1, 5)).map((num, idx) => {
+      if (idx < numOfStars) return <Star className={classes.star} key={num} fontSize="small" color="primary" />;
+      if (idx === numOfStars && hasHarfStar) return <StarHalf className={classes.star} key={num} fontSize="small" color="primary" />;
+      return <StarBorder className={classes.star} key={num} fontSize="small" color="primary" />;
+    });
+
+    return stars;
   };
 
   return <div className={classes.root}>{getStars()}</div>;
