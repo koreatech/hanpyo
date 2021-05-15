@@ -32,9 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = ({ width = '100%' }: SearchBarProps): JSX.Element => {
   const classes = useStyles({ width });
-
+  const onLectureSearchSubmitListener = (event: any) => {
+    event.preventDefault();
+  };
   return (
-    <form className={classes.root}>
+    <form className={classes.root} onSubmit={onLectureSearchSubmitListener}>
       <InputBase className={classes.input} placeholder="검색어를 입력하세요." inputProps={{ 'aria-label': 'naked' }} />
       <Search className={classes.icon} />
     </form>
