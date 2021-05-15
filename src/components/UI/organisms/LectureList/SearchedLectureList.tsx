@@ -12,12 +12,15 @@ import { getTimeBoundByDay } from '@/common/utils';
 
 const SearchedLectureList = () => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
-  const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime } = lectureInfoStore.state;
+  const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = lectureInfoStore.state;
+
   const department = useReactiveVar(selectedDepartment);
   const day = useReactiveVar(selectedDay);
   const credit = useReactiveVar(selectedCredit);
   const startTime = useReactiveVar(selectedStartTime);
   const endTime = useReactiveVar(selectedEndTime);
+  const searchingWord = useReactiveVar(searchWord);
+
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
@@ -36,14 +39,27 @@ const SearchedLectureList = () => {
 
   if (error) return <p>Error :(</p>;
 
+  const getSearchedLecture = (lectures: LectureInfos[]) => {
+    if (searchingWord) {
+      const words = searchingWord.replaceAll(' ', '').split(',');
+      return lectures.filter((lecture: LectureInfos) => {
+        if (!lecture.name) return false;
+        return words.some((word) => lecture.name.includes(word));
+      });
+    }
+    return lectures;
+  };
+
   const getFilteredByDepartmentLectures = (lectures: LectureInfos[]) => {
     if (department) return lectures.filter((lecture: LectureInfos) => lecture.department === department);
     return lectures;
   };
+
   const getFilteredByCreditLectures = (lectures: LectureInfos[]) => {
     if (credit) return lectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
     return lectures;
   };
+
   const getFilteredByDayLectures = (lectures: LectureInfos[]) => {
     if (day)
       return lectures.filter((lecture: LectureInfos) => {
@@ -57,6 +73,7 @@ const SearchedLectureList = () => {
       });
     return lectures;
   };
+
   const getFilteredByTimeLectures = (lectures: LectureInfos[]) => {
     if (startTime && endTime) {
       return lectures.filter((lecture: LectureInfos) => {
@@ -69,9 +86,11 @@ const SearchedLectureList = () => {
     }
     return lectures;
   };
+
   const getFilteredLectures = () => {
-    if (!department && !credit && !day && !startTime && !endTime) return null;
     let filteredLectures = data.lectureInfos;
+    if (searchingWord) return getSearchedLecture(filteredLectures);
+    if (!department && !credit && !day && !startTime && !endTime) return null;
     filteredLectures = getFilteredByDepartmentLectures(filteredLectures);
     filteredLectures = getFilteredByCreditLectures(filteredLectures);
     filteredLectures = getFilteredByDayLectures(filteredLectures);
