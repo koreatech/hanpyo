@@ -7,31 +7,17 @@ enum SignUpModalType {
   SIGN_UP_MODAL = 'SIGN_UP_MODAL',
 }
 
-interface SignupValid {
-  isValidEmail: boolean;
-  isValidPassword: boolean;
-  isValidName: boolean;
-  isValidNickname: boolean;
-  isValidGrade: boolean;
-  isValidMajor: boolean;
-}
-
 interface SelectValue {
   gradeValue: string;
   majorValue: string;
 }
 
 interface SignUpModalContentProps {
-  valid: SignupValid;
+  valid: boolean[];
   selectValue: SelectValue;
   isSignupDisabled: boolean;
+  onInputChange: () => void;
   onSignupBtnClick: () => void;
-  onEmailChange: () => void;
-  onPasswordChange: () => void;
-  onNameChange: () => void;
-  onNicknameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onGradeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onMajorChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onMoveLoginBtnClick: () => void;
 }
 
@@ -136,16 +122,11 @@ const SignUpModalContent = ({
   selectValue,
   isSignupDisabled,
   onSignupBtnClick,
-  onEmailChange,
-  onPasswordChange,
-  onNameChange,
-  onNicknameChange,
-  onGradeChange,
-  onMajorChange,
+  onInputChange,
   onMoveLoginBtnClick,
 }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
-  const { isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor } = valid;
+  const [isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor] = valid;
   const { gradeValue, majorValue } = selectValue;
 
   const getGradeSelectOptions = (): JSX.Element[] => {
@@ -181,13 +162,14 @@ const SignUpModalContent = ({
             error={!isValidEmail}
             autoFocus
             margin="dense"
-            id="id"
+            id="email"
+            name="email"
             label="아이디"
             type="email"
             variant="outlined"
             required
             fullWidth
-            onChange={onEmailChange}
+            onChange={onInputChange}
           />
           <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS}>
             중복체크
@@ -199,12 +181,13 @@ const SignUpModalContent = ({
           error={!isValidPassword}
           margin="dense"
           id="password"
+          name="password"
           label="비밀번호"
           type="password"
           variant="outlined"
           required
           fullWidth
-          onChange={onPasswordChange}
+          onChange={onInputChange}
         />
         <TextField
           autoComplete="off"
@@ -212,12 +195,13 @@ const SignUpModalContent = ({
           error={!isValidName}
           margin="dense"
           id="name"
+          name="name"
           label="이름"
           type="text"
           variant="outlined"
           required
           fullWidth
-          onChange={onNameChange}
+          onChange={onInputChange}
         />
         <div className={classes.checkArea}>
           <TextField
@@ -226,12 +210,13 @@ const SignUpModalContent = ({
             error={!isValidNickname}
             margin="dense"
             id="nickname"
+            name="nickname"
             label="닉네임"
             type="text"
             variant="outlined"
             required
             fullWidth
-            onChange={onNicknameChange}
+            onChange={onInputChange}
           />
           <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS}>
             중복체크
@@ -242,26 +227,28 @@ const SignUpModalContent = ({
             helperText={HELPER_TEXT.GRADE.DEFAULT}
             error={!isValidGrade}
             select
+            name="grade"
             label="학년"
             margin="dense"
             variant="outlined"
             value={gradeValue}
             required
             fullWidth
-            onChange={onGradeChange}>
+            onChange={onInputChange}>
             {getGradeSelectOptions()}
           </TextField>
           <TextField
             helperText={HELPER_TEXT.MAJOR.DEFAULT}
             error={!isValidMajor}
             select
+            name="major"
             label="전공"
             margin="dense"
             variant="outlined"
             value={majorValue}
             required
             fullWidth
-            onChange={onMajorChange}>
+            onChange={onInputChange}>
             {getMajorSelectOptions()}
           </TextField>
         </div>

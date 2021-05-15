@@ -10,8 +10,7 @@ enum LoginModalType {
 interface LoginModalContentProps {
   isLoginDisabled: boolean;
   onLoginBtnClick: () => void;
-  onEmailChange: () => void;
-  onPasswordChange: () => void;
+  onInputChange: () => void;
   onMovesignUpBtnClick: () => void;
 }
 
@@ -54,13 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LOGIN_BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 16 };
 
-const LoginModalContent = ({
-  isLoginDisabled,
-  onLoginBtnClick,
-  onEmailChange,
-  onPasswordChange,
-  onMovesignUpBtnClick,
-}: LoginModalContentProps): JSX.Element => {
+const LoginModalContent = ({ isLoginDisabled, onLoginBtnClick, onInputChange, onMovesignUpBtnClick }: LoginModalContentProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -73,24 +66,24 @@ const LoginModalContent = ({
           autoComplete="off"
           autoFocus
           margin="dense"
-          id="id"
+          name="email"
           label="아이디"
           type="email"
           variant="outlined"
           required
           fullWidth
-          onChange={onEmailChange}
+          onChange={onInputChange}
         />
         <TextField
           autoComplete="off"
           margin="dense"
-          id="password"
+          name="password"
           label="비밀번호"
           type="password"
           variant="outlined"
           required
           fullWidth
-          onChange={onPasswordChange}
+          onChange={onInputChange}
         />
       </DialogContent>
       <DialogActions className={classes.dialogActionRoot}>
