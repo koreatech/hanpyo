@@ -34,6 +34,8 @@ const LectureBoxContainer = (): JSX.Element => {
 
       const times = lectureInfo.lectureTimes as TimeTypes[];
 
+      if (!times) return [];
+
       return times.map((time) => {
         return (
           <LectureBox
@@ -54,6 +56,8 @@ const LectureBoxContainer = (): JSX.Element => {
 
     return sameLectures.map((sameLecture) => {
       if (typeof sameLecture.lectureTimes === 'string') return <></>;
+
+      if (!sameLecture.lectureTimes) return [];
 
       return sameLecture.lectureTimes.map((time) => {
         if (sameLecture.divisionNumber === nowSelectedLecture?.divisionNumber) {
