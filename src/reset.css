@@ -83,3 +83,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+textarea{
+	font-family: AppleSDGothicNeo;
+}
