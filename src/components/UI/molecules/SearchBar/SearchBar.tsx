@@ -47,6 +47,7 @@ const SearchBar = ({ width = '100%' }: SearchBarProps): JSX.Element => {
   const onLectureSearchListener = (event: any) => {
     event.preventDefault();
     lectureInfoStore.state.searchWord(inputElem.current?.value);
+    if (inputElem.current) inputElem.current.value = '';
   };
   return (
     <form className={classes.root} onSubmit={onLectureSearchListener}>
