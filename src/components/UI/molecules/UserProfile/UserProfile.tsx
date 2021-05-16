@@ -3,6 +3,11 @@ import { Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
+interface UserProfileProps {
+  nickname: string;
+  major: string;
+}
+
 const useStyles = makeStyles((theme) => ({
   profileRoot: {
     display: 'flex',
@@ -77,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserProfile = (): JSX.Element => {
+const UserProfile = ({ nickname, major }: UserProfileProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -87,8 +92,8 @@ const UserProfile = (): JSX.Element => {
           <Avatar alt="profile img" imgProps={{ width: 44, height: 44 }} />
         </div>
         <div className={classes.profileTextArea}>
-          <span>김한표</span>
-          <span>디자인건축공학부</span>
+          <span>{nickname}</span>
+          <span>{major}</span>
         </div>
       </div>
       <div className={classes.menuRoot}>
