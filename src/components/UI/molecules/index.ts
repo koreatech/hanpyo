@@ -8,7 +8,7 @@ export { ModalPopupArea } from './ModalPopupArea/ModalPopupArea';
 export type { ModalPopupAreaProps } from './ModalPopupArea/ModalPopupArea';
 export { TimeTableModalContent, TimeTableModalType } from './TimeTableModalContent/TimeTableModalContent';
 export type { TimeTableModalContentProps } from './TimeTableModalContent/TimeTableModalContent';
-export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';
+export { HeaderLoginMenu } from './HeaderLoginMenu/HeaderLoginMenu';
 export { SubTitle } from './SubTitle/SubTitle';
 export { TimeTableTabBtnGroup } from './TimeTableTabBtnGroup/TimeTableTabBtnGroup';
 export type { TimeTableTabBtnGroupProps } from './TimeTableTabBtnGroup/TimeTableTabBtnGroup';
