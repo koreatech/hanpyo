@@ -4,6 +4,8 @@ import { ModalPopupArea, LoginModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
 import { useStores } from '@/stores';
 import { useFetchAsync, useInputForm } from '@/common/hooks';
+import { MY_MEMBER_INFO } from '@/queries';
+import { useLazyQuery } from '@apollo/client';
 
 interface LoginModalPopupProps {
   modalOpen: boolean;
@@ -28,6 +30,7 @@ const FETCH_OPTION = {
 const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps): JSX.Element => {
   const [inputs, onInputChange, { reset, isEmpty }] = useInputForm<InputState>(INIT_INPUTS_STATE);
   const { email, password } = inputs;
+  const [getMyMemberInfo] = useLazyQuery(MY_MEMBER_INFO);
 
   const { modalStore, snackbarStore } = useStores();
 
@@ -37,6 +40,8 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
       snackbarStore.setSnackbarState(true);
 
       modalStore.setModalState(false);
+
+      getMyMemberInfo();
     },
     onError: () => {
       snackbarStore.setSnackbarType(SnackbarType.LOGIN_FAILED);
