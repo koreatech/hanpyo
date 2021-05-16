@@ -12,6 +12,7 @@ interface LectureInfoStoreState {
   selectedCredit: ReactiveVar<string | null>;
   selectedStartTime: ReactiveVar<number | null>;
   selectedEndTime: ReactiveVar<number | null>;
+  searchWord: ReactiveVar<string | null>;
 }
 
 class LectureInfoStore {
@@ -31,6 +32,7 @@ class LectureInfoStore {
       selectedCredit: makeVar<string | null>(null),
       selectedStartTime: makeVar<number | null>(null),
       selectedEndTime: makeVar<number | null>(null),
+      searchWord: makeVar<string | null>(null),
     };
   }
 

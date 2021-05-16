@@ -19,6 +19,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 8, title: 'HRD학과', value: 8 },
     ],
     onSelectMenuChange: (value: string) => {
+      lectureInfoStore.state.searchWord(null);
       lectureInfoStore.state.selectedDepartment(value);
     },
   };
@@ -34,6 +35,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 5, title: '토', value: 5 },
     ],
     onSelectMenuChange: (value: string) => {
+      lectureInfoStore.state.searchWord(null);
       lectureInfoStore.state.selectedDay(value);
     },
   };
@@ -47,6 +49,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 3, title: '4학점', value: 4 },
     ],
     onSelectMenuChange: (value: string) => {
+      lectureInfoStore.state.searchWord(null);
       lectureInfoStore.state.selectedCredit(value);
     },
   };
@@ -54,6 +57,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   const startTimeSelectMenuProps = {
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
+      lectureInfoStore.state.searchWord(null);
       let time = value;
       if (time === 720) time = 0;
       if (time === 1440) time = 720;
@@ -64,6 +68,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   const endTimeSelectMenuProps = {
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
+      lectureInfoStore.state.searchWord(null);
       let time = value;
       if (time === 720) time = 1440;
       if (time === 1440) time = 720;
