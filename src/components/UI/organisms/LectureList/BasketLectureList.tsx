@@ -1,5 +1,4 @@
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
@@ -16,8 +15,7 @@ const BasketLectureList = () => {
     if (isString(lectureInfos.lectureTimes)) return;
 
     timeTableStore.removeLectureFromTable(lectureInfos.name);
-    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
-    snackbarStore.setSnackbarState(true);
+    snackbarStore.showTabDeleteMsg();
   };
 
   const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {

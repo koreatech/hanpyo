@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderMenu, SnackbarType } from '@/components/UI/atoms';
+import { HeaderMenu } from '@/components/UI/atoms';
 import { modalTypes } from '@/components/UI/organisms';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
@@ -32,9 +32,7 @@ const HeaderNavSection = (): JSX.Element => {
 
   const onHeaderMenuClickListener = (link: string) => {
     if (link !== MAIN_PAGE_LINK && !checkAuthState()) {
-      snackbarStore.setSnackbarType(SnackbarType.NAV_FAILED);
-      snackbarStore.setSnackbarState(true);
-
+      snackbarStore.showNavFailedMsg();
       history.push(MAIN_PAGE_LINK);
       modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
       return;

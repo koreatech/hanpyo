@@ -1,5 +1,4 @@
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
 import { useMutation } from '@apollo/client';
@@ -37,16 +36,13 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const { email, password, name, nickname, grade, major } = inputs;
 
   const { modalStore, snackbarStore } = useStores();
-  const [signup] = useMutation(SIGN_UP, {
+  const [signUp] = useMutation(SIGN_UP, {
     onCompleted: () => {
-      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_SUCCESS);
-      snackbarStore.setSnackbarState(true);
-
+      snackbarStore.showSignUpSuccessMsg();
       modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
     },
     onError: () => {
-      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_FAILED);
-      snackbarStore.setSnackbarState(true);
+      snackbarStore.showSignUpFailedMsg();
     },
   });
 
@@ -55,7 +51,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   };
 
   const onSignUpBtnClickListener = () => {
-    signup({
+    signUp({
       variables: { email, password, name, nickname, grade, major },
     });
   };

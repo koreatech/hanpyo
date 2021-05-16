@@ -3,7 +3,6 @@ import { Typography, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useStores } from '@/stores';
-import { SnackbarType } from '@/components/UI/atoms';
 
 interface LectureBoxProps {
   startTime: number;
@@ -75,9 +74,7 @@ const LectureBox = ({ startTime, endTime, bgcolor, lectureName, classNumber, pro
 
   const onLectureBoxClickListener = () => {
     timeTableStore.removeLectureFromTable(lectureName);
-
-    snackbarStore.setSnackbarType(SnackbarType.DELETE_SUCCESS);
-    snackbarStore.setSnackbarState(true);
+    snackbarStore.showTabDeleteMsg();
   };
 
   return (

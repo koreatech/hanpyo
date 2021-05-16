@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
@@ -10,7 +9,7 @@ import { LectureListSkeleton } from '@/components/Skeleton';
 import { LECTURE_INFOS } from '@/queries';
 import { getTimeBoundByDay } from '@/common/utils';
 
-const SearchedLectureList = () => {
+const SearchedLectureList = (): JSX.Element => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
   const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = lectureInfoStore.state;
 
@@ -104,8 +103,7 @@ const SearchedLectureList = () => {
     if (isString(lectureInfos.lectureTimes)) return;
 
     timeTableStore.addLectureToTable(lectureInfos);
-    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
-    snackbarStore.setSnackbarState(true);
+    snackbarStore.showTabAddMsg();
   };
 
   return (

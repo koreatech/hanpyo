@@ -1,5 +1,4 @@
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, LoginModalContent } from '@/components/UI/molecules';
 import { modalTypes } from '@/components/UI/organisms';
 import { useStores } from '@/stores';
@@ -36,16 +35,13 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
 
   const [login] = useFetchAsync(LOGIN_URL, FETCH_OPTION, {
     onCompleted: () => {
-      snackbarStore.setSnackbarType(SnackbarType.LOGIN_SUCCESS);
-      snackbarStore.setSnackbarState(true);
-
+      snackbarStore.showLoginSuccessMsg();
       modalStore.setModalState(false);
 
       getMyMemberInfo();
     },
     onError: () => {
-      snackbarStore.setSnackbarType(SnackbarType.LOGIN_FAILED);
-      snackbarStore.setSnackbarState(true);
+      snackbarStore.showLoginFailedMsg();
     },
   });
 
