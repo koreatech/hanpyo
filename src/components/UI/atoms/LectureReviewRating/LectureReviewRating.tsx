@@ -24,10 +24,10 @@ const LectureReviewRating = ({ rating }: LectureReviewRatingProps): JSX.Element 
 
   const getStars = () => {
     const numOfStars = Math.floor(rating);
-    const hasHarfStar = !!(rating - numOfStars);
+    const hasHalfStar = !!(rating - numOfStars);
     const stars = Array.from(range(1, 5)).map((num, idx) => {
       if (idx < numOfStars) return <Star className={classes.star} key={num} fontSize="small" color="primary" />;
-      if (idx === numOfStars && hasHarfStar) return <StarHalf className={classes.star} key={num} fontSize="small" color="primary" />;
+      if (idx === numOfStars && hasHalfStar) return <StarHalf className={classes.star} key={num} fontSize="small" color="primary" />;
       return <StarBorder className={classes.star} key={num} fontSize="small" color="primary" />;
     });
 
