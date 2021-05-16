@@ -31,3 +31,4 @@ export { MyPageMenus } from './MyPageMenus/MyPageMenus';
 export { LectureListContent } from './LectureListContent/LectureListContent';
 export { UserProfile } from './UserProfile/UserProfile';
 export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';
+export { HeaderNavSection } from './HeaderNavSection/HeaderNavSection';
