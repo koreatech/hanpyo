@@ -18,6 +18,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 6, title: '산업경영학부', value: 6 },
       { id: 7, title: '교양학부', value: 7 },
       { id: 8, title: 'HRD학과', value: 8 },
+      { id: 9, title: '전체', value: 9 },
     ],
     onSelectMenuChange: (value: string) => {
       lectureInfoStore.state.searchWord(null);
@@ -34,6 +35,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 3, title: '목', value: 3 },
       { id: 4, title: '금', value: 4 },
       { id: 5, title: '토', value: 5 },
+      { id: 6, title: '전체', value: 6 },
     ],
     onSelectMenuChange: (value: string) => {
       lectureInfoStore.state.searchWord(null);
@@ -48,6 +50,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       { id: 1, title: '2학점', value: 1 },
       { id: 2, title: '3학점', value: 3 },
       { id: 3, title: '4학점', value: 4 },
+      { id: 4, title: '전체', value: 5 },
     ],
     onSelectMenuChange: (value: string) => {
       lectureInfoStore.state.searchWord(null);
