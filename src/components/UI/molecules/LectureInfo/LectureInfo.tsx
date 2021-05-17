@@ -121,6 +121,39 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
     });
   };
 
+  const lectureInfoArray = [
+    { type: LectureInfoTitleType.code, children: infos.code },
+    { type: LectureInfoTitleType.name, children: infos.name },
+    { type: LectureInfoTitleType.class, children: infos.divisionNumber },
+    { type: LectureInfoTitleType.prof, children: infos.professor },
+    { type: LectureInfoTitleType.personnel, children: infos.totalStudentNumber },
+    { type: LectureInfoTitleType.grade, children: infos.requiredMajor },
+    { type: LectureInfoTitleType.dept, children: infos.department },
+    { type: LectureInfoTitleType.room, children: infos.room },
+    { type: LectureInfoTitleType.credit, children: infos.credit },
+  ];
+
+  const getLectureInfo = () => {
+    const lectureInfo = lectureInfoArray.map((info) => {
+      return (
+        <>
+          <LectureInfoTitle key={info.children} className={info.type} isHeader={isHeader}>
+            {info.children}
+          </LectureInfoTitle>
+          <LectureInfoDivider />
+        </>
+      );
+    });
+    const timeInfo = (
+      <>
+        <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
+          {getLectureTimes(infos.lectureTimes)}
+        </LectureInfoTitle>
+      </>
+    );
+    return [...lectureInfo, timeInfo];
+  };
+
   return (
     <Tooltip
       title={isBasketList ? LECTURE_INFO_TOOLTIP_MESSAGE.REMOVE_MESSAGE : LECTURE_INFO_TOOLTIP_MESSAGE.ADD_MESSAGE}
@@ -132,45 +165,7 @@ const LectureInfo = ({ isHeader = false, infos, onDoubleClick, onClick, isBasket
         data-selected={checkSelectedLecture()}
         onClick={() => onClick(infos)}
         onDoubleClick={() => onDoubleClick(infos)}>
-        <LectureInfoTitle className={LectureInfoTitleType.code} isHeader={isHeader}>
-          {infos.code}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.name} isHeader={isHeader}>
-          {infos.name}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.class} isHeader={isHeader}>
-          {infos.divisionNumber}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.prof} isHeader={isHeader}>
-          {infos.professor}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.personnel} isHeader={isHeader}>
-          {infos.totalStudentNumber}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.grade} isHeader={isHeader}>
-          {infos.requiredMajor}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.dept} isHeader={isHeader}>
-          {infos.department}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.room} isHeader={isHeader}>
-          {infos.room}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.credit} isHeader={isHeader}>
-          {infos.credit}
-        </LectureInfoTitle>
-        <LectureInfoDivider />
-        <LectureInfoTitle className={LectureInfoTitleType.time} isHeader={isHeader}>
-          {getLectureTimes(infos.lectureTimes)}
-        </LectureInfoTitle>
+        {getLectureInfo()}
       </div>
     </Tooltip>
   );
