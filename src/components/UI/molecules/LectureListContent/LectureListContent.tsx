@@ -64,6 +64,8 @@ const headerInfos = {
   requiredMajor: '대상',
   totalStudentNumber: '정원',
   department: '개설학부',
+  room: '강의실',
+  credit: '학점',
   lectureTimes: '시간',
 };
 

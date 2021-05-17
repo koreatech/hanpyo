@@ -11,6 +11,8 @@ enum LectureInfoTitleType {
   personnel = 'personnel',
   dept = 'dept',
   time = 'time',
+  room = 'room',
+  credit = 'credit',
 }
 
 interface TitleProps {
@@ -26,28 +28,34 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   code: {
-    width: '10%',
+    width: '8%',
   },
   name: {
-    width: '24%',
+    width: '19%',
   },
   class: {
-    width: '5%',
+    width: '4%',
   },
   prof: {
-    width: '12%',
+    width: '10%',
   },
   grade: {
-    width: '5%',
+    width: '4%',
   },
   personnel: {
-    width: '5%',
+    width: '4%',
   },
   dept: {
-    width: '21%',
+    width: '19%',
   },
   time: {
-    width: '18%',
+    width: '15%',
+  },
+  room: {
+    width: '13%',
+  },
+  credit: {
+    width: '4%',
   },
   text: {
     display: 'flex',
