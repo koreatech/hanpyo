@@ -19,10 +19,6 @@ interface TitleProps {
   isHeader: boolean;
 }
 
-interface CSSProps {
-  isHeader: boolean;
-}
-
 const useStyles = makeStyles((theme) => ({
   default: {
     display: 'flex',
@@ -58,18 +54,25 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    color: (props: CSSProps) => (props.isHeader ? theme.palette.grey[500] : theme.palette.grey[800]),
+    color: theme.palette.grey[800],
+  },
+  headerText: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.palette.grey[500],
   },
 }));
 
 const LectureInfoTitle = ({ className, children, isHeader }: TitleProps): JSX.Element => {
-  const classes = useStyles({ isHeader });
+  const classes = useStyles();
   const getClassName = () => {
     return { ...classes }[className];
   };
   return (
     <div className={`${classes.default} ${getClassName()}`}>
-      <Typography className={classes.text} variant="caption">
+      <Typography className={isHeader ? classes.headerText : classes.text} variant="caption">
         {children}
       </Typography>
     </div>
