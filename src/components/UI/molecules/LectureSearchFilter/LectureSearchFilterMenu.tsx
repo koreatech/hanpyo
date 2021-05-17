@@ -76,6 +76,10 @@ const LectureSearchFilterMenu = (): JSX.Element => {
     },
   };
 
+  const onInitButtonClickListener = () => {
+    console.log('hi');
+  };
+
   return (
     <LectureSearchFilter
       majorSelectMenu={majorSelectMenuProps}
@@ -83,6 +87,7 @@ const LectureSearchFilterMenu = (): JSX.Element => {
       gradeSelectMenu={gradeSelectMenuProps}
       startTimeSelectMenu={startTimeSelectMenuProps}
       endTimeSelectMenu={endTimeSelectMenuProps}
+      onInitButtonClickListener={onInitButtonClickListener}
     />
   );
 };
