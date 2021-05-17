@@ -1,8 +1,6 @@
 import React from 'react';
-import { Tooltip, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps } from '@/components/UI/atoms';
-import RefreshRoundedIcon from '@material-ui/icons/RefreshRounded';
+import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps, Button, ButtonType } from '@/components/UI/atoms';
 
 interface LectureSearchFilterProps {
   majorSelectMenu: SelectMenuProps;
@@ -14,11 +12,13 @@ interface LectureSearchFilterProps {
 }
 
 const DROP_MENU_WIDTH = {
-  MAJOR: '10rem',
-  DAY: '4.1875rem',
-  GRADE: '4.5rem',
-  TIME: '6.75rem',
+  MAJOR: '10.5rem',
+  DAY: '4.6875rem',
+  GRADE: '5rem',
+  TIME: '7.25rem',
 };
+
+const BUTTON_STYLE_PROPS = { width: 80, height: 32.25, borderRadius: 11.2, fontSize: 12 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: '1.2rem',
+      width: '100%',
       '& > *': {
         marginRight: '0.3125rem',
       },
@@ -79,11 +80,9 @@ const LectureSearchFilter = ({
         <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <div>
-        <Tooltip title="필터 초기화" onClick={onInitButtonClickListener}>
-          <IconButton aria-label="init filter">
-            <RefreshRoundedIcon color="primary" />
-          </IconButton>
-        </Tooltip>
+        <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onInitButtonClickListener}>
+          초기화
+        </Button>
       </div>
     </div>
   );
