@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
+import { useStores } from '@/stores';
 
 interface MenuItemType {
   id: number;
@@ -74,9 +75,15 @@ const useStyles = makeStyles((theme: Theme) =>
 const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange }: SelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [selectValue, setSelectValue] = useState('');
-
+  const { lectureInfoStore } = useStores();
   const open = Boolean(anchorEl);
   const classes = useStyles({ open, dropMenuWidth });
+
+  useEffect(() => {
+    if (lectureInfoStore.state.isInit()) {
+      setSelectValue('');
+    }
+  });
 
   const getMenuItems = (): JSX.Element[] => {
     const menuItems = menus.map((menu) => (
@@ -108,6 +115,7 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   };
 
   const onMenuClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    lectureInfoStore.state.isInit(false);
     const target = event.target as HTMLElement;
     const liElement = target.closest('li');
 

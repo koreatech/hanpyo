@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStores } from '@/stores';
 import { LectureSearchFilter } from './LectureSearchFilter';
 
 const LectureSearchFilterMenu = (): JSX.Element => {
   const { lectureInfoStore } = useStores();
+  const [initFlag, setInitFlag] = useState(true);
 
   const majorSelectMenuProps = {
     menuLabel: '개설학부',
@@ -77,7 +78,14 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const onInitButtonClickListener = () => {
-    console.log('hi');
+    lectureInfoStore.state.isInit(true);
+    lectureInfoStore.state.searchWord(null);
+    lectureInfoStore.state.selectedDepartment(null);
+    lectureInfoStore.state.selectedCredit(null);
+    lectureInfoStore.state.selectedDay(null);
+    lectureInfoStore.state.selectedStartTime(null);
+    lectureInfoStore.state.selectedEndTime(null);
+    setInitFlag(!initFlag);
   };
 
   return (
