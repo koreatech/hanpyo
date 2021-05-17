@@ -105,6 +105,7 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   };
 
   const onMenuBoxClickListener = (event: React.MouseEvent<HTMLElement>) => {
+    lectureInfoStore.state.isInit(false);
     const eventTarget = event.currentTarget;
     scrollDown(eventTarget);
     setAnchorEl(eventTarget);
@@ -115,7 +116,6 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   };
 
   const onMenuClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    lectureInfoStore.state.isInit(false);
     const target = event.target as HTMLElement;
     const liElement = target.closest('li');
 
