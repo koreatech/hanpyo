@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStores } from '@/stores';
-import { TimeTableModalType } from '@/components/UI/molecules';
 import { useReactiveVar } from '@apollo/client';
 import { TimeTableMenuArea } from './TimeTableMenuArea';
 
@@ -14,11 +13,11 @@ const TimeTableMenu = (): JSX.Element => {
   };
 
   const onTabAddBtnClickListener = () => {
-    modalStore.changeModalState(TimeTableModalType.TAB_ADD_MODAL, true);
+    modalStore.openTabAddModal();
   };
 
   const onTabRemoveBtnClickListener = () => {
-    modalStore.changeModalState(TimeTableModalType.TAB_REMOVE_MODAL, true);
+    modalStore.openTabDeleteModal();
   };
 
   return (

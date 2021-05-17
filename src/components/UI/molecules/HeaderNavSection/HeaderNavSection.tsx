@@ -1,6 +1,5 @@
 import React from 'react';
 import { HeaderMenu } from '@/components/UI/atoms';
-import { modalTypes } from '@/components/UI/organisms';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/client';
 import { MY_MEMBER_INFO } from '@/queries';
@@ -34,7 +33,8 @@ const HeaderNavSection = (): JSX.Element => {
     if (link !== MAIN_PAGE_LINK && !checkAuthState()) {
       snackbarStore.showNavFailedMsg();
       history.push(MAIN_PAGE_LINK);
-      modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+      modalStore.openLoginModal();
+
       return;
     }
     history.push(link);

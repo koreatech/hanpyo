@@ -3,7 +3,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useReactiveVar } from '@apollo/client';
 import { useStores } from '@/stores';
-import { modalTypes } from '@/components/UI/organisms';
 import { LectureReview } from './LectureReview';
 
 const useStyles = makeStyles({
@@ -22,7 +21,7 @@ const LectureReviewContainer = (): JSX.Element => {
     if (!ref) return;
     const { dataset } = ref;
     lectureReviewStore.state.nowSelectedReviewId(Number(dataset?.id));
-    modalStore.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
+    modalStore.openLectureReviewDetailModal();
   };
 
   const checkIsMine = () => {

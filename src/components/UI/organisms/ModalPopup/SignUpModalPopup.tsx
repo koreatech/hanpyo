@@ -1,6 +1,5 @@
 import React from 'react';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
-import { modalTypes } from '@/components/UI/organisms';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from '@/queries';
 import { useStores } from '@/stores';
@@ -39,7 +38,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const [signUp] = useMutation(SIGN_UP, {
     onCompleted: () => {
       snackbarStore.showSignUpSuccessMsg();
-      modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+      modalStore.openLoginModal();
     },
     onError: () => {
       snackbarStore.showSignUpFailedMsg();
@@ -47,7 +46,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   });
 
   const onMoveLoginBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+    modalStore.openLoginModal();
   };
 
   const onSignUpBtnClickListener = () => {

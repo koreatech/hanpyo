@@ -1,17 +1,16 @@
 import React from 'react';
 import { useStores } from '@/stores';
-import { modalTypes } from '@/components/UI/organisms';
 import { HeaderLoginMenuArea } from './HeaderLoginMenuArea';
 
 const HeaderLoginMenu = (): JSX.Element => {
   const { modalStore } = useStores();
 
   const onLoginBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+    modalStore.openLoginModal();
   };
 
   const onSignUpBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
+    modalStore.openSignUpModal();
   };
 
   return <HeaderLoginMenuArea onLoginClick={onLoginBtnClickListener} onSignUpClick={onSignUpBtnClickListener} />;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { ModalPopupArea, LoginModalContent } from '@/components/UI/molecules';
-import { modalTypes } from '@/components/UI/organisms';
 import { useStores } from '@/stores';
 import { useFetchAsync, useInputForm } from '@/common/hooks';
 import { MY_MEMBER_INFO } from '@/queries';
@@ -36,7 +35,7 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
   const [login] = useFetchAsync(LOGIN_URL, FETCH_OPTION, {
     onCompleted: () => {
       snackbarStore.showLoginSuccessMsg();
-      modalStore.setModalState(false);
+      modalStore.closeModal();
 
       getMyMemberInfo();
     },
@@ -50,7 +49,7 @@ const LoginModalPopup = ({ modalOpen, onModalAreaClose }: LoginModalPopupProps):
   };
 
   const onMoveSignUpBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
+    modalStore.openSignUpModal();
   };
 
   const onLoginModalCloseListener = () => {
