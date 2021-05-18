@@ -55,25 +55,23 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     getMemberDuplicatedByEmail,
     { data: emailDulicatedData, called: emailDulicatedCalled, loading: emailDulicatedLoading },
   ] = useLazyQuery<GetMemberDuplicatedByEmail>(MEMBER_DUPLICATED_BY_EMAIL, {
-    variables: { email },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
   });
 
   const [
     getMemberDuplicatedByNickname,
     { data: nicknameDulicatedData, called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading },
   ] = useLazyQuery<GetMemberDuplicatedByNickname>(MEMBER_DUPLICATED_BY_NICKNAME, {
-    variables: { nickname },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
   });
 
   const onCheckDuplicatedBtnClickListener = (type: string) => {
     if (type === DuplicateCheckingType.email) {
-      getMemberDuplicatedByEmail();
+      getMemberDuplicatedByEmail({ variables: { email } });
     }
 
     if (type === DuplicateCheckingType.nickname) {
-      getMemberDuplicatedByNickname();
+      getMemberDuplicatedByNickname({ variables: { nickname } });
     }
   };
 
