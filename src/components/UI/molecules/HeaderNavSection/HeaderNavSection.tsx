@@ -15,7 +15,6 @@ const MAIN_PAGE_LINK = '/';
 const NAV_MENUS = [
   { link: '/', name: '시간표짜기' },
   { link: '/review', name: '강의후기' },
-  { link: '/my', name: '마이페이지' },
 ];
 
 const HeaderNavSection = (): JSX.Element => {
