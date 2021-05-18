@@ -1,7 +1,8 @@
 import React from 'react';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
-import { useMutation } from '@apollo/client';
-import { SIGN_UP } from '@/queries';
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { SIGN_UP, MEMBER_DUPLICATED_BY_EMAIL, MEMBER_DUPLICATED_BY_NICKNAME } from '@/queries';
+import { GetMemberDuplicatedByEmail, GetMemberDuplicatedByNickname } from '@/api';
 import { useStores } from '@/stores';
 import { useInputForm } from '@/common/hooks';
 
@@ -17,6 +18,11 @@ interface InputState {
   nickname: string;
   grade: string;
   major: string;
+}
+
+enum DuplicateCheckingType {
+  email = 'email',
+  nickname = 'nickname',
 }
 
 const INIT_INPUTS_STATE = {
@@ -45,6 +51,46 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     },
   });
 
+  const [
+    getMemberDuplicatedByEmail,
+    { data: emailDulicatedData, called: emailDulicatedCalled, loading: emailDulicatedLoading },
+  ] = useLazyQuery<GetMemberDuplicatedByEmail>(MEMBER_DUPLICATED_BY_EMAIL, {
+    variables: { email },
+    fetchPolicy: 'network-only',
+  });
+
+  const [
+    getMemberDuplicatedByNickname,
+    { data: nicknameDulicatedData, called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading },
+  ] = useLazyQuery<GetMemberDuplicatedByNickname>(MEMBER_DUPLICATED_BY_NICKNAME, {
+    variables: { nickname },
+    fetchPolicy: 'network-only',
+  });
+
+  const onCheckDuplicatedBtnClickListener = (type: string) => {
+    if (type === DuplicateCheckingType.email) {
+      getMemberDuplicatedByEmail();
+    }
+
+    if (type === DuplicateCheckingType.nickname) {
+      getMemberDuplicatedByNickname();
+    }
+  };
+
+  const checkEmailDuplicated = (): boolean => {
+    if (!emailDulicatedData) {
+      return true;
+    }
+    return emailDulicatedData.memberDuplicatedByEmail;
+  };
+
+  const checkNicknameDuplicated = (): boolean => {
+    if (!nicknameDulicatedData) {
+      return true;
+    }
+    return nicknameDulicatedData.memberDuplicatedByNickname;
+  };
+
   const onMoveLoginBtnClickListener = () => {
     modalStore.openLoginModal();
   };
@@ -61,7 +107,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   };
 
   const checkSignupDisabled = (): boolean => {
-    return !(!isEmpty && isValid);
+    return !(!isEmpty && isValid && !emailDulicatedLoading && !checkEmailDuplicated() && !nicknameDulicatedLoading && !checkNicknameDuplicated());
   };
 
   return (
@@ -69,10 +115,13 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
       <SignUpModalContent
         valid={valids}
         selectValue={{ gradeValue: grade, majorValue: major }}
+        emailCheckInfo={{ email, duplicated: checkEmailDuplicated(), called: emailDulicatedCalled, loading: emailDulicatedLoading }}
+        nicknameCheckInfo={{ nickname, duplicated: checkNicknameDuplicated(), called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading }}
         isSignupDisabled={checkSignupDisabled()}
         onInputChange={onInputChange}
         onSignupBtnClick={onSignUpBtnClickListener}
         onMoveLoginBtnClick={onMoveLoginBtnClickListener}
+        onCheckDuplicatedBtnClick={onCheckDuplicatedBtnClickListener}
       />
     </ModalPopupArea>
   );
