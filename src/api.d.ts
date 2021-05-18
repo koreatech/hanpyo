@@ -39,6 +39,40 @@ export interface GetLectureInfos {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetMemberDuplicatedByEmail
+// ====================================================
+
+export interface GetMemberDuplicatedByEmail {
+  memberDuplicatedByEmail: boolean;
+}
+
+export interface GetMemberDuplicatedByEmailVariables {
+  email: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: GetMemberDuplicatedByNickname
+// ====================================================
+
+export interface GetMemberDuplicatedByNickname {
+  memberDuplicatedByNickname: boolean;
+}
+
+export interface GetMemberDuplicatedByNicknameVariables {
+  nickname: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: GetMyMemberInfo
 // ====================================================
 
