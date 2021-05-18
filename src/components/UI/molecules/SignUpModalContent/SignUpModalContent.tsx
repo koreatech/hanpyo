@@ -221,6 +221,14 @@ const SignUpModalContent = ({
     return !!nickname && (!isValidNickname || duplicated || loading);
   };
 
+  const checkEmailCheckBtnDisabled = (): boolean => {
+    return !isValidEmail || !emailCheckInfo.email;
+  };
+
+  const checkNicknameCheckBtnDisabled = (): boolean => {
+    return !isValidNickname || !nicknameCheckInfo.nickname;
+  };
+
   return (
     <>
       <DialogTitle className={classes.title} id="SignUp-dialog-title" disableTypography>
@@ -243,7 +251,12 @@ const SignUpModalContent = ({
             fullWidth
             onChange={onInputChange}
           />
-          <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS} onClick={onEmailCheckBtnClickListener}>
+          <Button
+            btnType={ButtonType.primary}
+            color="secondary"
+            style={CHECK_BUTTON_STYLE_PROPS}
+            onClick={onEmailCheckBtnClickListener}
+            disabled={checkEmailCheckBtnDisabled()}>
             중복체크
           </Button>
         </div>
@@ -290,7 +303,12 @@ const SignUpModalContent = ({
             fullWidth
             onChange={onInputChange}
           />
-          <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS} onClick={onNicknameCheckBtnClickListener}>
+          <Button
+            btnType={ButtonType.primary}
+            color="secondary"
+            style={CHECK_BUTTON_STYLE_PROPS}
+            onClick={onNicknameCheckBtnClickListener}
+            disabled={checkNicknameCheckBtnDisabled()}>
             중복체크
           </Button>
         </div>
