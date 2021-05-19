@@ -98,8 +98,9 @@ class TimeTableStore {
     return selectedTabLectures()[selectedTabIdx() - 1].every((curr) => curr.name !== lectureName);
   }
 
-  checkTimeBound(lectureTimes: TimeTypes[]): boolean {
+  checkTimeBound(lectureTimes: TimeTypes[] | string): boolean {
     const { selectedTabIdx } = this.state;
+    if (typeof lectureTimes === 'string') return false;
     return lectureTimes.every((lectureTime) => lectureTime.start < lectureTime.end && lectureTime.start % 1440 >= 540);
   }
 
@@ -118,12 +119,12 @@ class TimeTableStore {
     });
   }
 
-  addLectureToTable(input: LectureInfos): boolean {
+  addLectureToTable(input: LectureInfos): SnackbarType {
     const { selectedTabIdx, selectedTabLectures } = this.state;
-    if (!selectedTabIdx()) return false;
-    if (!this.checkDuplicateLectureName(input.name)) return false;
-    if (!this.checkTimeBound) return false;
-    if (!this.checkDuplicateLectureTime(input.lectureTimes)) return false;
+    if (!selectedTabIdx()) return SnackbarType.NO_TIMETABLE;
+    if (!this.checkDuplicateLectureName(input.name)) return SnackbarType.DUPLICATE_LECTURE_NAME;
+    if (!this.checkTimeBound(input.lectureTimes)) return SnackbarType.INVALID_TIME;
+    if (!this.checkDuplicateLectureTime(input.lectureTimes)) return SnackbarType.DUPLICATE_LECTURE_TIME;
     const inputWithColor = { ...input, color: this.getColor() };
     const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1], inputWithColor];
     const newLectures = selectedTabLectures().map((elem, idx) => {
@@ -132,7 +133,7 @@ class TimeTableStore {
     });
     this.setNextColor();
     selectedTabLectures(newLectures);
-    return true;
+    return SnackbarType.ADD_SUCCESS;
   }
 
   removeLectureFromTable(input: string): void {
