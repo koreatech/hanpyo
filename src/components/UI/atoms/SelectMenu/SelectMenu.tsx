@@ -3,7 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
-import { useStores } from '@/stores';
 
 interface MenuItemType {
   id: number;
@@ -12,6 +11,8 @@ interface MenuItemType {
 }
 
 interface SelectMenuProps {
+  state: string;
+  setState: React.Dispatch<React.SetStateAction<string>>;
   menuLabel: string;
   menus: MenuItemType[];
   dropMenuWidth?: number | string;
@@ -72,18 +73,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange }: SelectMenuProps): JSX.Element => {
+const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange, state, setState }: SelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-  const [selectValue, setSelectValue] = useState('');
-  const { lectureInfoStore } = useStores();
   const open = Boolean(anchorEl);
   const classes = useStyles({ open, dropMenuWidth });
-
-  useEffect(() => {
-    if (lectureInfoStore.state.isInit()) {
-      setSelectValue('');
-    }
-  });
 
   const getMenuItems = (): JSX.Element[] => {
     const menuItems = menus.map((menu) => (
@@ -105,7 +98,6 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   };
 
   const onMenuBoxClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    lectureInfoStore.state.isInit(false);
     const eventTarget = event.currentTarget;
     scrollDown(eventTarget);
     setAnchorEl(eventTarget);
@@ -123,7 +115,7 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
 
     const { dataset } = liElement;
     const nowSelectedValue = dataset?.title ?? '';
-    setSelectValue(nowSelectedValue);
+    setState(nowSelectedValue);
     setAnchorEl(null);
 
     if (onSelectMenuChange) {
@@ -134,8 +126,8 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{selectValue || menuLabel}</span>
-        <input type="hidden" aria-hidden="true" value={selectValue} />
+        <span className={classes.label}>{state || menuLabel}</span>
+        <input type="hidden" aria-hidden="true" value={state} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
       <Popover
