@@ -12,6 +12,7 @@ enum SnackbarType {
   SIGNUP_FAILED = 'SIGNUP_FAILED',
   LOGIN_SUCCESS = 'LOGIN_SUCCESS',
   LOGIN_FAILED = 'LOGIN_FAILED',
+  MY_SCHEDULE_ADD = 'MY_SCHEDULE_ADD',
 }
 
 const SNACKBAR_MESSAGE = {
@@ -21,6 +22,7 @@ const SNACKBAR_MESSAGE = {
   [SnackbarType.SIGNUP_FAILED]: '회원가입이 실패하였습니다. 다시 시도해주세요.',
   [SnackbarType.LOGIN_SUCCESS]: '정상적으로 로그인되었습니다.',
   [SnackbarType.LOGIN_FAILED]: '로그인이 실패하였습니다. 다시 시도해주세요.',
+  [SnackbarType.MY_SCHEDULE_ADD]: '나만의 시간표가 추가되었습니다.',
 };
 
 const AlertSnackbar = (): JSX.Element => {
