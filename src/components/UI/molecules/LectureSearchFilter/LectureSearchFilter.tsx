@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps } from '@/components/UI/atoms';
+import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps, Button, ButtonType } from '@/components/UI/atoms';
 
 interface LectureSearchFilterProps {
   majorSelectMenu: SelectMenuProps;
@@ -8,14 +8,17 @@ interface LectureSearchFilterProps {
   gradeSelectMenu: SelectMenuProps;
   startTimeSelectMenu: TimeSelectMenuProps;
   endTimeSelectMenu: TimeSelectMenuProps;
+  onInitButtonClickListener: () => void;
 }
 
 const DROP_MENU_WIDTH = {
-  MAJOR: '10rem',
-  DAY: '4.1875rem',
-  GRADE: '4.5rem',
-  TIME: '6.75rem',
+  MAJOR: '10.5rem',
+  DAY: '4.6875rem',
+  GRADE: '5rem',
+  TIME: '7.25rem',
 };
+
+const BUTTON_STYLE_PROPS = { width: 80, height: 32.25, borderRadius: 11.2, fontSize: 12 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: '1.2rem',
-
+      width: '100%',
       '& > *': {
         marginRight: '0.3125rem',
       },
@@ -54,6 +57,7 @@ const LectureSearchFilter = ({
   gradeSelectMenu,
   startTimeSelectMenu,
   endTimeSelectMenu,
+  onInitButtonClickListener,
 }: LectureSearchFilterProps): JSX.Element => {
   const classes = useStyles();
 
@@ -74,6 +78,11 @@ const LectureSearchFilter = ({
       <span>&#126;</span>
       <div className={classes.timeSelect}>
         <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+      </div>
+      <div>
+        <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onInitButtonClickListener}>
+          초기화
+        </Button>
       </div>
     </div>
   );

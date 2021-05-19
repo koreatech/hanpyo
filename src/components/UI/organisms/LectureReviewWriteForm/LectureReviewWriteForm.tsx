@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { Button, ButtonType, SelectMenu, LectureReviewRating } from '@/components/UI/atoms';
 import { LectureReviewHashTags } from '@/components/UI/molecules';
@@ -88,6 +88,7 @@ const BUTTON_STYLE_PROPS = { width: 160, height: 36.3, borderRadius: 16, fontSiz
 
 const LectureReviewWriteForm = (): JSX.Element => {
   const classes = useStyles();
+  const [semesterState, setSemesterState] = useState('');
 
   return (
     <div className={classes.root}>
@@ -119,6 +120,8 @@ const LectureReviewWriteForm = (): JSX.Element => {
       <div className={classes.flexArea}>
         <div className={classes.selectArea}>
           <SelectMenu
+            state={semesterState}
+            setState={setSemesterState}
             menuLabel="수강학기 선택"
             menus={MOCK_MENUS}
             dropMenuWidth={200}
