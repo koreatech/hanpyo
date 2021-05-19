@@ -3,7 +3,8 @@ import { TimeTableAddFormContent } from './TimeTableAddFormContent';
 
 const TimeTableAddForm = (): JSX.Element => {
   const [dayState, setDayState] = useState('');
-  const [timeState, setTimeState] = useState(false);
+  const [startTimeState, setStartTimeState] = useState(false);
+  const [endTimeState, setEndTimeState] = useState(false);
 
   const daySelectMenuProps = {
     state: dayState,
@@ -21,9 +22,18 @@ const TimeTableAddForm = (): JSX.Element => {
     },
   };
 
-  const timeSelectMenuProps = {
-    state: timeState,
-    setState: setTimeState,
+  const startTimeSelectMenuProps = {
+    state: startTimeState,
+    setState: setStartTimeState,
+    menuLabel: '시간',
+    onSelectMenuChange: () => {
+      console.log('시간선택');
+    },
+  };
+
+  const endTimeSelectMenuProps = {
+    state: endTimeState,
+    setState: setEndTimeState,
     menuLabel: '시간',
     onSelectMenuChange: () => {
       console.log('시간선택');
@@ -36,7 +46,8 @@ const TimeTableAddForm = (): JSX.Element => {
   return (
     <TimeTableAddFormContent
       daySelectMenu={daySelectMenuProps}
-      timeSelectMenu={timeSelectMenuProps}
+      startTimeSelectMenu={startTimeSelectMenuProps}
+      endTimeSelectMenu={endTimeSelectMenuProps}
       onTimeTableFormSubmit={onTimeTableFormSubmitListener}
     />
   );

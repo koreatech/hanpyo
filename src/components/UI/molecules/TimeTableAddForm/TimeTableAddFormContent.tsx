@@ -5,7 +5,8 @@ import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps, Butto
 
 interface TimeTableAddFormContentProps {
   daySelectMenu: SelectMenuProps;
-  timeSelectMenu: TimeSelectMenuProps;
+  startTimeSelectMenu: TimeSelectMenuProps;
+  endTimeSelectMenu: TimeSelectMenuProps;
   onTimeTableFormSubmit: () => void;
 }
 
@@ -65,7 +66,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const TimeTableAddFormContent = ({ daySelectMenu, timeSelectMenu, onTimeTableFormSubmit }: TimeTableAddFormContentProps): JSX.Element => {
+const TimeTableAddFormContent = ({
+  daySelectMenu,
+  startTimeSelectMenu,
+  endTimeSelectMenu,
+  onTimeTableFormSubmit,
+}: TimeTableAddFormContentProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -74,15 +80,15 @@ const TimeTableAddFormContent = ({ daySelectMenu, timeSelectMenu, onTimeTableFor
         <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
       </div>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...startTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...timeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <TextField
         required
         className={classes.timeTableNameInput}
-        id="time-tabel-name"
+        id="time-table-name"
         variant="outlined"
         InputProps={{
           placeholder: '이름을 입력해주세요. ex ) 근장',
