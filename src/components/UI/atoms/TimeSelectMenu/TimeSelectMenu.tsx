@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Popover } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { range } from '@/common/utils';
 import { calculateScrollHeight, scrollDownToBottom } from '@/common/utils/scroll';
-import { useStores } from '@/stores';
 
 enum TimeSelectMenuItemType {
   AM_PM = 'AM_PM',
@@ -20,6 +19,8 @@ interface TimeSelectMenuDataType {
 }
 
 interface TimeSelectMenuProps {
+  state: boolean;
+  setState: React.Dispatch<React.SetStateAction<boolean>>;
   menuLabel: string;
   dropMenuWidth?: number | string;
   onSelectMenuChange: (value: number) => void;
@@ -113,19 +114,11 @@ const MINUTE_DATAS = Array.from(range(0, 30, 30)).map((minute, idx) => ({
   type: TimeSelectMenuItemType.MINUTE,
 }));
 
-const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange }: TimeSelectMenuProps): JSX.Element => {
+const TimeSelectMenu = ({ state, setState, menuLabel, dropMenuWidth = 'auto', onSelectMenuChange }: TimeSelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
-  const [isSelected, setIsSelected] = useState(false);
   const [selectedAMPM, setSelectedAMPM] = useState('오전');
   const [selectedHour, setSelectedHour] = useState('01');
   const [selectedMinute, setSelectedMinute] = useState('00');
-  const { lectureInfoStore } = useStores();
-
-  useEffect(() => {
-    if (lectureInfoStore.state.isInit()) {
-      setIsSelected(false);
-    }
-  });
 
   const selectedValue = `${selectedAMPM}${selectedHour && `  ${selectedHour} : `}${selectedMinute}`;
 
@@ -162,12 +155,11 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
   };
 
   const onMenuBoxClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    lectureInfoStore.state.isInit(false);
     const eventTarget = event.currentTarget;
 
     scrollDown(eventTarget);
     setAnchorEl(eventTarget);
-    setIsSelected(true);
+    setState(true);
   };
 
   const onMenuCloseListener = () => {
@@ -215,7 +207,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{isSelected ? selectedValue : menuLabel}</span>
+        <span className={classes.label}>{state ? selectedValue : menuLabel}</span>
         <input type="hidden" aria-hidden="true" value={selectedValue} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
