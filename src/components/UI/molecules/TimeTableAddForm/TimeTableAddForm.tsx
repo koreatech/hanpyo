@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { getTimeBoundByDay } from '@/common/utils';
 import { useStores } from '@/stores';
-import { SnackbarType } from '@/components/UI/atoms';
 import { TimeTableAddFormContent } from './TimeTableAddFormContent';
 
 const TimeTableAddForm = (): JSX.Element => {

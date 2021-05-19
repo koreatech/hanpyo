@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
