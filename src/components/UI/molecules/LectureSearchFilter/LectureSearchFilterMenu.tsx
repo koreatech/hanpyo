@@ -4,9 +4,15 @@ import { LectureSearchFilter } from './LectureSearchFilter';
 
 const LectureSearchFilterMenu = (): JSX.Element => {
   const { lectureInfoStore } = useStores();
-  const [initFlag, setInitFlag] = useState(true);
+  const [departmentState, setDepartmentState] = useState('');
+  const [dayState, setDayState] = useState('');
+  const [creditState, setCreditState] = useState('');
+  const [startTimeState, setStartTimeState] = useState(false);
+  const [endTimeState, setEndTimeState] = useState(false);
 
   const majorSelectMenuProps = {
+    state: departmentState,
+    setState: setDepartmentState,
     menuLabel: '개설학부',
     menus: [
       { id: 0, title: '컴퓨터공학부', value: 0 },
@@ -27,6 +33,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const daySelectMenuProps = {
+    state: dayState,
+    setState: setDayState,
     menuLabel: '요일',
     menus: [
       { id: 0, title: '월', value: 0 },
@@ -44,6 +52,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const gradeSelectMenuProps = {
+    state: creditState,
+    setState: setCreditState,
     menuLabel: '학점',
     menus: [
       { id: 0, title: '1학점', value: 0 },
@@ -59,6 +69,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const startTimeSelectMenuProps = {
+    state: startTimeState,
+    setState: setStartTimeState,
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
       lectureInfoStore.state.searchWord(null);
@@ -70,6 +82,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const endTimeSelectMenuProps = {
+    state: endTimeState,
+    setState: setEndTimeState,
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
       lectureInfoStore.state.searchWord(null);
@@ -88,7 +102,11 @@ const LectureSearchFilterMenu = (): JSX.Element => {
     lectureInfoStore.state.selectedDay(null);
     lectureInfoStore.state.selectedStartTime(null);
     lectureInfoStore.state.selectedEndTime(null);
-    setInitFlag(!initFlag);
+    setDepartmentState('');
+    setDayState('');
+    setCreditState('');
+    setStartTimeState(false);
+    setEndTimeState(false);
   };
 
   return (
