@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getTimeBoundByDay } from '@/common/utils';
 import { useStores } from '@/stores';
+import { SnackbarType } from '@/components/UI/atoms';
 import { TimeTableAddFormContent } from './TimeTableAddFormContent';
 
 const TimeTableAddForm = (): JSX.Element => {
@@ -11,7 +12,7 @@ const TimeTableAddForm = (): JSX.Element => {
   const [endTimeValueState, setEndTimeValueState] = useState(0);
   const [inputState, setInputState] = useState('');
 
-  const { timeTableStore } = useStores();
+  const { timeTableStore, snackbarStore } = useStores();
 
   const daySelectMenuProps = {
     state: dayState,
@@ -70,9 +71,10 @@ const TimeTableAddForm = (): JSX.Element => {
       requiredMajor: '',
       credit: '',
     };
-
-    console.log(newCustomLecture);
-    timeTableStore.addLectureToTable(newCustomLecture);
+    if (timeTableStore.addLectureToTable(newCustomLecture)) {
+      snackbarStore.setSnackbarType(SnackbarType.MY_SCHEDULE_ADD);
+      snackbarStore.setSnackbarState(true);
+    }
   };
 
   const onInputChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
