@@ -92,11 +92,11 @@ class TimeTableStore {
     this.selectTab(nextSelectedTab);
   }
 
-  addLectureToTable(input: LectureInfos): void {
+  addLectureToTable(input: LectureInfos): boolean {
     const { selectedTabIdx, selectedTabLectures } = this.state;
-    if (!selectedTabIdx()) return;
+    if (!selectedTabIdx()) return false;
     const isNoDuplicateLecture = selectedTabLectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
-    if (!isNoDuplicateLecture) return;
+    if (!isNoDuplicateLecture) return false;
     const inputWithColor = { ...input, color: this.getColor() };
     const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1], inputWithColor];
     const newLectures = selectedTabLectures().map((elem, idx) => {
@@ -105,6 +105,7 @@ class TimeTableStore {
     });
     this.setNextColor();
     selectedTabLectures(newLectures);
+    return true;
   }
 
   removeLectureFromTable(input: string): void {
