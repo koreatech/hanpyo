@@ -95,7 +95,6 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const onInitButtonClickListener = () => {
-    lectureInfoStore.state.isInit(true);
     lectureInfoStore.state.searchWord(null);
     lectureInfoStore.state.selectedDepartment(null);
     lectureInfoStore.state.selectedCredit(null);

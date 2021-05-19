@@ -13,7 +13,6 @@ interface LectureInfoStoreState {
   selectedStartTime: ReactiveVar<number | null>;
   selectedEndTime: ReactiveVar<number | null>;
   searchWord: ReactiveVar<string | null>;
-  isInit: ReactiveVar<boolean>;
 }
 
 class LectureInfoStore {
@@ -34,7 +33,6 @@ class LectureInfoStore {
       selectedStartTime: makeVar<number | null>(null),
       selectedEndTime: makeVar<number | null>(null),
       searchWord: makeVar<string | null>(null),
-      isInit: makeVar<boolean>(false),
     };
   }
 
