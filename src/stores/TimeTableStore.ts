@@ -1,5 +1,6 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
+import { SnackbarType } from '@/components/UI/atoms';
 import { LectureInfos, TimeTypes } from '@/components/UI/molecules';
 
 interface TableInfo {
@@ -102,11 +103,27 @@ class TimeTableStore {
     return lectureTimes.every((lectureTime) => lectureTime.start < lectureTime.end && lectureTime.start % 1440 >= 540);
   }
 
+  checkDuplicateLectureTime(lectureTimes: TimeTypes[] | string): boolean {
+    const { selectedTabIdx, selectedTabLectures } = this.state;
+    if (typeof lectureTimes === 'string') return false;
+    return lectureTimes.every((newLectureTime) => {
+      return selectedTabLectures()[selectedTabIdx() - 1].every((curr) => {
+        if (typeof curr.lectureTimes === 'string') return false;
+        return curr.lectureTimes.every(
+          (lectureTime) =>
+            (newLectureTime.start < lectureTime.start && newLectureTime.end <= lectureTime.start) ||
+            (newLectureTime.start >= lectureTime.end && newLectureTime.end > lectureTime.end),
+        );
+      });
+    });
+  }
+
   addLectureToTable(input: LectureInfos): boolean {
     const { selectedTabIdx, selectedTabLectures } = this.state;
     if (!selectedTabIdx()) return false;
     if (!this.checkDuplicateLectureName(input.name)) return false;
     if (!this.checkTimeBound) return false;
+    if (!this.checkDuplicateLectureTime(input.lectureTimes)) return false;
     const inputWithColor = { ...input, color: this.getColor() };
     const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1], inputWithColor];
     const newLectures = selectedTabLectures().map((elem, idx) => {
