@@ -103,8 +103,7 @@ const SearchedLectureList = () => {
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
-    timeTableStore.addLectureToTable(lectureInfos);
-    snackbarStore.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    snackbarStore.setSnackbarType(timeTableStore.addLectureToTable(lectureInfos));
     snackbarStore.setSnackbarState(true);
   };
 

@@ -71,10 +71,9 @@ const TimeTableAddForm = (): JSX.Element => {
       requiredMajor: '',
       credit: '',
     };
-    if (timeTableStore.addLectureToTable(newCustomLecture)) {
-      snackbarStore.setSnackbarType(SnackbarType.MY_SCHEDULE_ADD);
-      snackbarStore.setSnackbarState(true);
-    }
+
+    snackbarStore.setSnackbarType(timeTableStore.addLectureToTable(newCustomLecture));
+    snackbarStore.setSnackbarState(true);
   };
 
   const onInputChangeListener = (event: React.ChangeEvent<HTMLInputElement>) => {
