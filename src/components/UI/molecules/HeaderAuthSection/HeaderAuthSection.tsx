@@ -1,20 +1,17 @@
 import React from 'react';
-import { useStores } from '@/stores';
-import { modalTypes } from '@/components/UI/organisms';
-import { HeaderAuthSectionArea } from './HeaderAuthSectionArea';
+import { MY_MEMBER_INFO } from '@/queries';
+import { useQuery } from '@apollo/client';
+import { GetMyMemberInfo } from '@/api';
+import { UserProfile, HeaderLoginMenu } from '@/components/UI/molecules';
 
 const HeaderAuthSection = (): JSX.Element => {
-  const { modalStore } = useStores();
+  const { loading, error, data } = useQuery<GetMyMemberInfo>(MY_MEMBER_INFO);
 
-  const onLoginBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
-  };
+  if (loading || error) return <HeaderLoginMenu />;
 
-  const onSignUpBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.SIGN_UP_MODAL, true);
-  };
+  const { myMemberInfo } = data as GetMyMemberInfo;
 
-  return <HeaderAuthSectionArea onLoginClick={onLoginBtnClickListener} onSignUpClick={onSignUpBtnClickListener} />;
+  return <UserProfile nickname={myMemberInfo.nickname ?? ''} major={myMemberInfo.major ?? ''} />;
 };
 
 export { HeaderAuthSection };

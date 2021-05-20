@@ -12,13 +12,30 @@ interface SelectValue {
   majorValue: string;
 }
 
+interface EmailCheckInfo {
+  email: string;
+  duplicated: boolean;
+  loading: boolean;
+  called: boolean;
+}
+
+interface NicknameCheckInfo {
+  nickname: string;
+  duplicated: boolean;
+  loading: boolean;
+  called: boolean;
+}
+
 interface SignUpModalContentProps {
   valid: boolean[];
   selectValue: SelectValue;
+  emailCheckInfo: EmailCheckInfo;
+  nicknameCheckInfo: NicknameCheckInfo;
   isSignupDisabled: boolean;
   onInputChange: () => void;
   onSignupBtnClick: () => void;
   onMoveLoginBtnClick: () => void;
+  onCheckDuplicatedBtnClick: (type: string) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -76,6 +93,7 @@ const HELPER_TEXT = {
     DEFAULT: '아이디는 한기대 포털 아이디입니다. @koreatech.ac.kr은 빼고 입력해주세요.',
     SUCCESS: '사용가능한 아이디입니다.',
     CHECK: '아이디 중복체크를 진행해주세요.',
+    CHECKING: '이메일 중복 체크 중입니다.',
     CHECK_ERROR: '중복된 아이디입니다.',
     ERROR: '한기대 포털 아이디는 1자리 이상 12자리 이하 / 영소문자, 숫자, _ 로만 조합되어야합니다. ',
   },
@@ -89,6 +107,7 @@ const HELPER_TEXT = {
     DEFAULT: '닉네임은 최소 1자리 이상 / 영문, 한글, 숫자로만 조합되어야합니다.',
     SUCCESS: '사용가능한 닉네임입니다.',
     CHECK: '닉네임 중복체크를 진행해주세요.',
+    CHECKING: '닉네임 중복 체크 중입니다.',
     CHECK_ERROR: '중복된 닉네임입니다.',
   },
   GRADE: {
@@ -119,11 +138,14 @@ const MAJORS = [
 
 const SignUpModalContent = ({
   valid,
+  emailCheckInfo,
+  nicknameCheckInfo,
   selectValue,
   isSignupDisabled,
   onSignupBtnClick,
   onInputChange,
   onMoveLoginBtnClick,
+  onCheckDuplicatedBtnClick,
 }: SignUpModalContentProps): JSX.Element => {
   const classes = useStyles();
   const [isValidEmail, isValidPassword, isValidName, isValidNickname, isValidGrade, isValidMajor] = valid;
@@ -149,6 +171,64 @@ const SignUpModalContent = ({
     return majorSelectOptions;
   };
 
+  const onEmailCheckBtnClickListener = () => {
+    onCheckDuplicatedBtnClick('email');
+  };
+
+  const onNicknameCheckBtnClickListener = () => {
+    onCheckDuplicatedBtnClick('nickname');
+  };
+
+  const getEmailHelperMsg = (): string => {
+    const { email, duplicated, called, loading } = emailCheckInfo;
+
+    if (email === '') return HELPER_TEXT.EMAIL.DEFAULT;
+
+    if (!isValidEmail) return HELPER_TEXT.EMAIL.ERROR;
+
+    if (!called) return HELPER_TEXT.EMAIL.CHECK;
+
+    if (loading) return HELPER_TEXT.EMAIL.CHECKING;
+
+    if (duplicated) return HELPER_TEXT.EMAIL.CHECK_ERROR;
+
+    return HELPER_TEXT.EMAIL.SUCCESS;
+  };
+
+  const getNicknameHelperMsg = (): string => {
+    const { nickname, duplicated, called, loading } = nicknameCheckInfo;
+
+    if (nickname === '') return HELPER_TEXT.NICKNAME.DEFAULT;
+
+    if (!isValidNickname) return HELPER_TEXT.NICKNAME.DEFAULT;
+
+    if (!called) return HELPER_TEXT.NICKNAME.CHECK;
+
+    if (loading) return HELPER_TEXT.NICKNAME.CHECKING;
+
+    if (duplicated) return HELPER_TEXT.NICKNAME.CHECK_ERROR;
+
+    return HELPER_TEXT.NICKNAME.SUCCESS;
+  };
+
+  const checkEmailInputError = (): boolean => {
+    const { duplicated, loading, email } = emailCheckInfo;
+    return !!email && (!isValidEmail || duplicated || loading);
+  };
+
+  const checkNicknameInputError = (): boolean => {
+    const { duplicated, loading, nickname } = nicknameCheckInfo;
+    return !!nickname && (!isValidNickname || duplicated || loading);
+  };
+
+  const checkEmailCheckBtnDisabled = (): boolean => {
+    return !isValidEmail || !emailCheckInfo.email;
+  };
+
+  const checkNicknameCheckBtnDisabled = (): boolean => {
+    return !isValidNickname || !nicknameCheckInfo.nickname;
+  };
+
   return (
     <>
       <DialogTitle className={classes.title} id="SignUp-dialog-title" disableTypography>
@@ -158,8 +238,8 @@ const SignUpModalContent = ({
         <div className={classes.checkArea}>
           <TextField
             autoComplete="off"
-            helperText={isValidEmail ? HELPER_TEXT.EMAIL.DEFAULT : HELPER_TEXT.EMAIL.ERROR}
-            error={!isValidEmail}
+            helperText={getEmailHelperMsg()}
+            error={checkEmailInputError()}
             autoFocus
             margin="dense"
             id="email"
@@ -171,7 +251,12 @@ const SignUpModalContent = ({
             fullWidth
             onChange={onInputChange}
           />
-          <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS}>
+          <Button
+            btnType={ButtonType.primary}
+            color="secondary"
+            style={CHECK_BUTTON_STYLE_PROPS}
+            onClick={onEmailCheckBtnClickListener}
+            disabled={checkEmailCheckBtnDisabled()}>
             중복체크
           </Button>
         </div>
@@ -206,8 +291,8 @@ const SignUpModalContent = ({
         <div className={classes.checkArea}>
           <TextField
             autoComplete="off"
-            helperText={HELPER_TEXT.NICKNAME.DEFAULT}
-            error={!isValidNickname}
+            helperText={getNicknameHelperMsg()}
+            error={checkNicknameInputError()}
             margin="dense"
             id="nickname"
             name="nickname"
@@ -218,7 +303,12 @@ const SignUpModalContent = ({
             fullWidth
             onChange={onInputChange}
           />
-          <Button btnType={ButtonType.primary} color="secondary" style={CHECK_BUTTON_STYLE_PROPS}>
+          <Button
+            btnType={ButtonType.primary}
+            color="secondary"
+            style={CHECK_BUTTON_STYLE_PROPS}
+            onClick={onNicknameCheckBtnClickListener}
+            disabled={checkNicknameCheckBtnDisabled()}>
             중복체크
           </Button>
         </div>

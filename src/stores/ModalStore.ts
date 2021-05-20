@@ -40,6 +40,30 @@ class ModalStore {
 
     modalState(newModalState);
   }
+
+  closeModal(): void {
+    this.setModalState(false);
+  }
+
+  openTabAddModal(): void {
+    this.changeModalState(modalTypes.TAB_ADD_MODAL, true);
+  }
+
+  openTabDeleteModal(): void {
+    this.changeModalState(modalTypes.TAB_ADD_MODAL, true);
+  }
+
+  openSignUpModal(): void {
+    this.changeModalState(modalTypes.SIGN_UP_MODAL, true);
+  }
+
+  openLoginModal(): void {
+    this.changeModalState(modalTypes.LOGIN_MODAL, true);
+  }
+
+  openLectureReviewDetailModal(): void {
+    this.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
+  }
 }
 
 export default ModalStore;

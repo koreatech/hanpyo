@@ -1,9 +1,8 @@
 import React from 'react';
-import { SnackbarType } from '@/components/UI/atoms';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
-import { modalTypes } from '@/components/UI/organisms';
-import { useMutation } from '@apollo/client';
-import { SIGN_UP } from '@/queries';
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { SIGN_UP, MEMBER_DUPLICATED_BY_EMAIL, MEMBER_DUPLICATED_BY_NICKNAME } from '@/queries';
+import { GetMemberDuplicatedByEmail, GetMemberDuplicatedByNickname } from '@/api';
 import { useStores } from '@/stores';
 import { useInputForm } from '@/common/hooks';
 
@@ -19,6 +18,11 @@ interface InputState {
   nickname: string;
   grade: string;
   major: string;
+}
+
+enum DuplicateCheckingType {
+  email = 'email',
+  nickname = 'nickname',
 }
 
 const INIT_INPUTS_STATE = {
@@ -37,25 +41,60 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   const { email, password, name, nickname, grade, major } = inputs;
 
   const { modalStore, snackbarStore } = useStores();
-  const [signup] = useMutation(SIGN_UP, {
+  const [signUp] = useMutation(SIGN_UP, {
     onCompleted: () => {
-      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_SUCCESS);
-      snackbarStore.setSnackbarState(true);
-
-      modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+      snackbarStore.showSignUpSuccessMsg();
+      modalStore.openLoginModal();
     },
     onError: () => {
-      snackbarStore.setSnackbarType(SnackbarType.SIGNUP_FAILED);
-      snackbarStore.setSnackbarState(true);
+      snackbarStore.showSignUpFailedMsg();
     },
   });
 
+  const [
+    getMemberDuplicatedByEmail,
+    { data: emailDulicatedData, called: emailDulicatedCalled, loading: emailDulicatedLoading },
+  ] = useLazyQuery<GetMemberDuplicatedByEmail>(MEMBER_DUPLICATED_BY_EMAIL, {
+    fetchPolicy: 'no-cache',
+  });
+
+  const [
+    getMemberDuplicatedByNickname,
+    { data: nicknameDulicatedData, called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading },
+  ] = useLazyQuery<GetMemberDuplicatedByNickname>(MEMBER_DUPLICATED_BY_NICKNAME, {
+    fetchPolicy: 'no-cache',
+  });
+
+  const onCheckDuplicatedBtnClickListener = (type: string) => {
+    if (type === DuplicateCheckingType.email) {
+      getMemberDuplicatedByEmail({ variables: { email } });
+    }
+
+    if (type === DuplicateCheckingType.nickname) {
+      getMemberDuplicatedByNickname({ variables: { nickname } });
+    }
+  };
+
+  const checkEmailDuplicated = (): boolean => {
+    if (!emailDulicatedData) {
+      return true;
+    }
+    return emailDulicatedData.memberDuplicatedByEmail;
+  };
+
+  const checkNicknameDuplicated = (): boolean => {
+    if (!nicknameDulicatedData) {
+      return true;
+    }
+    return nicknameDulicatedData.memberDuplicatedByNickname;
+  };
+
   const onMoveLoginBtnClickListener = () => {
-    modalStore.changeModalState(modalTypes.LOGIN_MODAL, true);
+    modalStore.openLoginModal();
   };
 
   const onSignUpBtnClickListener = () => {
-    signup({
+    signUp({
       variables: { email, password, name, nickname, grade, major },
     });
   };
@@ -66,7 +105,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
   };
 
   const checkSignupDisabled = (): boolean => {
-    return !(!isEmpty && isValid);
+    return !(!isEmpty && isValid && !emailDulicatedLoading && !checkEmailDuplicated() && !nicknameDulicatedLoading && !checkNicknameDuplicated());
   };
 
   return (
@@ -74,10 +113,13 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
       <SignUpModalContent
         valid={valids}
         selectValue={{ gradeValue: grade, majorValue: major }}
+        emailCheckInfo={{ email, duplicated: checkEmailDuplicated(), called: emailDulicatedCalled, loading: emailDulicatedLoading }}
+        nicknameCheckInfo={{ nickname, duplicated: checkNicknameDuplicated(), called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading }}
         isSignupDisabled={checkSignupDisabled()}
         onInputChange={onInputChange}
         onSignupBtnClick={onSignUpBtnClickListener}
         onMoveLoginBtnClick={onMoveLoginBtnClickListener}
+        onCheckDuplicatedBtnClick={onCheckDuplicatedBtnClickListener}
       />
     </ModalPopupArea>
   );

@@ -9,7 +9,7 @@ import { LectureListSkeleton } from '@/components/Skeleton';
 import { LECTURE_INFOS } from '@/queries';
 import { getTimeBoundByDay } from '@/common/utils';
 
-const SearchedLectureList = () => {
+const SearchedLectureList = (): JSX.Element => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
   const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = lectureInfoStore.state;
 
@@ -101,6 +101,9 @@ const SearchedLectureList = () => {
 
   const onLectureSearchDoubleClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
+
+    timeTableStore.addLectureToTable(lectureInfos);
+    snackbarStore.showTabAddMsg(); // 이 부분은 리팩토링하면서 수정한 부분입니다! 적절하게 메소드를 변경해주세요!
 
     snackbarStore.setSnackbarType(timeTableStore.addLectureToTable(lectureInfos));
     snackbarStore.setSnackbarState(true);

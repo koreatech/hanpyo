@@ -1,9 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { HeaderMenu } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { HeaderAuthSection } from '@/components/UI/molecules';
+import { HeaderAuthSection, HeaderNavSection } from '@/components/UI/molecules';
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -37,9 +35,7 @@ const Header = (): JSX.Element => {
         <Typography variant="h3" color="primary">
           한표
         </Typography>
-        <HeaderMenu link="/">시간표짜기</HeaderMenu>
-        <HeaderMenu link="/review">강의후기</HeaderMenu>
-        <HeaderMenu link="/my">마이페이지</HeaderMenu>
+        <HeaderNavSection />
         <HeaderAuthSection />
       </div>
     </div>

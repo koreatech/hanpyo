@@ -3,7 +3,7 @@ import { Typography } from '@material-ui/core';
 import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
-interface HeaderAuthSectionAreaProps {
+interface HeaderLoginMenuAreaProps {
   onLoginClick: () => void;
   onSignUpClick: () => void;
 }
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectionAreaProps): JSX.Element => {
+const HeaderLoginMenuArea = ({ onLoginClick, onSignUpClick }: HeaderLoginMenuAreaProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -63,4 +63,4 @@ const HeaderAuthSectionArea = ({ onLoginClick, onSignUpClick }: HeaderAuthSectio
   );
 };
 
-export { HeaderAuthSectionArea };
+export { HeaderLoginMenuArea };

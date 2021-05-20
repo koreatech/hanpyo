@@ -19,17 +19,17 @@ const ModalPopup = (): JSX.Element => {
   const nowModalType = useReactiveVar<ModalType>(modalType);
 
   const onModalCloseListener = () => {
-    modalStore.setModalState(false);
+    modalStore.closeModal();
   };
 
   const onTabAddModalBtnClickListener = (timeTableTabTitle?: string) => {
     timeTableStore.addTable(timeTableTabTitle as string);
-    modalStore.setModalState(false);
+    modalStore.closeModal();
   };
 
   const onTabRemoveModalBtnClickListener = () => {
     timeTableStore.removeTable();
-    modalStore.setModalState(false);
+    modalStore.closeModal();
   };
 
   const getModalPopup = (): JSX.Element => {

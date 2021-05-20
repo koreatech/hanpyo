@@ -35,6 +35,41 @@ class SnackbarStore {
 
     snackbarType(newSnackbarType);
   }
+
+  showTabAddMsg(): void {
+    this.setSnackbarType(SnackbarType.ADD_SUCCESS);
+    this.setSnackbarState(true);
+  }
+
+  showTabDeleteMsg(): void {
+    this.setSnackbarType(SnackbarType.DELETE_SUCCESS);
+    this.setSnackbarState(true);
+  }
+
+  showSignUpSuccessMsg(): void {
+    this.setSnackbarType(SnackbarType.SIGNUP_SUCCESS);
+    this.setSnackbarState(true);
+  }
+
+  showSignUpFailedMsg(): void {
+    this.setSnackbarType(SnackbarType.SIGNUP_FAILED);
+    this.setSnackbarState(true);
+  }
+
+  showLoginSuccessMsg(): void {
+    this.setSnackbarType(SnackbarType.LOGIN_SUCCESS);
+    this.setSnackbarState(true);
+  }
+
+  showLoginFailedMsg(): void {
+    this.setSnackbarType(SnackbarType.LOGIN_FAILED);
+    this.setSnackbarState(true);
+  }
+
+  showNavFailedMsg(): void {
+    this.setSnackbarType(SnackbarType.NAV_FAILED);
+    this.setSnackbarState(true);
+  }
 }
 
 export default SnackbarStore;
