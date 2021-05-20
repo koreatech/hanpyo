@@ -51,11 +51,16 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     },
   });
 
+  const onCheckDuplicatedError = () => {
+    snackbarStore.showCheckDuplicatedFailedMsg();
+  };
+
   const [
     getMemberDuplicatedByEmail,
     { data: emailDulicatedData, called: emailDulicatedCalled, loading: emailDulicatedLoading },
   ] = useLazyQuery<GetMemberDuplicatedByEmail>(MEMBER_DUPLICATED_BY_EMAIL, {
     fetchPolicy: 'no-cache',
+    onError: onCheckDuplicatedError,
   });
 
   const [
@@ -63,6 +68,7 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     { data: nicknameDulicatedData, called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading },
   ] = useLazyQuery<GetMemberDuplicatedByNickname>(MEMBER_DUPLICATED_BY_NICKNAME, {
     fetchPolicy: 'no-cache',
+    onError: onCheckDuplicatedError,
   });
 
   const onCheckDuplicatedBtnClickListener = (type: string) => {

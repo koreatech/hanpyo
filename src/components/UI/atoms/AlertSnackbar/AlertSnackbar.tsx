@@ -18,6 +18,7 @@ enum SnackbarType {
   DUPLICATE_LECTURE_TIME = 'DUPLICATE_LECTURE_TIME',
   INVALID_TIME = 'INVALID_TIME',
   NO_TIMETABLE = 'NO_TIMETABLE',
+  SIGNUP_DUPLICATED_FAILED = 'SIGNUP_DUPLICATED_FAILED',
 }
 
 const SNACKBAR_MESSAGE = {
@@ -33,6 +34,7 @@ const SNACKBAR_MESSAGE = {
   [SnackbarType.DUPLICATE_LECTURE_TIME]: '추가하려는 과목과 중복되는 시간이 있습니다.',
   [SnackbarType.INVALID_TIME]: '시간이 유효하지 않습니다.',
   [SnackbarType.NO_TIMETABLE]: '시간표를 만든 후 과목을 추가해주세요.',
+  [SnackbarType.SIGNUP_DUPLICATED_FAILED]: '중복체크가 실패하였습니다. 잠시 후 다시 시도해주세요.',
 };
 
 const AlertSnackbar = (): JSX.Element => {
