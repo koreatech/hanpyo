@@ -9,6 +9,8 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   const [creditState, setCreditState] = useState('');
   const [startTimeState, setStartTimeState] = useState(false);
   const [endTimeState, setEndTimeState] = useState(false);
+  const [startTimeValueState, setStartTimeValueState] = useState(0);
+  const [endTimeValueState, setEndTimeValueState] = useState(0);
 
   const majorSelectMenuProps = {
     state: departmentState,
@@ -69,8 +71,9 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const startTimeSelectMenuProps = {
-    state: startTimeState,
-    setState: setStartTimeState,
+    selected: startTimeState,
+    setSelected: setStartTimeState,
+    setTimeValue: setStartTimeValueState,
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
       lectureInfoStore.state.searchWord(null);
@@ -82,8 +85,9 @@ const LectureSearchFilterMenu = (): JSX.Element => {
   };
 
   const endTimeSelectMenuProps = {
-    state: endTimeState,
-    setState: setEndTimeState,
+    selected: endTimeState,
+    setSelected: setEndTimeState,
+    setTimeValue: setEndTimeValueState,
     menuLabel: '시간',
     onSelectMenuChange: (value: number) => {
       lectureInfoStore.state.searchWord(null);

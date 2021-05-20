@@ -8,6 +8,9 @@ interface TimeTableAddFormContentProps {
   startTimeSelectMenu: TimeSelectMenuProps;
   endTimeSelectMenu: TimeSelectMenuProps;
   onTimeTableFormSubmit: () => void;
+  inputState: string;
+  onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBtnClick: () => void;
 }
 
 const DROP_MENU_WIDTH = {
@@ -71,6 +74,9 @@ const TimeTableAddFormContent = ({
   startTimeSelectMenu,
   endTimeSelectMenu,
   onTimeTableFormSubmit,
+  inputState,
+  onInputChange,
+  onBtnClick,
 }: TimeTableAddFormContentProps): JSX.Element => {
   const classes = useStyles();
 
@@ -86,6 +92,7 @@ const TimeTableAddFormContent = ({
         <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <TextField
+        value={inputState}
         required
         className={classes.timeTableNameInput}
         id="time-table-name"
@@ -93,8 +100,9 @@ const TimeTableAddFormContent = ({
         InputProps={{
           placeholder: '이름을 입력해주세요. ex ) 근장',
         }}
+        onChange={onInputChange}
       />
-      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS}>
+      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onBtnClick}>
         추 가
       </Button>
     </form>

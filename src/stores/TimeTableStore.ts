@@ -1,6 +1,7 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
-import { LectureInfos } from '@/components/UI/molecules';
+import { SnackbarType } from '@/components/UI/atoms';
+import { LectureInfos, TimeTypes } from '@/components/UI/molecules';
 
 interface TableInfo {
   name: string;
@@ -92,11 +93,38 @@ class TimeTableStore {
     this.selectTab(nextSelectedTab);
   }
 
-  addLectureToTable(input: LectureInfos): void {
+  checkDuplicateLectureName(lectureName: string): boolean {
     const { selectedTabIdx, selectedTabLectures } = this.state;
-    if (!selectedTabIdx()) return;
-    const isNoDuplicateLecture = selectedTabLectures()[selectedTabIdx() - 1].every((curr) => curr.name !== input.name);
-    if (!isNoDuplicateLecture) return;
+    return selectedTabLectures()[selectedTabIdx() - 1].every((curr) => curr.name !== lectureName);
+  }
+
+  checkTimeBound(lectureTimes: TimeTypes[] | string): boolean {
+    const { selectedTabIdx } = this.state;
+    if (typeof lectureTimes === 'string') return false;
+    return lectureTimes.every((lectureTime) => lectureTime.start < lectureTime.end && lectureTime.start % 1440 >= 540);
+  }
+
+  checkDuplicateLectureTime(lectureTimes: TimeTypes[] | string): boolean {
+    const { selectedTabIdx, selectedTabLectures } = this.state;
+    if (typeof lectureTimes === 'string') return false;
+    return lectureTimes.every((newLectureTime) => {
+      return selectedTabLectures()[selectedTabIdx() - 1].every((curr) => {
+        if (typeof curr.lectureTimes === 'string') return false;
+        return curr.lectureTimes.every(
+          (lectureTime) =>
+            (newLectureTime.start < lectureTime.start && newLectureTime.end <= lectureTime.start) ||
+            (newLectureTime.start >= lectureTime.end && newLectureTime.end > lectureTime.end),
+        );
+      });
+    });
+  }
+
+  addLectureToTable(input: LectureInfos): SnackbarType {
+    const { selectedTabIdx, selectedTabLectures } = this.state;
+    if (!selectedTabIdx()) return SnackbarType.NO_TIMETABLE;
+    if (!this.checkDuplicateLectureName(input.name)) return SnackbarType.DUPLICATE_LECTURE_NAME;
+    if (!this.checkTimeBound(input.lectureTimes)) return SnackbarType.INVALID_TIME;
+    if (!this.checkDuplicateLectureTime(input.lectureTimes)) return SnackbarType.DUPLICATE_LECTURE_TIME;
     const inputWithColor = { ...input, color: this.getColor() };
     const newLecture = [...selectedTabLectures()[selectedTabIdx() - 1], inputWithColor];
     const newLectures = selectedTabLectures().map((elem, idx) => {
@@ -105,6 +133,7 @@ class TimeTableStore {
     });
     this.setNextColor();
     selectedTabLectures(newLectures);
+    return SnackbarType.ADD_SUCCESS;
   }
 
   removeLectureFromTable(input: string): void {
