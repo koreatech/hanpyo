@@ -212,13 +212,13 @@ const SignUpModalContent = ({
   };
 
   const checkEmailInputError = (): boolean => {
-    const { duplicated, loading, email } = emailCheckInfo;
-    return !!email && (!isValidEmail || duplicated || loading);
+    const { duplicated, loading, email, called } = emailCheckInfo;
+    return !!email && (!isValidEmail || duplicated || loading || !called);
   };
 
   const checkNicknameInputError = (): boolean => {
-    const { duplicated, loading, nickname } = nicknameCheckInfo;
-    return !!nickname && (!isValidNickname || duplicated || loading);
+    const { duplicated, loading, nickname, called } = nicknameCheckInfo;
+    return !!nickname && (!isValidNickname || duplicated || loading || !called);
   };
 
   const checkEmailCheckBtnDisabled = (): boolean => {
