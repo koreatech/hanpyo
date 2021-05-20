@@ -16,7 +16,7 @@ interface CSSProps {
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
-    width: '35rem',
+    width: '43rem',
     height: (props: CSSProps) => (props.isBasket ? '12rem' : '19rem'),
     margin: '1.2rem 0 0 0',
     padding: '0 0.2rem 0.4rem 0.2rem',
@@ -64,6 +64,8 @@ const headerInfos = {
   requiredMajor: '대상',
   totalStudentNumber: '정원',
   department: '개설학부',
+  room: '강의실',
+  credit: '학점',
   lectureTimes: '시간',
 };
 

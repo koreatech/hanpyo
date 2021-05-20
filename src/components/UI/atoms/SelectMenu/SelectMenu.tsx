@@ -11,6 +11,8 @@ interface MenuItemType {
 }
 
 interface SelectMenuProps {
+  state: string;
+  setState: React.Dispatch<React.SetStateAction<string>>;
   menuLabel: string;
   menus: MenuItemType[];
   dropMenuWidth?: number | string;
@@ -71,10 +73,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange }: SelectMenuProps): JSX.Element => {
+const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange, state, setState }: SelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-  const [selectValue, setSelectValue] = useState('');
-
   const open = Boolean(anchorEl);
   const classes = useStyles({ open, dropMenuWidth });
 
@@ -115,7 +115,7 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
 
     const { dataset } = liElement;
     const nowSelectedValue = dataset?.title ?? '';
-    setSelectValue(nowSelectedValue);
+    setState(nowSelectedValue);
     setAnchorEl(null);
 
     if (onSelectMenuChange) {
@@ -126,8 +126,8 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{selectValue || menuLabel}</span>
-        <input type="hidden" aria-hidden="true" value={selectValue} />
+        <span className={classes.label}>{state || menuLabel}</span>
+        <input type="hidden" aria-hidden="true" value={state} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
       <Popover

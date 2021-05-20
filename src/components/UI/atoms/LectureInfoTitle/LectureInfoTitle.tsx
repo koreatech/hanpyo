@@ -11,15 +11,13 @@ enum LectureInfoTitleType {
   personnel = 'personnel',
   dept = 'dept',
   time = 'time',
+  room = 'room',
+  credit = 'credit',
 }
 
 interface TitleProps {
   className: LectureInfoTitleType;
   children?: JSX.Element[] | string | number;
-  isHeader: boolean;
-}
-
-interface CSSProps {
   isHeader: boolean;
 }
 
@@ -30,46 +28,59 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   code: {
-    width: '10%',
+    width: '8%',
   },
   name: {
-    width: '24%',
+    width: '19%',
   },
   class: {
-    width: '5%',
+    width: '4%',
   },
   prof: {
-    width: '12%',
+    width: '10%',
   },
   grade: {
-    width: '5%',
+    width: '4%',
   },
   personnel: {
-    width: '5%',
+    width: '4%',
   },
   dept: {
-    width: '21%',
+    width: '19%',
   },
   time: {
-    width: '18%',
+    width: '15%',
+  },
+  room: {
+    width: '13%',
+  },
+  credit: {
+    width: '4%',
   },
   text: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    color: (props: CSSProps) => (props.isHeader ? theme.palette.grey[500] : theme.palette.grey[800]),
+    color: theme.palette.grey[800],
+  },
+  headerText: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.palette.grey[500],
   },
 }));
 
 const LectureInfoTitle = ({ className, children, isHeader }: TitleProps): JSX.Element => {
-  const classes = useStyles({ isHeader });
+  const classes = useStyles();
   const getClassName = () => {
     return { ...classes }[className];
   };
   return (
     <div className={`${classes.default} ${getClassName()}`}>
-      <Typography className={classes.text} variant="caption">
+      <Typography className={isHeader ? classes.headerText : classes.text} variant="caption">
         {children}
       </Typography>
     </div>

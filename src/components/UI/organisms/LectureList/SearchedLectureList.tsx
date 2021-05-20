@@ -52,17 +52,17 @@ const SearchedLectureList = (): JSX.Element => {
   };
 
   const getFilteredByDepartmentLectures = (lectures: LectureInfos[]) => {
-    if (department) return lectures.filter((lecture: LectureInfos) => lecture.department === department);
+    if (department && department !== '전체') return lectures.filter((lecture: LectureInfos) => lecture.department === department);
     return lectures;
   };
 
   const getFilteredByCreditLectures = (lectures: LectureInfos[]) => {
-    if (credit) return lectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
+    if (credit && credit !== '전체') return lectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
     return lectures;
   };
 
   const getFilteredByDayLectures = (lectures: LectureInfos[]) => {
-    if (day)
+    if (day && day !== '전체')
       return lectures.filter((lecture: LectureInfos) => {
         if (typeof lecture.lectureTimes === 'string') return false;
         if (lecture.lectureTimes) {
@@ -103,7 +103,10 @@ const SearchedLectureList = (): JSX.Element => {
     if (isString(lectureInfos.lectureTimes)) return;
 
     timeTableStore.addLectureToTable(lectureInfos);
-    snackbarStore.showTabAddMsg();
+    snackbarStore.showTabAddMsg(); // 이 부분은 리팩토링하면서 수정한 부분입니다! 적절하게 메소드를 변경해주세요!
+
+    snackbarStore.setSnackbarType(timeTableStore.addLectureToTable(lectureInfos));
+    snackbarStore.setSnackbarState(true);
   };
 
   return (

@@ -19,6 +19,9 @@ interface TimeSelectMenuDataType {
 }
 
 interface TimeSelectMenuProps {
+  selected: boolean;
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  setTimeValue: React.Dispatch<React.SetStateAction<number>>;
   menuLabel: string;
   dropMenuWidth?: number | string;
   onSelectMenuChange: (value: number) => void;
@@ -112,9 +115,15 @@ const MINUTE_DATAS = Array.from(range(0, 30, 30)).map((minute, idx) => ({
   type: TimeSelectMenuItemType.MINUTE,
 }));
 
-const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange }: TimeSelectMenuProps): JSX.Element => {
+const TimeSelectMenu = ({
+  selected,
+  setSelected,
+  setTimeValue,
+  menuLabel,
+  dropMenuWidth = 'auto',
+  onSelectMenuChange,
+}: TimeSelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
-  const [isSelected, setIsSelected] = useState(false);
   const [selectedAMPM, setSelectedAMPM] = useState('오전');
   const [selectedHour, setSelectedHour] = useState('01');
   const [selectedMinute, setSelectedMinute] = useState('00');
@@ -158,7 +167,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
 
     scrollDown(eventTarget);
     setAnchorEl(eventTarget);
-    setIsSelected(true);
+    setSelected(true);
   };
 
   const onMenuCloseListener = () => {
@@ -199,6 +208,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
     time += Number(minute);
 
     if (onSelectMenuChange) {
+      setTimeValue(time);
       onSelectMenuChange(time);
     }
   };
@@ -206,7 +216,7 @@ const TimeSelectMenu = ({ menuLabel, dropMenuWidth = 'auto', onSelectMenuChange 
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{isSelected ? selectedValue : menuLabel}</span>
+        <span className={classes.label}>{selected ? selectedValue : menuLabel}</span>
         <input type="hidden" aria-hidden="true" value={selectedValue} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
