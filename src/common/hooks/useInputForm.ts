@@ -14,6 +14,7 @@ enum InputNameType {
 interface Option {
   validation?: boolean;
   timeout?: number;
+  callback?: Function;
 }
 
 interface InputUtility {
@@ -33,7 +34,7 @@ const ERRORS = {
 };
 
 function useInputForm<T>(initInputState: T, options: Option = INIT_OPTIONS): [T, () => void, InputUtility] {
-  const { validation, timeout } = { ...INIT_OPTIONS, ...options };
+  const { validation, timeout, callback } = { ...INIT_OPTIONS, ...options };
 
   const createValidState = () => {
     if (validation) {
@@ -58,6 +59,10 @@ function useInputForm<T>(initInputState: T, options: Option = INIT_OPTIONS): [T,
 
   const onChangeListener = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
+
+    if (callback) {
+      callback(name);
+    }
 
     setInputs({ ...inputs, [name]: value });
     if (valids) {
