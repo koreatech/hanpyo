@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { SIGN_UP, MEMBER_DUPLICATED_BY_EMAIL, MEMBER_DUPLICATED_BY_NICKNAME } from '@/queries';
@@ -35,8 +35,20 @@ const INIT_INPUTS_STATE = {
 };
 
 const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps): JSX.Element => {
+  const emailDulicatedCalled = useRef(false);
+  const nicknameDulicatedCalled = useRef(false);
+
   const [inputs, onInputChange, { reset, isEmpty, valids, isValid }] = useInputForm<InputState>(INIT_INPUTS_STATE, {
     validation: true,
+    callback: (name: string) => {
+      if (name === DuplicateCheckingType.email) {
+        emailDulicatedCalled.current = false;
+      }
+
+      if (name === DuplicateCheckingType.nickname) {
+        nicknameDulicatedCalled.current = false;
+      }
+    },
   });
   const { email, password, name, nickname, grade, major } = inputs;
 
@@ -51,42 +63,36 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     },
   });
 
-  const [
-    getMemberDuplicatedByEmail,
-    { data: emailDulicatedData, called: emailDulicatedCalled, loading: emailDulicatedLoading },
-  ] = useLazyQuery<GetMemberDuplicatedByEmail>(MEMBER_DUPLICATED_BY_EMAIL, {
-    fetchPolicy: 'no-cache',
-  });
+  const onCheckDuplicatedError = () => {
+    snackbarStore.showCheckDuplicatedFailedMsg();
+  };
+
+  const [getMemberDuplicatedByEmail, { data: emailDulicatedData, loading: emailDulicatedLoading }] = useLazyQuery<GetMemberDuplicatedByEmail>(
+    MEMBER_DUPLICATED_BY_EMAIL,
+    {
+      fetchPolicy: 'no-cache',
+      onError: onCheckDuplicatedError,
+    },
+  );
 
   const [
     getMemberDuplicatedByNickname,
-    { data: nicknameDulicatedData, called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading },
+    { data: nicknameDulicatedData, loading: nicknameDulicatedLoading },
   ] = useLazyQuery<GetMemberDuplicatedByNickname>(MEMBER_DUPLICATED_BY_NICKNAME, {
     fetchPolicy: 'no-cache',
+    onError: onCheckDuplicatedError,
   });
 
   const onCheckDuplicatedBtnClickListener = (type: string) => {
     if (type === DuplicateCheckingType.email) {
+      emailDulicatedCalled.current = true;
       getMemberDuplicatedByEmail({ variables: { email } });
     }
 
     if (type === DuplicateCheckingType.nickname) {
+      nicknameDulicatedCalled.current = true;
       getMemberDuplicatedByNickname({ variables: { nickname } });
     }
-  };
-
-  const checkEmailDuplicated = (): boolean => {
-    if (!emailDulicatedData) {
-      return true;
-    }
-    return emailDulicatedData.memberDuplicatedByEmail;
-  };
-
-  const checkNicknameDuplicated = (): boolean => {
-    if (!nicknameDulicatedData) {
-      return true;
-    }
-    return nicknameDulicatedData.memberDuplicatedByNickname;
   };
 
   const onMoveLoginBtnClickListener = () => {
@@ -104,8 +110,26 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
     onModalAreaClose();
   };
 
+  const checkEmailDuplicated = (): boolean => {
+    if (!emailDulicatedData) return true;
+    return emailDulicatedData.memberDuplicatedByEmail;
+  };
+
+  const checkNicknameDuplicated = (): boolean => {
+    if (!nicknameDulicatedData) return true;
+    return nicknameDulicatedData.memberDuplicatedByNickname;
+  };
+
+  const checkEmailInfo = (): boolean => {
+    return !emailDulicatedLoading && !checkEmailDuplicated() && emailDulicatedCalled.current;
+  };
+
+  const checkNicknameInfo = (): boolean => {
+    return !nicknameDulicatedLoading && !checkNicknameDuplicated() && nicknameDulicatedCalled.current;
+  };
+
   const checkSignupDisabled = (): boolean => {
-    return !(!isEmpty && isValid && !emailDulicatedLoading && !checkEmailDuplicated() && !nicknameDulicatedLoading && !checkNicknameDuplicated());
+    return !(!isEmpty && isValid && checkEmailInfo() && checkNicknameInfo());
   };
 
   return (
@@ -113,8 +137,13 @@ const SignUpModalPopup = ({ modalOpen, onModalAreaClose }: SignUpModalPopupProps
       <SignUpModalContent
         valid={valids}
         selectValue={{ gradeValue: grade, majorValue: major }}
-        emailCheckInfo={{ email, duplicated: checkEmailDuplicated(), called: emailDulicatedCalled, loading: emailDulicatedLoading }}
-        nicknameCheckInfo={{ nickname, duplicated: checkNicknameDuplicated(), called: nicknameDulicatedCalled, loading: nicknameDulicatedLoading }}
+        emailCheckInfo={{ email, duplicated: checkEmailDuplicated(), called: emailDulicatedCalled.current, loading: emailDulicatedLoading }}
+        nicknameCheckInfo={{
+          nickname,
+          duplicated: checkNicknameDuplicated(),
+          called: nicknameDulicatedCalled.current,
+          loading: nicknameDulicatedLoading,
+        }}
         isSignupDisabled={checkSignupDisabled()}
         onInputChange={onInputChange}
         onSignupBtnClick={onSignUpBtnClickListener}

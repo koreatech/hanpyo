@@ -70,6 +70,11 @@ class SnackbarStore {
     this.setSnackbarType(SnackbarType.NAV_FAILED);
     this.setSnackbarState(true);
   }
+
+  showCheckDuplicatedFailedMsg(): void {
+    this.setSnackbarType(SnackbarType.SIGNUP_DUPLICATED_FAILED);
+    this.setSnackbarState(true);
+  }
 }
 
 export default SnackbarStore;
