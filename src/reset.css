@@ -84,6 +84,6 @@ table {
 	border-spacing: 0;
 }
 
-textarea{
+textarea, input{
 	font-family: AppleSDGothicNeo;
 }
