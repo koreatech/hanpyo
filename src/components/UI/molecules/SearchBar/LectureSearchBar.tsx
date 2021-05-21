@@ -8,7 +8,7 @@ const LectureSearchBar = (): JSX.Element => {
 
   const onSearchBarChangeListener = throttle((e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    lectureInfoStore.state.searchWord(value);
+    lectureInfoStore.setSearchWord(value);
   }, 500);
 
   return <SearchBar onSearchBarChange={onSearchBarChangeListener} />;
