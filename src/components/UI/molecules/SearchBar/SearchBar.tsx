@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
-import { InputBase } from '@material-ui/core';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Search } from '@material-ui/icons';
-import { useStores } from '@/stores';
 
 interface SearchBarProps {
   width?: string;
+  onSearchBarChange?: () => void;
 }
 
 interface CSSProps {
@@ -14,12 +13,12 @@ interface CSSProps {
 
 const useStyles = makeStyles((theme) => ({
   root: ({ width }: CSSProps) => ({
+    borderRadius: '1.25rem',
+    backgroundColor: `${theme.palette.grey[100]}`,
     display: 'flex',
     width: `${width}`,
     boxSizing: 'border-box',
-    borderRadius: '10rem',
-    padding: `0.25rem 1.5rem`,
-    backgroundColor: `${theme.palette.grey[100]}`,
+    padding: `0.4rem 1.5rem`,
     alignItems: 'center',
     justifyContent: 'space-between',
   }),
@@ -27,33 +26,29 @@ const useStyles = makeStyles((theme) => ({
     width: '85%',
     border: 'none',
     backgroundColor: 'rgba(0, 0, 0, 0)',
+    fontSize: '0.9rem',
+
     '&:focus': {
       outline: 'none',
     },
-    fontSize: '0.9rem',
   },
   icon: {
     color: `${theme.palette.grey[500]}`,
+
     '&:hover': {
       cursor: 'pointer',
     },
   },
 }));
 
-const SearchBar = ({ width = '100%' }: SearchBarProps): JSX.Element => {
+const SearchBar = ({ onSearchBarChange, width = '100%' }: SearchBarProps): JSX.Element => {
   const classes = useStyles({ width });
-  const inputElem = useRef<HTMLInputElement>(null);
-  const { lectureInfoStore } = useStores();
-  const onLectureSearchListener = (event: any) => {
-    event.preventDefault();
-    lectureInfoStore.state.searchWord(inputElem.current?.value);
-    if (inputElem.current) inputElem.current.value = '';
-  };
+
   return (
-    <form className={classes.root} onSubmit={onLectureSearchListener}>
-      <input ref={inputElem} className={classes.input} placeholder="검색어를 입력하세요." />
-      <Search className={classes.icon} onClick={onLectureSearchListener} />
-    </form>
+    <div className={classes.root}>
+      <input className={classes.input} name="searchWord" placeholder="검색어를 입력하세요." onChange={onSearchBarChange} />
+      <Search className={classes.icon} />
+    </div>
   );
 };
 
