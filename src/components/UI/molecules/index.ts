@@ -1,7 +1,7 @@
 export { Timetable } from './Timetable/Timetable';
 export type { TimetableProps } from './Timetable/Timetable';
 export { Notice } from './Notice/Notice';
-export { SearchBar } from './SearchBar/SearchBar';
+export { LectureSearchBar } from './SearchBar/LectureSearchBar';
 export { LectureInfo } from './LectureInfo/LectureInfo';
 export type { LectureInfoProps, LectureInfos, TimeTypes } from './LectureInfo/LectureInfo';
 export { ModalPopupArea } from './ModalPopupArea/ModalPopupArea';
