@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { ModalPopupArea, SignUpModalContent } from '@/components/UI/molecules';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { SIGN_UP, MEMBER_DUPLICATED_BY_EMAIL, MEMBER_DUPLICATED_BY_NICKNAME } from '@/queries';
