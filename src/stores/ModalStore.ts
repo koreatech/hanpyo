@@ -64,6 +64,10 @@ class ModalStore {
   openLectureReviewDetailModal(): void {
     this.changeModalState(modalTypes.REVIEW_DETAIL_MODAL, true);
   }
+
+  openFindModal(): void {
+    this.changeModalState(modalTypes.FIND_MODAL, true);
+  }
 }
 
 export default ModalStore;
