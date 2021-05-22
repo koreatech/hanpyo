@@ -2,17 +2,20 @@ import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
 import { LectureInfos } from '@/components/UI/molecules';
 
-interface LectureInfoStoreState {
-  lectures: ReactiveVar<LectureInfos[]>;
-  selectedLecture: ReactiveVar<LectureInfos | null>;
-  basketSelectedLecture: ReactiveVar<LectureInfos | null>;
-  filteredLectures: ReactiveVar<LectureInfos[] | null>;
+interface LectureFilterState {
   selectedDepartment: ReactiveVar<string | null>;
   selectedDay: ReactiveVar<string | null>;
   selectedCredit: ReactiveVar<string | null>;
   selectedStartTime: ReactiveVar<number | null>;
   selectedEndTime: ReactiveVar<number | null>;
   searchWord: ReactiveVar<string | null>;
+}
+
+interface LectureInfoStoreState extends LectureFilterState {
+  lectures: ReactiveVar<LectureInfos[]>;
+  selectedLecture: ReactiveVar<LectureInfos | null>;
+  basketSelectedLecture: ReactiveVar<LectureInfos | null>;
+  filteredLectures: ReactiveVar<LectureInfos[] | null>;
 }
 
 class LectureInfoStore {
@@ -44,12 +47,23 @@ class LectureInfoStore {
     return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
   }
 
+  getFilterState(): LectureFilterState {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = this.state;
+    return { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord };
+  }
+
   setSearchWord(newSearchWord: string): void {
     const { searchWord } = this.state;
 
     if (newSearchWord === searchWord()) return;
 
     searchWord(newSearchWord);
+  }
+
+  setSelectedLecture(newLectureInfos: LectureInfos): void {
+    const { selectedLecture } = this.state;
+
+    selectedLecture(newLectureInfos);
   }
 }
 
