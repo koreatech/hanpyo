@@ -4,28 +4,26 @@ import React from 'react';
 import { LectureInfos, LectureListContent } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
 import { isString } from '@/common/utils/typeCheck';
-import { useQuery, useReactiveVar } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { LectureListSkeleton } from '@/components/Skeleton';
 import { LECTURE_INFOS } from '@/queries';
 import { getTimeBoundByDay } from '@/common/utils';
+import { useReactiveVars } from '@/common/hooks';
+
+interface LectureFilterState {
+  selectedDepartment: string | null;
+  selectedDay: string | null;
+  selectedCredit: string | null;
+  selectedStartTime: number | null;
+  selectedEndTime: number | null;
+  searchWord: string | null;
+}
 
 const SearchedLectureList = (): JSX.Element => {
   const { timeTableStore, snackbarStore, lectureInfoStore } = useStores();
-  const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = lectureInfoStore.state;
-
-  const department = useReactiveVar(selectedDepartment);
-  const day = useReactiveVar(selectedDay);
-  const credit = useReactiveVar(selectedCredit);
-  const startTime = useReactiveVar(selectedStartTime);
-  const endTime = useReactiveVar(selectedEndTime);
-  const searchingWord = useReactiveVar(searchWord);
-
-  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
-    if (isString(lectureInfos.lectureTimes)) return;
-
-    lectureInfoStore.state.selectedLecture(lectureInfos);
-  };
-
+  const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = useReactiveVars<LectureFilterState>(
+    lectureInfoStore.getFilterState(),
+  );
   const { loading, error, data } = useQuery(LECTURE_INFOS);
 
   if (loading) {
@@ -40,62 +38,84 @@ const SearchedLectureList = (): JSX.Element => {
 
   lectureInfoStore.state.lectures(data.lectureInfos);
 
-  const getSearchedLecture = (lectures: LectureInfos[]) => {
-    if (searchingWord) {
-      const words = searchingWord.replaceAll(' ', '').split(',');
-      return lectures.filter((lecture: LectureInfos) => {
-        if (!lecture.name) return false;
-        return words.some((word) => lecture.name.includes(word));
+  const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
+    if (isString(lectureInfos.lectureTimes)) return;
+
+    lectureInfoStore.setSelectedLecture(lectureInfos);
+  };
+
+  const filterBySearchWord = (lecturesInfos: LectureInfos[]) => {
+    const parseSearchWord = (searchWord: string): string[] => searchWord.replaceAll(' ', '').split(',');
+    const checkSearchWordInName = (parsedSearchWords: string[], name: string): boolean => {
+      if (!name) return false;
+      return parsedSearchWords.some((parsedSearchWord) => name.includes(parsedSearchWord));
+    };
+
+    if (searchWord) {
+      const parsedSearchWords = parseSearchWord(searchWord);
+
+      return lecturesInfos.filter((lectureInfo: LectureInfos) => {
+        const { name } = lectureInfo;
+        return checkSearchWordInName(parsedSearchWords, name);
       });
     }
-    return lectures;
+
+    return lecturesInfos;
   };
 
-  const getFilteredByDepartmentLectures = (lectures: LectureInfos[]) => {
-    if (department && department !== '전체') return lectures.filter((lecture: LectureInfos) => lecture.department === department);
-    return lectures;
+  const filterByDepartment = (lecturesInfos: LectureInfos[]): LectureInfos[] => {
+    if (selectedDepartment && selectedDepartment !== '전체')
+      return lecturesInfos.filter((lectureInfo: LectureInfos) => lectureInfo.department === selectedDepartment);
+    return lecturesInfos;
   };
 
-  const getFilteredByCreditLectures = (lectures: LectureInfos[]) => {
-    if (credit && credit !== '전체') return lectures.filter((lecture: LectureInfos) => lecture.credit === Number(credit[0]));
-    return lectures;
+  const filterByCredit = (lecturesInfos: LectureInfos[]): LectureInfos[] => {
+    if (selectedCredit && selectedCredit !== '전체')
+      return lecturesInfos.filter((lecturesInfo: LectureInfos) => lecturesInfo.credit === Number(selectedCredit[0]));
+    return lecturesInfos;
   };
 
-  const getFilteredByDayLectures = (lectures: LectureInfos[]) => {
-    if (day && day !== '전체')
-      return lectures.filter((lecture: LectureInfos) => {
-        if (typeof lecture.lectureTimes === 'string') return false;
-        if (lecture.lectureTimes) {
-          return lecture.lectureTimes.some(
-            (lectureTime) => lectureTime.start >= getTimeBoundByDay(day).start && lectureTime.end < getTimeBoundByDay(day).end,
-          );
-        }
-        return false;
-      });
-    return lectures;
-  };
+  const filterByDay = (lecturesInfos: LectureInfos[]): LectureInfos[] => {
+    if (selectedDay && selectedDay !== '전체') {
+      return lecturesInfos.filter((lectureInfo: LectureInfos) => {
+        const { lectureTimes } = lectureInfo;
 
-  const getFilteredByTimeLectures = (lectures: LectureInfos[]) => {
-    if (startTime && endTime) {
-      return lectures.filter((lecture: LectureInfos) => {
-        if (typeof lecture.lectureTimes === 'string') return false;
-        if (lecture.lectureTimes) {
-          return lecture.lectureTimes.some((lectureTime) => lectureTime.start % 1440 >= startTime && lectureTime.end % 1440 <= endTime);
-        }
-        return false;
+        if (isString(lectureTimes) || !lectureTimes) return false;
+
+        return lectureTimes.some(
+          (lectureTime) => lectureTime.start >= getTimeBoundByDay(selectedDay).start && lectureTime.end < getTimeBoundByDay(selectedDay).end,
+        );
       });
     }
-    return lectures;
+
+    return lecturesInfos;
+  };
+
+  const filterByTime = (lecturesInfos: LectureInfos[]): LectureInfos[] => {
+    if (selectedStartTime && selectedEndTime) {
+      return lecturesInfos.filter((lectureInfo: LectureInfos) => {
+        const { lectureTimes } = lectureInfo;
+
+        if (isString(lectureTimes) || !lectureTimes) return false;
+
+        return lectureTimes.some((lectureTime) => lectureTime.start % 1440 >= selectedStartTime && lectureTime.end % 1440 <= selectedEndTime);
+      });
+    }
+
+    return lecturesInfos;
   };
 
   const getFilteredLectures = () => {
+    if (!selectedDepartment && !selectedCredit && !selectedDay && !selectedStartTime && !selectedEndTime && !searchWord) return null;
+
     let filteredLectures = data.lectureInfos;
-    if (searchingWord) return getSearchedLecture(filteredLectures);
-    if (!department && !credit && !day && !startTime && !endTime) return null;
-    filteredLectures = getFilteredByDepartmentLectures(filteredLectures);
-    filteredLectures = getFilteredByCreditLectures(filteredLectures);
-    filteredLectures = getFilteredByDayLectures(filteredLectures);
-    filteredLectures = getFilteredByTimeLectures(filteredLectures);
+
+    filteredLectures = filterBySearchWord(filteredLectures);
+    filteredLectures = filterByDepartment(filteredLectures);
+    filteredLectures = filterByCredit(filteredLectures);
+    filteredLectures = filterByDay(filteredLectures);
+    filteredLectures = filterByTime(filteredLectures);
+
     return filteredLectures;
   };
 
