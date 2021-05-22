@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FormControlLabel } from '@material-ui/core';
 import CheckBox from '@material-ui/core/Checkbox';
 import { SelectMenu } from '@/components/UI/atoms';
-import { SearchBar } from '@/components/UI/molecules';
+import { ReviewSearchBar } from '@/components/UI/molecules';
 
 const ReviewSearchSection = (): JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
@@ -27,7 +27,7 @@ const ReviewSearchSection = (): JSX.Element => {
   };
   return (
     <>
-      <SearchBar width="60%" />
+      <ReviewSearchBar searchBarProp={{ width: '60%' }} />
       <FormControlLabel
         control={<CheckBox checked={isChecked} onChange={onCheckBoxChangeHandler} name="isMine" color="primary" />}
         label="내가 쓴 글 보기"
