@@ -20,11 +20,12 @@ interface TimeSelectMenuDataType {
 
 interface TimeSelectMenuProps {
   selected: boolean;
-  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
-  setTimeValue: React.Dispatch<React.SetStateAction<number>>;
+  value: string;
+  selectType: string;
   menuLabel: string;
   dropMenuWidth?: number | string;
-  onSelectMenuChange: (value: number) => void;
+  onMenuClick: (e: React.MouseEvent<HTMLLIElement>) => void;
+  checkSelectedItem: (itemValue: string) => boolean;
 }
 
 interface cssProps {
@@ -117,25 +118,17 @@ const MINUTE_DATAS = Array.from(range(0, 30, 30)).map((minute, idx) => ({
 
 const TimeSelectMenu = ({
   selected,
-  setSelected,
-  setTimeValue,
+  selectType,
+  value,
   menuLabel,
   dropMenuWidth = 'auto',
-  onSelectMenuChange,
+  checkSelectedItem,
+  onMenuClick,
 }: TimeSelectMenuProps): JSX.Element => {
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
-  const [selectedAMPM, setSelectedAMPM] = useState('오전');
-  const [selectedHour, setSelectedHour] = useState('01');
-  const [selectedMinute, setSelectedMinute] = useState('00');
-
-  const selectedValue = `${selectedAMPM}${selectedHour && `  ${selectedHour} : `}${selectedMinute}`;
-
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
-  const classes = useStyles({ open, dropMenuWidth });
 
-  const isSelectedMenuItem = (value: string) => {
-    return value === selectedAMPM || value === selectedHour || value === selectedMinute;
-  };
+  const classes = useStyles({ open, dropMenuWidth });
 
   const getMenuItems = (menuItemDatas: TimeSelectMenuDataType[]): JSX.Element[] => {
     const menuItems = menuItemDatas.map((menuItemData) => (
@@ -144,8 +137,9 @@ const TimeSelectMenu = ({
         data-value={menuItemData.value}
         data-title={menuItemData.title}
         data-type={menuItemData.type}
-        data-selected={isSelectedMenuItem(menuItemData.title)}
-        onClick={onMenuClickListener}>
+        data-selected={checkSelectedItem(menuItemData.title)}
+        data-selectType={selectType}
+        onClick={onMenuClick}>
         <span>{menuItemData.title}</span>
       </li>
     ));
@@ -167,57 +161,17 @@ const TimeSelectMenu = ({
 
     scrollDown(eventTarget);
     setAnchorEl(eventTarget);
-    setSelected(true);
   };
 
   const onMenuCloseListener = () => {
     setAnchorEl(null);
   };
 
-  const onMenuClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    const liElement = target.closest('li');
-
-    if (!liElement) return;
-
-    const { dataset } = liElement;
-    const { type, title } = dataset;
-
-    let ampm;
-    let hour;
-    let minute;
-    let time = 0;
-    if (type === TimeSelectMenuItemType.AM_PM) {
-      setSelectedAMPM(title ?? '');
-      ampm = title ?? '';
-    }
-    if (type === TimeSelectMenuItemType.HOUR) {
-      setSelectedHour(title ?? '');
-      hour = title ?? '';
-    }
-    if (type === TimeSelectMenuItemType.MINUTE) {
-      setSelectedMinute(title ?? '');
-      minute = title ?? '';
-    }
-    if (!ampm) ampm = selectedAMPM;
-    if (!hour) hour = selectedHour;
-    if (!minute) minute = selectedMinute;
-
-    if (ampm === '오후') time += 720;
-    time += Number(hour) * 60;
-    time += Number(minute);
-
-    if (onSelectMenuChange) {
-      setTimeValue(time);
-      onSelectMenuChange(time);
-    }
-  };
-
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{selected ? selectedValue : menuLabel}</span>
-        <input type="hidden" aria-hidden="true" value={selectedValue} />
+        <span className={classes.label}>{selected ? value : menuLabel}</span>
+        <input type="hidden" aria-hidden="true" value={value} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
       <Popover
