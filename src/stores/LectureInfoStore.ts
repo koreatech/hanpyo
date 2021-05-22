@@ -1,6 +1,15 @@
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
 import { LectureInfos } from '@/components/UI/molecules';
+import { isString, isNumber } from '@/common/utils/typeCheck';
+
+enum LectureFilterType {
+  DEPARTMENT = 'department',
+  DAY = 'day',
+  CREDIT = 'credit',
+  START_TIME = 'startTime',
+  END_TIME = 'endTime',
+}
 
 interface LectureFilterState {
   selectedDepartment: ReactiveVar<string | null>;
@@ -60,11 +69,58 @@ class LectureInfoStore {
     searchWord(newSearchWord);
   }
 
-  setSelectedLecture(newLectureInfos: LectureInfos): void {
+  setSelectedLecture(newLectureInfos: LectureInfos | null): void {
     const { selectedLecture } = this.state;
 
     selectedLecture(newLectureInfos);
   }
+
+  setBasketSelectedLecture(newBasketSelectedLecture: LectureInfos | null): void {
+    const { basketSelectedLecture } = this.state;
+
+    basketSelectedLecture(newBasketSelectedLecture);
+  }
+
+  changeFilterState(type: string, value: string | number): void {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime } = this.state;
+
+    if (isString(value) && type === LectureFilterType.DEPARTMENT) {
+      selectedDepartment(value);
+    }
+
+    if (isString(value) && type === LectureFilterType.DAY) {
+      selectedDay(value);
+    }
+
+    if (isString(value) && type === LectureFilterType.CREDIT) {
+      selectedCredit(value);
+    }
+
+    if (isNumber(value) && type === LectureFilterType.START_TIME) {
+      let time = value;
+      if (time === 720) time = 0;
+      if (time === 1440) time = 720;
+      selectedStartTime(time);
+    }
+
+    if (isNumber(value) && type === LectureFilterType.END_TIME) {
+      let time = value;
+      if (time === 720) time = 0;
+      if (time === 1440) time = 720;
+      selectedEndTime(time);
+    }
+  }
+
+  resetFilterState(): void {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = this.state;
+
+    searchWord(null);
+    selectedDepartment(null);
+    selectedDay(null);
+    selectedCredit(null);
+    selectedStartTime(null);
+    selectedEndTime(null);
+  }
 }
 
-export default LectureInfoStore;
+export { LectureInfoStore, LectureFilterType };
