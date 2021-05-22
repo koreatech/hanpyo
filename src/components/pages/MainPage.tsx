@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertSnackbar } from '@/components/UI/atoms';
-import { Timetable, Notice, SearchBar, SubTitle, LectureSearchFilterMenu, TimeTableAddForm } from '@/components/UI/molecules';
+import { Timetable, Notice, LectureSearchBar, SubTitle, LectureSearchFilterMenu, TimeTableAddForm } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core';
 import { LectureList, ModalPopup, TimeTableMenu, Footer } from '@/components/UI/organisms';
 
@@ -49,7 +49,7 @@ const MainPage = (): JSX.Element => {
           <div className={classes.right}>
             <SubTitle>강의 찾기</SubTitle>
             <div className={classes.marginTop}>
-              <SearchBar />
+              <LectureSearchBar />
             </div>
             <LectureSearchFilterMenu />
             <LectureList />

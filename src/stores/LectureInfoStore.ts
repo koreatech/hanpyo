@@ -38,8 +38,18 @@ class LectureInfoStore {
 
   getSameLectures(): LectureInfos[] {
     const { lectures, selectedLecture } = this.state;
+
     if (selectedLecture() === null) return [];
+
     return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
+  }
+
+  setSearchWord(newSearchWord: string): void {
+    const { searchWord } = this.state;
+
+    if (newSearchWord === searchWord()) return;
+
+    searchWord(newSearchWord);
   }
 }
 
