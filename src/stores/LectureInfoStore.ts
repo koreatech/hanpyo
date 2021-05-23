@@ -1,18 +1,33 @@
+/* eslint-disable camelcase */
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
 import { LectureInfos } from '@/components/UI/molecules';
+import { isString, isNumber } from '@/common/utils/typeCheck';
+import client from '@/apollo';
+import { LECTURE_INFOS } from '@/queries';
+import { GetLectureInfos, GetLectureInfos_lectureInfos } from '@/api';
 
-interface LectureInfoStoreState {
-  lectures: ReactiveVar<LectureInfos[]>;
-  selectedLecture: ReactiveVar<LectureInfos | null>;
-  basketSelectedLecture: ReactiveVar<LectureInfos | null>;
-  filteredLectures: ReactiveVar<LectureInfos[] | null>;
+enum LectureFilterType {
+  DEPARTMENT = 'department',
+  DAY = 'day',
+  CREDIT = 'credit',
+  START_TIME = 'startTime',
+  END_TIME = 'endTime',
+}
+
+interface LectureFilterState {
   selectedDepartment: ReactiveVar<string | null>;
   selectedDay: ReactiveVar<string | null>;
   selectedCredit: ReactiveVar<string | null>;
   selectedStartTime: ReactiveVar<number | null>;
   selectedEndTime: ReactiveVar<number | null>;
   searchWord: ReactiveVar<string | null>;
+}
+
+interface LectureInfoStoreState extends LectureFilterState {
+  selectedLecture: ReactiveVar<LectureInfos | null>;
+  basketSelectedLecture: ReactiveVar<LectureInfos | null>;
+  filteredLectures: ReactiveVar<LectureInfos[] | null>;
 }
 
 class LectureInfoStore {
@@ -23,7 +38,6 @@ class LectureInfoStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.state = {
-      lectures: makeVar<LectureInfos[]>([]),
       selectedLecture: makeVar<LectureInfos | null>(null),
       basketSelectedLecture: makeVar<LectureInfos | null>(null),
       filteredLectures: makeVar<LectureInfos[] | null>(null),
@@ -36,12 +50,19 @@ class LectureInfoStore {
     };
   }
 
-  getSameLectures(): LectureInfos[] {
-    const { lectures, selectedLecture } = this.state;
+  getSameLectures(): (GetLectureInfos_lectureInfos | null)[] {
+    const { selectedLecture } = this.state;
+    const cache = client.readQuery<GetLectureInfos>({ query: LECTURE_INFOS });
 
-    if (selectedLecture() === null) return [];
+    if (!cache || !selectedLecture()) return [];
 
-    return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
+    const { lectureInfos } = cache;
+    return lectureInfos.filter((lecture) => lecture?.code === selectedLecture()?.code);
+  }
+
+  getFilterState(): LectureFilterState {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = this.state;
+    return { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord };
   }
 
   setSearchWord(newSearchWord: string): void {
@@ -51,6 +72,59 @@ class LectureInfoStore {
 
     searchWord(newSearchWord);
   }
+
+  setSelectedLecture(newLectureInfos: LectureInfos | null): void {
+    const { selectedLecture } = this.state;
+
+    selectedLecture(newLectureInfos);
+  }
+
+  setBasketSelectedLecture(newBasketSelectedLecture: LectureInfos | null): void {
+    const { basketSelectedLecture } = this.state;
+
+    basketSelectedLecture(newBasketSelectedLecture);
+  }
+
+  changeFilterState(type: string, value: string | number): void {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime } = this.state;
+
+    if (isString(value) && type === LectureFilterType.DEPARTMENT) {
+      selectedDepartment(value);
+    }
+
+    if (isString(value) && type === LectureFilterType.DAY) {
+      selectedDay(value);
+    }
+
+    if (isString(value) && type === LectureFilterType.CREDIT) {
+      selectedCredit(value);
+    }
+
+    if (isNumber(value) && type === LectureFilterType.START_TIME) {
+      let time = value;
+      if (time === 720) time = 0;
+      if (time === 1440) time = 720;
+      selectedStartTime(time);
+    }
+
+    if (isNumber(value) && type === LectureFilterType.END_TIME) {
+      let time = value;
+      if (time === 720) time = 0;
+      if (time === 1440) time = 720;
+      selectedEndTime(time);
+    }
+  }
+
+  resetFilterState(): void {
+    const { selectedDepartment, selectedDay, selectedCredit, selectedStartTime, selectedEndTime, searchWord } = this.state;
+
+    searchWord(null);
+    selectedDepartment(null);
+    selectedDay(null);
+    selectedCredit(null);
+    selectedStartTime(null);
+    selectedEndTime(null);
+  }
 }
 
-export default LectureInfoStore;
+export { LectureInfoStore, LectureFilterType };

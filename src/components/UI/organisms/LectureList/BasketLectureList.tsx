@@ -21,7 +21,7 @@ const BasketLectureList = () => {
   const onBasketLectureClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
-    lectureInfoStore.state.basketSelectedLecture(lectureInfos);
+    lectureInfoStore.setBasketSelectedLecture(lectureInfos);
   };
   return (
     <LectureListContent

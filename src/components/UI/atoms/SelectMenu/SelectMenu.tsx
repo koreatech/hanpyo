@@ -11,12 +11,12 @@ interface MenuItemType {
 }
 
 interface SelectMenuProps {
-  state: string;
-  setState: React.Dispatch<React.SetStateAction<string>>;
+  value: string;
+  type: string;
   menuLabel: string;
   menus: MenuItemType[];
   dropMenuWidth?: number | string;
-  onSelectMenuChange: (value: string) => void;
+  onMenuClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 interface cssProps {
@@ -73,14 +73,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChange, state, setState }: SelectMenuProps): JSX.Element => {
+const SelectMenu = ({ value, type, menuLabel, menus, dropMenuWidth = 'auto', onMenuClick }: SelectMenuProps): JSX.Element => {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const classes = useStyles({ open, dropMenuWidth });
 
   const getMenuItems = (): JSX.Element[] => {
     const menuItems = menus.map((menu) => (
-      <li key={menu.id} data-value={menu.value} data-title={menu.title} onClick={onMenuClickListener}>
+      <li key={menu.id} data-value={menu.value} data-title={menu.title} data-type={type} onClick={onMenuClickListener}>
         <span>{menu.title}</span>
       </li>
     ));
@@ -107,27 +107,16 @@ const SelectMenu = ({ menuLabel, menus, dropMenuWidth = 'auto', onSelectMenuChan
     setAnchorEl(null);
   };
 
-  const onMenuClickListener = (event: React.MouseEvent<HTMLElement>) => {
-    const target = event.target as HTMLElement;
-    const liElement = target.closest('li');
-
-    if (!liElement) return;
-
-    const { dataset } = liElement;
-    const nowSelectedValue = dataset?.title ?? '';
-    setState(nowSelectedValue);
+  const onMenuClickListener = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    onMenuClick(e);
     setAnchorEl(null);
-
-    if (onSelectMenuChange) {
-      onSelectMenuChange(nowSelectedValue);
-    }
   };
 
   return (
     <>
       <div className={classes.root} onClick={onMenuBoxClickListener}>
-        <span className={classes.label}>{state || menuLabel}</span>
-        <input type="hidden" aria-hidden="true" value={state} />
+        <span className={classes.label}>{value || menuLabel}</span>
+        <input type="hidden" aria-hidden="true" value={value} />
         <ExpandMoreIcon className={classes.icon} />
       </div>
       <Popover

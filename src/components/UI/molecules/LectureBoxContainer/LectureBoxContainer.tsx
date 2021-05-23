@@ -55,11 +55,15 @@ const LectureBoxContainer = (): JSX.Element => {
     const sameLectures = lectureInfoStore.getSameLectures();
 
     return sameLectures.map((sameLecture) => {
+      if (!sameLecture) return sameLecture;
+
       if (typeof sameLecture.lectureTimes === 'string') return <></>;
 
       if (!sameLecture.lectureTimes) return [];
 
       return sameLecture.lectureTimes.map((time) => {
+        if (!time) return time;
+
         if (sameLecture.divisionNumber === nowSelectedLecture?.divisionNumber) {
           return <SameLectureBox startTime={time.start} endTime={time.end} isSelectedLecture />;
         }
