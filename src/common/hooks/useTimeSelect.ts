@@ -31,8 +31,9 @@ interface Option {
   callback: Function;
 }
 
-interface UseTimeSelectArgs {
-  option?: Option;
+interface TimeSelectUtility {
+  time: number;
+  reset: () => void;
 }
 
 const INIT_STATE: TimeSelectState = {
@@ -57,9 +58,9 @@ function reducer(prevState: TimeSelectState, action: TimeSelectAction): TimeSele
   }
 }
 
-function useTimeSelect({
-  option,
-}: UseTimeSelectArgs): [string, number, boolean, (e: React.MouseEvent<HTMLLIElement>) => void, (itemValue: string) => boolean, () => void] {
+function useTimeSelect(
+  option?: Option,
+): [string, boolean, (e: React.MouseEvent<HTMLLIElement>) => void, (itemValue: string) => boolean, TimeSelectUtility] {
   const [state, dispatch] = useReducer<React.Reducer<TimeSelectState, TimeSelectAction>, TimeSelectState>(reducer, INIT_STATE, () => INIT_STATE);
   const { selectedAMPM, selectedHour, selectedMinute, isSelect } = state;
 
@@ -103,11 +104,11 @@ function useTimeSelect({
     return itemValue === selectedAMPM || itemValue === selectedHour || itemValue === selectedMinute;
   };
 
-  const resetTimeSelectState = () => {
+  const reset = () => {
     dispatch({ type: TimeSelectActionType.RESET });
   };
 
-  return [value, time, isSelect, onMenuClick, checkSelectedItem, resetTimeSelectState];
+  return [value, isSelect, onMenuClick, checkSelectedItem, { time, reset }];
 }
 
 export default useTimeSelect;
