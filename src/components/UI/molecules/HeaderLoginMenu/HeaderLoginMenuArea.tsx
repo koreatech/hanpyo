@@ -4,8 +4,9 @@ import { Button, ButtonType } from '@/components/UI/atoms';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface HeaderLoginMenuAreaProps {
-  onLoginClick: () => void;
-  onSignUpClick: () => void;
+  onLoginBtnClick: () => void;
+  onSignUpBtnClick: () => void;
+  onFindPasswordBtnClick: () => void;
 }
 
 const BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 19.2 };
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     borderLeft: `1px solid ${theme.palette.grey[500]}`,
-    margin: '0 3px',
+    margin: '0 0.3125rem',
   },
   authText: {
     color: theme.palette.grey[600],
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderLoginMenuArea = ({ onLoginClick, onSignUpClick }: HeaderLoginMenuAreaProps): JSX.Element => {
+const HeaderLoginMenuArea = ({ onLoginBtnClick, onSignUpBtnClick, onFindPasswordBtnClick }: HeaderLoginMenuAreaProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -47,16 +48,16 @@ const HeaderLoginMenuArea = ({ onLoginClick, onSignUpClick }: HeaderLoginMenuAre
       <Typography className={classes.promotionText} variant="caption">
         한표를 더 편리하게 이용하세요
       </Typography>
-      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onLoginClick}>
+      <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onLoginBtnClick}>
         로 그 인
       </Button>
       <div className={classes.menu}>
-        <Typography className={classes.authText} variant="caption" onClick={onSignUpClick}>
+        <Typography className={classes.authText} variant="caption" onClick={onSignUpBtnClick}>
           회 원 가 입
         </Typography>
         <div className={classes.divider} />
-        <Typography className={classes.authText} variant="caption">
-          아 이 디 / 비 밀 번 호 찾기
+        <Typography className={classes.authText} variant="caption" onClick={onFindPasswordBtnClick}>
+          비 밀 번 호 찾 기
         </Typography>
       </div>
     </div>

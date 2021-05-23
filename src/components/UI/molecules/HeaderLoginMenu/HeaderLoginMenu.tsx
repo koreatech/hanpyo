@@ -13,7 +13,17 @@ const HeaderLoginMenu = (): JSX.Element => {
     modalStore.openSignUpModal();
   };
 
-  return <HeaderLoginMenuArea onLoginClick={onLoginBtnClickListener} onSignUpClick={onSignUpBtnClickListener} />;
+  const onFindPasswordBtnClickListener = () => {
+    modalStore.openFindModal();
+  };
+
+  return (
+    <HeaderLoginMenuArea
+      onLoginBtnClick={onLoginBtnClickListener}
+      onSignUpBtnClick={onSignUpBtnClickListener}
+      onFindPasswordBtnClick={onFindPasswordBtnClickListener}
+    />
+  );
 };
 
 export { HeaderLoginMenu };
