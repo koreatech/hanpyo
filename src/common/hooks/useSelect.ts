@@ -6,7 +6,11 @@ interface Option {
   callback: Function;
 }
 
-function useSelect<T>(initState: T, option?: Option): [T, (e: React.MouseEvent<HTMLElement, MouseEvent>) => void, () => void] {
+interface SelectUtility {
+  reset: () => void;
+}
+
+function useSelect<T>(initState: T, option?: Option): [T, (e: React.MouseEvent<HTMLElement, MouseEvent>) => void, SelectUtility] {
   const [selectState, setSelectState] = useState<T>(initState);
 
   const onMenuClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -22,11 +26,11 @@ function useSelect<T>(initState: T, option?: Option): [T, (e: React.MouseEvent<H
     }
   };
 
-  const resetSelectState = () => {
+  const reset = () => {
     setSelectState(initState);
   };
 
-  return [selectState, onMenuClick, resetSelectState];
+  return [selectState, onMenuClick, { reset }];
 }
 
 export default useSelect;
