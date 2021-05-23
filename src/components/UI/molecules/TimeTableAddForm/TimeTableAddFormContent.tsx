@@ -4,11 +4,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { SelectMenu, TimeSelectMenu, SelectMenuProps, TimeSelectMenuProps, Button, ButtonType } from '@/components/UI/atoms';
 
 interface TimeTableAddFormContentProps {
-  daySelectMenu: SelectMenuProps;
-  startTimeSelectMenu: TimeSelectMenuProps;
-  endTimeSelectMenu: TimeSelectMenuProps;
-  onTimeTableFormSubmit: () => void;
-  inputState: string;
+  daySelectMenuProps: SelectMenuProps;
+  startTimeSelectMenuProps: TimeSelectMenuProps;
+  endTimeSelectMenuProps: TimeSelectMenuProps;
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBtnClick: () => void;
 }
@@ -70,29 +68,27 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const TimeTableAddFormContent = ({
-  daySelectMenu,
-  startTimeSelectMenu,
-  endTimeSelectMenu,
-  onTimeTableFormSubmit,
-  inputState,
+  daySelectMenuProps,
+  startTimeSelectMenuProps,
+  endTimeSelectMenuProps,
   onInputChange,
   onBtnClick,
 }: TimeTableAddFormContentProps): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} onSubmit={onTimeTableFormSubmit}>
+    <div className={classes.root}>
       <div className={classes.daySelect}>
-        <SelectMenu {...daySelectMenu} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
+        <SelectMenu {...daySelectMenuProps} dropMenuWidth={DROP_MENU_WIDTH.DAY} />
       </div>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...startTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...startTimeSelectMenuProps} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <div className={classes.timeSelect}>
-        <TimeSelectMenu {...endTimeSelectMenu} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
+        <TimeSelectMenu {...endTimeSelectMenuProps} dropMenuWidth={DROP_MENU_WIDTH.TIME} />
       </div>
       <TextField
-        value={inputState}
+        name="schedule"
         required
         className={classes.timeTableNameInput}
         id="time-table-name"
@@ -105,7 +101,7 @@ const TimeTableAddFormContent = ({
       <Button btnType={ButtonType.primary} style={BUTTON_STYLE_PROPS} onClick={onBtnClick}>
         추 가
       </Button>
-    </form>
+    </div>
   );
 };
 

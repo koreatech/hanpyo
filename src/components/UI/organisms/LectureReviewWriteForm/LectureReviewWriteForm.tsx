@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 import { Button, ButtonType, SelectMenu, LectureReviewRating } from '@/components/UI/atoms';
 import { LectureReviewHashTags } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelect } from '@/common/hooks';
+
+interface SelectMenuState {
+  semester: string;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const INIT_SELECT_STATE = { semester: '' };
+
 const MOCK_MENUS = [
   { id: 0, title: '1학기', value: 1 },
   { id: 1, title: '2학기', value: 2 },
@@ -88,7 +95,8 @@ const BUTTON_STYLE_PROPS = { width: 160, height: 36.3, borderRadius: 16, fontSiz
 
 const LectureReviewWriteForm = (): JSX.Element => {
   const classes = useStyles();
-  const [semesterState, setSemesterState] = useState('');
+  const [selectState, onSelectMenuClick] = useSelect<SelectMenuState>(INIT_SELECT_STATE);
+  const { semester } = selectState;
 
   return (
     <div className={classes.root}>
@@ -120,14 +128,12 @@ const LectureReviewWriteForm = (): JSX.Element => {
       <div className={classes.flexArea}>
         <div className={classes.selectArea}>
           <SelectMenu
-            state={semesterState}
-            setState={setSemesterState}
+            value={semester}
+            type="semester"
             menuLabel="수강학기 선택"
             menus={MOCK_MENUS}
             dropMenuWidth={200}
-            onSelectMenuChange={() => {
-              alert('구현예정입니다!');
-            }}
+            onMenuClick={onSelectMenuClick}
           />
         </div>
         <div className={classes.ratingArea}>
