@@ -115,7 +115,7 @@ const Timetable = ({ row, containedSat }: TimetableProps): JSX.Element => {
   };
 
   const onMouseEnterListener = () => {
-    lectureInfoStore.state.selectedLecture(null);
+    lectureInfoStore.setSelectedLecture(null);
   };
 
   return (
