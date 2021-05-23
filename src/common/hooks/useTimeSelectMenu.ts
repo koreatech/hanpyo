@@ -58,7 +58,7 @@ function reducer(prevState: TimeSelectState, action: TimeSelectAction): TimeSele
   }
 }
 
-function useTimeSelect(
+function useTimeSelectMenu(
   option?: Option,
 ): [string, boolean, (e: React.MouseEvent<HTMLLIElement>) => void, (itemValue: string) => boolean, TimeSelectUtility] {
   const [state, dispatch] = useReducer<React.Reducer<TimeSelectState, TimeSelectAction>, TimeSelectState>(reducer, INIT_STATE, () => INIT_STATE);
@@ -111,4 +111,4 @@ function useTimeSelect(
   return [value, isSelect, onMenuClick, checkSelectedItem, { time, reset }];
 }
 
-export default useTimeSelect;
+export default useTimeSelectMenu;

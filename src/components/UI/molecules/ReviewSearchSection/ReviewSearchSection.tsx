@@ -3,7 +3,7 @@ import { FormControlLabel } from '@material-ui/core';
 import CheckBox from '@material-ui/core/Checkbox';
 import { SelectMenu } from '@/components/UI/atoms';
 import { ReviewSearchBar } from '@/components/UI/molecules';
-import { useSelect } from '@/common/hooks';
+import { useSelectMenu } from '@/common/hooks';
 
 enum OrderType {
   LATEST = '최신 순',
@@ -25,7 +25,7 @@ const INIT_ORDER_MENU = [
 
 const ReviewSearchSection = (): JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
-  const [selectState, onSelectMenuClick] = useSelect<SelectMenuState>(INIT_SELECT_STATE);
+  const [selectState, onSelectMenuClick] = useSelectMenu<SelectMenuState>(INIT_SELECT_STATE);
   const { order } = selectState;
 
   const onCheckBoxChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

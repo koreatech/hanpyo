@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStores, LectureFilterType } from '@/stores';
-import { useTimeSelect, useSelect } from '@/common/hooks';
+import { useTimeSelectMenu, useSelectMenu } from '@/common/hooks';
 import { LectureSearchFilter } from './LectureSearchFilter';
 
 interface SelectMenuState {
@@ -49,16 +49,16 @@ const LectureSearchFilterMenu = (): JSX.Element => {
     lectureInfoStore.changeFilterState(type, value);
   };
 
-  const [selectState, onSelectMenuClick, { reset: resetSelectState }] = useSelect<SelectMenuState>(INIT_SELECT_STATE, {
+  const [selectState, onSelectMenuClick, { reset: resetSelectState }] = useSelectMenu<SelectMenuState>(INIT_SELECT_STATE, {
     callback: changeFilterStore,
   });
   const { department, day, credit } = selectState;
 
-  const [startTimeStr, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, { reset: resetStartTime }] = useTimeSelect({
+  const [startTimeStr, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, { reset: resetStartTime }] = useTimeSelectMenu({
     callback: changeFilterStore,
   });
 
-  const [endTimeStr, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, { reset: resetEndTime }] = useTimeSelect({
+  const [endTimeStr, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, { reset: resetEndTime }] = useTimeSelectMenu({
     callback: changeFilterStore,
   });
 

@@ -3,7 +3,7 @@ import { TextField } from '@material-ui/core';
 import { Button, ButtonType, SelectMenu, LectureReviewRating } from '@/components/UI/atoms';
 import { LectureReviewHashTags } from '@/components/UI/molecules';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelect } from '@/common/hooks';
+import { useSelectMenu } from '@/common/hooks';
 
 interface SelectMenuState {
   semester: string;
@@ -95,7 +95,7 @@ const BUTTON_STYLE_PROPS = { width: 160, height: 36.3, borderRadius: 16, fontSiz
 
 const LectureReviewWriteForm = (): JSX.Element => {
   const classes = useStyles();
-  const [selectState, onSelectMenuClick] = useSelect<SelectMenuState>(INIT_SELECT_STATE);
+  const [selectState, onSelectMenuClick] = useSelectMenu<SelectMenuState>(INIT_SELECT_STATE);
   const { semester } = selectState;
 
   return (

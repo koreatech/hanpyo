@@ -1,7 +1,7 @@
 import React from 'react';
 import { getTimeBoundByDay } from '@/common/utils';
 import { useStores } from '@/stores';
-import { useTimeSelect, useSelect, useInputForm } from '@/common/hooks';
+import { useTimeSelectMenu, useSelectMenu, useInputForm } from '@/common/hooks';
 import { TimeTableAddFormContent } from './TimeTableAddFormContent';
 
 interface SelectMenuState {
@@ -29,11 +29,11 @@ const DAY_MENU = [
 const TimeTableAddForm = (): JSX.Element => {
   const { timeTableStore, snackbarStore } = useStores();
 
-  const [selectState, onSelectMenuClick] = useSelect<SelectMenuState>(INIT_SELECT_STATE);
+  const [selectState, onSelectMenuClick] = useSelectMenu<SelectMenuState>(INIT_SELECT_STATE);
   const { day } = selectState;
 
-  const [startTimeStr, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, { time: startTime }] = useTimeSelect();
-  const [endTimeStr, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, { time: endTime }] = useTimeSelect();
+  const [startTimeStr, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, { time: startTime }] = useTimeSelectMenu();
+  const [endTimeStr, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, { time: endTime }] = useTimeSelectMenu();
 
   const [inputs, onInputChange] = useInputForm<InputState>(INIT_INPUTS_STATE);
   const { schedule } = inputs;
