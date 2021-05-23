@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LectureBox, SameLectureBox } from '@/components/UI/atoms';
 import { TimeTypes } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
-import { useReactiveVar } from '@apollo/client';
+import { useReactiveVar, useApolloClient } from '@apollo/client';
 import { isString } from '@/common/utils/typeCheck';
+
+import { LECTURE_INFOS } from '@/queries';
 
 const useStyles = makeStyles({
   root: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
 const LectureBoxContainer = (): JSX.Element => {
   const classes = useStyles();
   const { timeTableStore, lectureInfoStore } = useStores();
+  const client = useApolloClient();
   const savedLectures = useReactiveVar(timeTableStore.state.selectedTabLectures);
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const nowSelectedLecture = useReactiveVar(lectureInfoStore.state.selectedLecture);
@@ -52,7 +55,8 @@ const LectureBoxContainer = (): JSX.Element => {
   };
 
   const getSameLectureBoxes = () => {
-    const sameLectures = lectureInfoStore.getSameLectures();
+    const { lectureInfos } = client.readQuery({ query: LECTURE_INFOS });
+    const sameLectures = lectureInfoStore.getSameLectures(lectureInfos);
 
     return sameLectures.map((sameLecture) => {
       if (typeof sameLecture.lectureTimes === 'string') return <></>;

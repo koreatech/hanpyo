@@ -21,7 +21,6 @@ interface LectureFilterState {
 }
 
 interface LectureInfoStoreState extends LectureFilterState {
-  lectures: ReactiveVar<LectureInfos[]>;
   selectedLecture: ReactiveVar<LectureInfos | null>;
   basketSelectedLecture: ReactiveVar<LectureInfos | null>;
   filteredLectures: ReactiveVar<LectureInfos[] | null>;
@@ -35,7 +34,6 @@ class LectureInfoStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.state = {
-      lectures: makeVar<LectureInfos[]>([]),
       selectedLecture: makeVar<LectureInfos | null>(null),
       basketSelectedLecture: makeVar<LectureInfos | null>(null),
       filteredLectures: makeVar<LectureInfos[] | null>(null),
@@ -48,12 +46,12 @@ class LectureInfoStore {
     };
   }
 
-  getSameLectures(): LectureInfos[] {
-    const { lectures, selectedLecture } = this.state;
+  getSameLectures(lectures: LectureInfos[]): LectureInfos[] {
+    const { selectedLecture } = this.state;
 
     if (selectedLecture() === null) return [];
 
-    return lectures().filter((lecture) => lecture.code === selectedLecture()?.code);
+    return lectures.filter((lecture) => lecture.code === selectedLecture()?.code);
   }
 
   getFilterState(): LectureFilterState {

@@ -36,8 +36,6 @@ const SearchedLectureList = (): JSX.Element => {
 
   if (error) return <p>Error :(</p>;
 
-  lectureInfoStore.state.lectures(data.lectureInfos);
-
   const onLectureSearchClickListener = (lectureInfos: LectureInfos) => {
     if (isString(lectureInfos.lectureTimes)) return;
 
