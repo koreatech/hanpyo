@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 interface HeaderLoginMenuAreaProps {
   onLoginBtnClick: () => void;
   onSignUpBtnClick: () => void;
-  onFindBtnClick: () => void;
+  onFindPasswordBtnClick: () => void;
 }
 
 const BUTTON_STYLE_PROPS = { width: 192, height: 35.2, borderRadius: 4, fontSize: 19.2 };
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderLoginMenuArea = ({ onLoginBtnClick, onSignUpBtnClick, onFindBtnClick }: HeaderLoginMenuAreaProps): JSX.Element => {
+const HeaderLoginMenuArea = ({ onLoginBtnClick, onSignUpBtnClick, onFindPasswordBtnClick }: HeaderLoginMenuAreaProps): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -56,7 +56,7 @@ const HeaderLoginMenuArea = ({ onLoginBtnClick, onSignUpBtnClick, onFindBtnClick
           회 원 가 입
         </Typography>
         <div className={classes.divider} />
-        <Typography className={classes.authText} variant="caption" onClick={onFindBtnClick}>
+        <Typography className={classes.authText} variant="caption" onClick={onFindPasswordBtnClick}>
           비 밀 번 호 찾 기
         </Typography>
       </div>

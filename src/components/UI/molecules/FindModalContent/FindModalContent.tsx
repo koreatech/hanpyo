@@ -82,7 +82,7 @@ const FindModalContent = ({ valid, isFindDisabled, onInputChange, onFindBtnClick
 
   return (
     <>
-      <DialogTitle className={classes.title} id="login-dialog-title" disableTypography>
+      <DialogTitle className={classes.title} disableTypography>
         비밀번호 찾기
       </DialogTitle>
       <DialogContent className={classes.dialogContentRoot}>
