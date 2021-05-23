@@ -40,6 +40,8 @@ const CREDIT_MENU = [
   { id: 4, title: '전체', value: 5 },
 ];
 
+const INIT_SELECT_STATE = { department: '', day: '', credit: '' };
+
 const LectureSearchFilterMenu = (): JSX.Element => {
   const { lectureInfoStore } = useStores();
 
@@ -47,24 +49,17 @@ const LectureSearchFilterMenu = (): JSX.Element => {
     lectureInfoStore.changeFilterState(type, value);
   };
 
-  const [selectState, onSelectMenuClick, resetSelectState] = useSelect<SelectMenuState>(
-    { department: '', day: '', credit: '' },
-    {
-      callback: changeFilterStore,
-    },
-  );
+  const [selectState, onSelectMenuClick, { reset: resetSelectState }] = useSelect<SelectMenuState>(INIT_SELECT_STATE, {
+    callback: changeFilterStore,
+  });
   const { department, day, credit } = selectState;
 
-  const [startTimeStr, startTime, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, resetStartTime] = useTimeSelect({
-    option: {
-      callback: changeFilterStore,
-    },
+  const [startTimeStr, isStartSelect, onStartTimeMenuClick, checkStartTimeSelectedItem, { reset: resetStartTime }] = useTimeSelect({
+    callback: changeFilterStore,
   });
 
-  const [endTimeStr, endTime, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, resetEndTime] = useTimeSelect({
-    option: {
-      callback: changeFilterStore,
-    },
+  const [endTimeStr, isEndTimeSelect, onEndTimeMenuClick, checkEndTimeSelectedItem, { reset: resetEndTime }] = useTimeSelect({
+    callback: changeFilterStore,
   });
 
   const onInitButtonClickListener = () => {
