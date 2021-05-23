@@ -3,10 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LectureBox, SameLectureBox } from '@/components/UI/atoms';
 import { TimeTypes } from '@/components/UI/molecules';
 import { useStores } from '@/stores';
-import { useReactiveVar, useApolloClient } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client';
 import { isString } from '@/common/utils/typeCheck';
-
-import { LECTURE_INFOS } from '@/queries';
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +19,6 @@ const useStyles = makeStyles({
 const LectureBoxContainer = (): JSX.Element => {
   const classes = useStyles();
   const { timeTableStore, lectureInfoStore } = useStores();
-  const client = useApolloClient();
   const savedLectures = useReactiveVar(timeTableStore.state.selectedTabLectures);
   const selectedTabIdx = useReactiveVar(timeTableStore.state.selectedTabIdx);
   const nowSelectedLecture = useReactiveVar(lectureInfoStore.state.selectedLecture);
@@ -55,15 +52,18 @@ const LectureBoxContainer = (): JSX.Element => {
   };
 
   const getSameLectureBoxes = () => {
-    const { lectureInfos } = client.readQuery({ query: LECTURE_INFOS });
-    const sameLectures = lectureInfoStore.getSameLectures(lectureInfos);
+    const sameLectures = lectureInfoStore.getSameLectures();
 
     return sameLectures.map((sameLecture) => {
+      if (!sameLecture) return sameLecture;
+
       if (typeof sameLecture.lectureTimes === 'string') return <></>;
 
       if (!sameLecture.lectureTimes) return [];
 
       return sameLecture.lectureTimes.map((time) => {
+        if (!time) return time;
+
         if (sameLecture.divisionNumber === nowSelectedLecture?.divisionNumber) {
           return <SameLectureBox startTime={time.start} endTime={time.end} isSelectedLecture />;
         }

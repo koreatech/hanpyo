@@ -1,7 +1,11 @@
+/* eslint-disable camelcase */
 import { makeVar, ReactiveVar } from '@apollo/client';
 import { RootStore } from '@/stores';
 import { LectureInfos } from '@/components/UI/molecules';
 import { isString, isNumber } from '@/common/utils/typeCheck';
+import client from '@/apollo';
+import { LECTURE_INFOS } from '@/queries';
+import { GetLectureInfos, GetLectureInfos_lectureInfos } from '@/api';
 
 enum LectureFilterType {
   DEPARTMENT = 'department',
@@ -46,12 +50,14 @@ class LectureInfoStore {
     };
   }
 
-  getSameLectures(lectures: LectureInfos[]): LectureInfos[] {
+  getSameLectures(): (GetLectureInfos_lectureInfos | null)[] {
     const { selectedLecture } = this.state;
+    const cache = client.readQuery<GetLectureInfos>({ query: LECTURE_INFOS });
 
-    if (selectedLecture() === null) return [];
+    if (!cache || !selectedLecture()) return [];
 
-    return lectures.filter((lecture) => lecture.code === selectedLecture()?.code);
+    const { lectureInfos } = cache;
+    return lectureInfos.filter((lecture) => lecture?.code === selectedLecture()?.code);
   }
 
   getFilterState(): LectureFilterState {
