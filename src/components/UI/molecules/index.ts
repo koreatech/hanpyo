@@ -34,3 +34,4 @@ export { UserProfile } from './UserProfile/UserProfile';
 export { HeaderAuthSection } from './HeaderAuthSection/HeaderAuthSection';
 export { HeaderNavSection } from './HeaderNavSection/HeaderNavSection';
 export { FindModalContent, FindModalType } from './FindModalContent/FindModalContent';
+export { MyPageMemberInfo } from './MyPageMemberInfo/MyPageMemberInfo';
