@@ -38,8 +38,6 @@ const MyPageMemberInfo = (): JSX.Element => {
     query: MY_MEMBER_INFO,
   });
 
-  console.log(myMemberInfo);
-
   return (
     <div className={classes.root}>
       <Avatar alt="profile img" className={classes.image} />
