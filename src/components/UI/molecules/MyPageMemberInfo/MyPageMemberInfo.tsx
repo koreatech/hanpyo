@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: '12rem',
     height: '12rem',
+    marginBottom: '2rem',
+  },
+  text: {
+    color: theme.palette.grey[700],
   },
 }));
 
@@ -30,6 +34,12 @@ const MyPageMemberInfo = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <Avatar alt="profile img" className={classes.image} />
+      <Typography variant="h5" className={classes.text}>
+        {myMemberInfo.nickname}님
+      </Typography>
+      <Typography variant="h5" className={classes.text}>
+        {myMemberInfo.major}
+      </Typography>
     </div>
   );
 };
