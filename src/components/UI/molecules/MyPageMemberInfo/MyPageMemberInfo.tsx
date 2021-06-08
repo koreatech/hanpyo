@@ -17,8 +17,17 @@ const useStyles = makeStyles((theme) => ({
     height: '12rem',
     marginBottom: '2rem',
   },
-  text: {
+  nicknameText: {
     color: theme.palette.grey[700],
+  },
+  majorText: {
+    color: theme.palette.grey[500],
+  },
+  box: {
+    border: `1px solid ${theme.palette.grey[400]}`,
+    borderRadius: '0.8rem',
+    padding: '0.5rem 1.5rem',
+    marginTop: '0.5rem',
   },
 }));
 
@@ -34,12 +43,14 @@ const MyPageMemberInfo = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <Avatar alt="profile img" className={classes.image} />
-      <Typography variant="h5" className={classes.text}>
+      <Typography variant="h5" className={classes.nicknameText}>
         {myMemberInfo.nickname}님
       </Typography>
-      <Typography variant="h5" className={classes.text}>
-        {myMemberInfo.major}
-      </Typography>
+      <div className={classes.box}>
+        <Typography variant="h6" className={classes.majorText}>
+          {myMemberInfo.major}
+        </Typography>
+      </div>
     </div>
   );
 };
