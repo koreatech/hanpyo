@@ -13,11 +13,11 @@ before_install:
 branches:
   only:
     - main
+    - develop
 
 jobs:
   include:
     - stage: test
       script:
-        - cd client
         - yarn install
         - CI=false yarn run test
